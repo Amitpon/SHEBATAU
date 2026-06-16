@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheba CDSS - Lab-Value Prediction</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- Brand header -->
+    <header class="topbar">
+      <img src="/images/Sheba.jpeg" alt="Sheba Medical Center" class="brand-logo" />
+    </header>
+
+    <!-- CDSS title bar -->
+    <div class="cdss-bar">
+      <span class="cdss-bar-title">Clinical Decision Support System (CDSS)</span>
+      <button class="cdss-bar-settings-btn" id="settingsGearBtn"
+              aria-label="Scoring settings" title="Scoring weight settings">
+        &#9881;
+      </button>
+    </div>
+
+    <!-- Settings modal (hidden until gear clicked) -->
+    <div class="modal-overlay" id="settingsModalOverlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+      <div class="settings-modal-box">
+        <div class="modal-header">
+          <span class="modal-title" id="settingsModalTitle">Scoring weight settings</span>
+          <button class="modal-close" id="settingsModalClose" aria-label="Close settings">&times;</button>
+        </div>
+        <div class="modal-body" id="settingsModalBody">
+          <div class="loading-text">Loading scoring configuration...</div>
+        </div>
+        <div class="modal-footer">
+          <span class="settings-apply-note" id="settingsApplyNote">Settings applied for this session - scores recalculated.</span>
+          <button class="btn-settings-reset" id="settingsResetBtn">Reset to defaults</button>
+          <button class="btn-settings-apply" id="settingsApplyBtn">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main navigation -->
+    <nav class="main-nav" aria-label="Main sections" style="display:none">
+      <button class="nav-tab active" data-section="patient">Patient</button>
+      <button class="nav-tab" data-section="models">Models</button>
+      <button class="nav-tab" data-section="performance">Performance</button>
+      <button class="nav-tab" data-section="sensitivity">Sensitivity</button>
+    </nav>
+
+
+    <!-- ===================================================================
+         SECTION 0 - Welcome / Landing
+    =================================================================== -->
+    <section id="section-welcome" class="section-body section-welcome">
+      <div class="welcome-landing">
+        <div class="welcome-landing-header">
+          <h1 class="welcome-landing-title">Sheba Lab-Value Prediction</h1>
+          <p class="welcome-landing-desc">
+            Clinical decision support for next-lab prediction and ordering optimization
+          </p>
+        </div>
+
+        <div class="welcome-cards">
+          <div class="welcome-card" data-section="patient">
+            <div class="welcome-card-icon" aria-hidden="true">&#128100;</div>
+            <h3 class="welcome-card-title">Patient</h3>
+            <p class="welcome-card-sub">
+              Select a patient, choose tests, and get personalized predictions with ordering recommendations
+            </p>
+            <div class="welcome-card-arrow">&#8594;</div>
+          </div>
+
+          <div class="welcome-card" data-section="performance">
+            <div class="welcome-card-icon" aria-hidden="true">&#128202;</div>
+            <h3 class="welcome-card-title">Performance</h3>
+            <p class="welcome-card-sub">
+              Per-lab accuracy metrics, calibration curves, correlations, and feature importance
+            </p>
+            <div class="welcome-card-arrow">&#8594;</div>
+          </div>
+
+          <div class="welcome-card" data-section="sensitivity">
+            <div class="welcome-card-icon" aria-hidden="true">&#128300;</div>
+            <h3 class="welcome-card-title">Sensitivity</h3>
+            <p class="welcome-card-sub">
+              Drag sliders to see how each input drives the prediction - feel the model in your hands
+            </p>
+            <div class="welcome-card-arrow">&#8594;</div>
+          </div>
+        </div>
+
+        <!-- Models slim banner - sits between cards and references -->
+        <div class="welcome-models-link" role="button" tabindex="0"
+             onclick="switchSection('models')"
+             onkeydown="if(event.key==='Enter'||event.key===' ')switchSection('models')">
+          <span class="wml-icon" aria-hidden="true">&#129504;</span>
+          <span class="wml-title">Prediction Models</span>
+          <span class="wml-desc">Understand how our predictions work - methodology, training, strengths and limitations.</span>
+          <span class="wml-arrow" aria-hidden="true">&#8594;</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ===================================================================
+         SECTION 1 - Patient (5-step wizard)
+    =================================================================== -->
+    <section id="section-patient" class="section-body section-patient" hidden>
+      <div class="section-back-btn-wrapper">
+        <button class="back-to-home-btn" id="backBtn-patient" aria-label="Back to home">&#8592; Home</button>
+      </div>
+
+      <!-- 5-step progress bar -->
+      <div class="wizard-progress" id="wizardProgress">
+        <div class="wizard-step-dot active" data-step="1">
+          <span class="wsd-num">1</span>
+          <span class="wsd-label">Patient</span>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step-dot" data-step="2">
+          <span class="wsd-num">2</span>
+          <span class="wsd-label">Tests</span>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step-dot" data-step="3">
+          <span class="wsd-num">3</span>
+          <span class="wsd-label">Groups</span>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step-dot" data-step="4">
+          <span class="wsd-num">4</span>
+          <span class="wsd-label">Values</span>
+        </div>
+        <div class="wizard-connector"></div>
+        <div class="wizard-step-dot" data-step="5">
+          <span class="wsd-num">5</span>
+          <span class="wsd-label">Results</span>
+        </div>
+      </div>
+
+      <div id="patientFlow" class="patient-flow">
+
+        <!-- Step 1: Select Patient -->
+        <div class="flow-step active" id="flowStep1">
+          <div class="flow-step-header" id="flowStep1Header">
+            <span class="flow-step-num">1</span>
+            <span class="flow-step-title">Select a patient</span>
+            <span class="flow-step-summary" id="step1Summary"></span>
+            <button class="flow-step-edit-btn" id="step1EditBtn" style="display:none" aria-label="Edit patient selection">Edit</button>
+          </div>
+          <div class="flow-step-body" id="flowStep1Body">
+            <div class="patient-grid" id="patientGrid"></div>
+          </div>
+        </div>
+
+        <!-- Step 2: Choose Tests -->
+        <div class="flow-step" id="flowStep2">
+          <div class="flow-step-header" id="flowStep2Header">
+            <span class="flow-step-num">2</span>
+            <span class="flow-step-title">Choose tests to evaluate</span>
+            <span class="flow-step-summary" id="step2Summary"></span>
+            <button class="flow-step-edit-btn" id="step2EditBtn" style="display:none" aria-label="Edit test selection">Edit</button>
+          </div>
+          <div class="flow-step-body" id="flowStep2Body">
+            <!-- Panel-aware multi-select -->
+            <div class="test-select-toolbar">
+              <button class="btn-select-all" id="btnSelectAll">Select all</button>
+              <button class="btn-clear-sel" id="btnClearSel">Clear</button>
+              <span class="test-select-summary" id="testSelectSummary">0 tests selected</span>
+            </div>
+            <!-- Panel groups with colored left-border -->
+            <div class="test-panel-groups" id="testPanelGroups"></div>
+            <!-- Ungrouped labs -->
+            <div class="test-ungrouped" id="testUngrouped"></div>
+            <div class="test-step-footer">
+              <button class="btn-confirm-tests btn-primary" id="btnConfirmTests">Confirm selection</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Profile groups (skipped for single test) -->
+        <div class="flow-step" id="flowStep3">
+          <div class="flow-step-header" id="flowStep3Header">
+            <span class="flow-step-num">3</span>
+            <span class="flow-step-title">Review test groups</span>
+            <span class="flow-step-summary" id="step3Summary"></span>
+            <button class="flow-step-edit-btn" id="step3EditBtn" style="display:none" aria-label="Edit groups">Edit</button>
+          </div>
+          <div class="flow-step-body" id="flowStep3Body">
+            <div id="profileGroupsContent"></div>
+            <div class="test-step-footer">
+              <button class="btn-confirm-groups btn-primary" id="btnConfirmGroups">Continue to fill values</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Fill values -->
+        <div class="flow-step" id="flowStep4">
+          <div class="flow-step-header" id="flowStep4Header">
+            <span class="flow-step-num">4</span>
+            <span class="flow-step-title">Fill clinical values</span>
+            <span class="flow-step-summary" id="step4Summary"></span>
+          </div>
+          <div class="flow-step-body" id="flowStep4Body">
+            <!-- Both models always run; some inputs are derived, not entered -->
+            <div class="dual-model-note" id="dualModelNote">
+              <span class="dmn-icon" aria-hidden="true">&#129518;</span>
+              <span class="dmn-text">
+                Every test is predicted by <strong>both models</strong> (NGBoost &amp; Masked&nbsp;AE) from the values below.
+                You enter each base value once; derived inputs (sex, and changes between the first and last result)
+                are computed automatically and fed to whichever model needs them.
+              </span>
+            </div>
+            <!-- Shared features asked once -->
+            <div class="shared-features-block" id="sharedFeaturesBlock"></div>
+            <!-- Values needed by 2+ selected tests - shown once here -->
+            <div class="shared-features-block cross-test-shared-block" id="crossTestSharedBlock" style="display:none"></div>
+            <!-- Per-test sections -->
+            <div class="per-test-inputs" id="perTestInputs"></div>
+            <!-- Spacer so content is not hidden behind sticky bar -->
+            <div style="height:96px" aria-hidden="true"></div>
+          </div>
+          <!-- Sticky threshold + run bar - always visible while scrolling -->
+          <div class="step4-sticky-bar" id="step4StickyBar" style="display:none">
+            <div class="step4-sticky-inner">
+              <div class="sticky-thr-group">
+                <label class="thr-label" for="thrSliderWide">Decision threshold</label>
+                <input type="range" id="thrSliderWide" min="0.5" max="0.99" step="0.01" value="0.85" aria-label="Decision threshold" />
+                <strong class="thr-val-wide" id="thrValWide">0.85</strong>
+                <span class="thr-hint">skip when P(stable) exceeds this</span>
+              </div>
+              <div class="sticky-model-group">
+                <span class="dual-run-badge" title="Every test is predicted by both models. Results show NGBoost first, then Masked AE, with an agreement note.">
+                  <span class="drb-dot ngb"></span>NGBoost <span class="drb-plus">+</span> <span class="drb-dot mae"></span>Masked AE
+                </span>
+              </div>
+              <button class="run-all-btn" id="runAllBtn">Run all predictions</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Results -->
+        <div class="flow-step" id="flowStep5">
+          <div class="flow-step-header" id="flowStep5Header">
+            <span class="flow-step-num">5</span>
+            <span class="flow-step-title">Results</span>
+            <span class="flow-step-summary" id="step5Summary"></span>
+          </div>
+          <div class="flow-step-body" id="flowStep5Body">
+            <!-- Sort controls -->
+            <div class="results-sort-bar" id="resultsSortBar" style="display:none">
+              <span class="sort-bar-label">Sort:</span>
+              <button class="sort-bar-btn active" data-sort="urgency">Urgency</button>
+              <button class="sort-bar-btn" data-sort="confidence">Model confidence</button>
+              <button class="sort-bar-btn" data-sort="accuracy">Value accuracy</button>
+            </div>
+            <!-- Results list -->
+            <div id="resultsListWrap">
+              <div class="results-empty" id="resultsEmpty">
+                Fill values and click "Run all predictions" to see results.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ===================================================================
+         SECTION 2 - Models
+    =================================================================== -->
+    <section id="section-models" class="section-body section-models" hidden>
+      <div class="section-back-btn-wrapper">
+        <button class="back-to-home-btn" id="backBtn-models" aria-label="Back to home">&#8592; Home</button>
+      </div>
+      <div class="section-hero">
+        <h2 class="section-hero-title">Prediction Models</h2>
+        <p class="section-hero-sub">How the CDSS makes predictions - methodology, training process, strengths and limitations of each model family.</p>
+      </div>
+      <div id="models-content" class="models-content">
+        <div class="loading-text">Loading model information...</div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================================
+         SECTION 3 - Performance
+    =================================================================== -->
+    <section id="section-performance" class="section-body section-performance" hidden>
+      <div class="section-back-btn-wrapper">
+        <button class="back-to-home-btn" id="backBtn-performance" aria-label="Back to home">&#8592; Home</button>
+      </div>
+      <div class="section-hero">
+        <h2 class="section-hero-title">Model Performance</h2>
+        <p class="section-hero-sub">Per-lab accuracy metrics, reliability ratings, feature importance, and cross-lab correlations - all from live model data.</p>
+      </div>
+      <div id="performance-content" class="performance-content">
+        <div class="loading-text">Loading...</div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================================
+         SECTION 4 - Sensitivity Analysis
+    =================================================================== -->
+    <section id="section-sensitivity" class="section-body section-sensitivity" hidden>
+      <div class="section-back-btn-wrapper">
+        <button class="back-to-home-btn" id="backBtn-sensitivity" aria-label="Back to home">&#8592; Home</button>
+      </div>
+      <div class="section-hero">
+        <h2 class="section-hero-title">Sensitivity Analysis - how do inputs affect predictions?</h2>
+        <p class="section-hero-sub">Drag sliders to see how each feature shifts the predicted value and P(stable) in real time.</p>
+      </div>
+      <div id="sensitivity-content" class="sensitivity-content">
+        <div class="loading-text">Select a lab and patient to begin.</div>
+      </div>
+    </section>
+
+
+    <!-- Partners footer -->
+    <footer class="partners" aria-label="Partners and affiliations">
+      <div class="partners-label">A collaboration of</div>
+      <div class="partners-logos">
+        <img src="/images/Sheba.jpeg" alt="Sheba Medical Center" />
+        <img src="/images/arc.jpeg" alt="ARC Innovation at Sheba" />
+        <img src="/images/TAU_Engineering.png" alt="TAU Faculty of Engineering" />
+        <img src="/images/TAU%20Math.png" alt="TAU School of Mathematical Sciences" />
+      </div>
+    </footer>
+
+  </div><!-- /app-shell -->
+
+  <!-- Patient modal (appended by JS) -->
+
+  <script src="/js/dist-chart.js"></script>
+  <script src="/js/gauge.js"></script>
+  <script src="/js/charts.js"></script>
+  <script src="/js/nav.js"></script>
+  <script src="/js/patient.js"></script>
+  <script src="/js/models.js"></script>
+  <script src="/js/performance.js"></script>
+  <script src="/js/settings.js"></script>
+  <script src="/js/sensitivity.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

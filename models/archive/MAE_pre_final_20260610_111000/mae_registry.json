@@ -1,0 +1,2832 @@
+{
+  "lab_columns": [
+    "ALT",
+    "Albumin",
+    "Bilirubin_total",
+    "Calcium_ionized",
+    "Carboxyhemoglobin",
+    "Chloride",
+    "Creatinine",
+    "Deoxyhemoglobin",
+    "Eos_abs",
+    "GGT",
+    "Globulin",
+    "HCT",
+    "HGB",
+    "Lympho_abs",
+    "MCV",
+    "MPV",
+    "Magnesium",
+    "Osmolality",
+    "Oxyhemoglobin",
+    "PLT",
+    "Phosphorus",
+    "Potassium",
+    "RDW",
+    "Sodium",
+    "Urea",
+    "pCO2",
+    "pH",
+    "pO2"
+  ],
+  "background_cols": [],
+  "code_to_id": {
+    "<PAD>": 0,
+    "ALT": 1,
+    "ALT__delta": 2,
+    "ALT__first_admission": 3,
+    "ALT__latest": 4,
+    "ALT__max_72h": 5,
+    "ALT__mean_72h": 6,
+    "ALT__min_72h": 7,
+    "ALT__prev1": 8,
+    "ALT__prev2": 9,
+    "ALT__prev3": 10,
+    "ALT__prior_count": 11,
+    "ALT__slope_per_day": 12,
+    "ALT__std_72h": 13,
+    "AST__latest": 14,
+    "Albumin": 15,
+    "Albumin__delta": 16,
+    "Albumin__first_admission": 17,
+    "Albumin__latest": 18,
+    "Albumin__max_24h": 19,
+    "Albumin__max_72h": 20,
+    "Albumin__mean_24h": 21,
+    "Albumin__mean_72h": 22,
+    "Albumin__min_24h": 23,
+    "Albumin__min_72h": 24,
+    "Albumin__prev1": 25,
+    "Albumin__prev2": 26,
+    "Albumin__prev3": 27,
+    "Albumin__prior_count": 28,
+    "Albumin__slope_per_day": 29,
+    "Albumin__std_24h": 30,
+    "Albumin__std_72h": 31,
+    "Alkaline_Phosphatase__latest": 32,
+    "Amylase__latest": 33,
+    "Baso_abs__latest": 34,
+    "Bilirubin_direct__latest": 35,
+    "Bilirubin_total": 36,
+    "Bilirubin_total__delta": 37,
+    "Bilirubin_total__first_admission": 38,
+    "Bilirubin_total__latest": 39,
+    "Bilirubin_total__max_24h": 40,
+    "Bilirubin_total__max_72h": 41,
+    "Bilirubin_total__mean_24h": 42,
+    "Bilirubin_total__mean_72h": 43,
+    "Bilirubin_total__min_24h": 44,
+    "Bilirubin_total__min_72h": 45,
+    "Bilirubin_total__prev1": 46,
+    "Bilirubin_total__prev2": 47,
+    "Bilirubin_total__prev3": 48,
+    "Bilirubin_total__prior_count": 49,
+    "Bilirubin_total__slope_per_day": 50,
+    "Bilirubin_total__std_72h": 51,
+    "CPK__latest": 52,
+    "CRP__latest": 53,
+    "Calcium__latest": 54,
+    "Calcium_ionized": 55,
+    "Calcium_ionized__delta": 56,
+    "Calcium_ionized__first_admission": 57,
+    "Calcium_ionized__latest": 58,
+    "Calcium_ionized__max_24h": 59,
+    "Calcium_ionized__max_72h": 60,
+    "Calcium_ionized__mean_24h": 61,
+    "Calcium_ionized__mean_72h": 62,
+    "Calcium_ionized__min_24h": 63,
+    "Calcium_ionized__min_72h": 64,
+    "Calcium_ionized__prev1": 65,
+    "Calcium_ionized__prev2": 66,
+    "Calcium_ionized__prev3": 67,
+    "Calcium_ionized__prior_count": 68,
+    "Calcium_ionized__slope_per_day": 69,
+    "Calcium_ionized__std_24h": 70,
+    "Calcium_ionized__std_72h": 71,
+    "Carboxyhemoglobin": 72,
+    "Carboxyhemoglobin__delta": 73,
+    "Carboxyhemoglobin__first_admission": 74,
+    "Carboxyhemoglobin__latest": 75,
+    "Carboxyhemoglobin__max_24h": 76,
+    "Carboxyhemoglobin__max_72h": 77,
+    "Carboxyhemoglobin__mean_24h": 78,
+    "Carboxyhemoglobin__mean_72h": 79,
+    "Carboxyhemoglobin__min_24h": 80,
+    "Carboxyhemoglobin__min_72h": 81,
+    "Carboxyhemoglobin__prev1": 82,
+    "Carboxyhemoglobin__prev2": 83,
+    "Carboxyhemoglobin__prev3": 84,
+    "Carboxyhemoglobin__prior_count": 85,
+    "Carboxyhemoglobin__slope_per_day": 86,
+    "Carboxyhemoglobin__std_24h": 87,
+    "Carboxyhemoglobin__std_72h": 88,
+    "Chloride": 89,
+    "Chloride__delta": 90,
+    "Chloride__first_admission": 91,
+    "Chloride__latest": 92,
+    "Chloride__max_24h": 93,
+    "Chloride__max_72h": 94,
+    "Chloride__mean_24h": 95,
+    "Chloride__mean_72h": 96,
+    "Chloride__min_24h": 97,
+    "Chloride__min_72h": 98,
+    "Chloride__prev1": 99,
+    "Chloride__prev2": 100,
+    "Chloride__prev3": 101,
+    "Chloride__prior_count": 102,
+    "Chloride__slope_per_day": 103,
+    "Chloride__std_24h": 104,
+    "Chloride__std_72h": 105,
+    "Creatinine": 106,
+    "Creatinine__first_admission": 107,
+    "Creatinine__latest": 108,
+    "Creatinine__max_24h": 109,
+    "Creatinine__max_72h": 110,
+    "Creatinine__mean_24h": 111,
+    "Creatinine__mean_72h": 112,
+    "Creatinine__min_24h": 113,
+    "Creatinine__min_72h": 114,
+    "Creatinine__prev1": 115,
+    "Creatinine__prior_count": 116,
+    "Deoxyhemoglobin": 117,
+    "Deoxyhemoglobin__first_admission": 118,
+    "Deoxyhemoglobin__latest": 119,
+    "Deoxyhemoglobin__max_24h": 120,
+    "Deoxyhemoglobin__max_72h": 121,
+    "Deoxyhemoglobin__mean_24h": 122,
+    "Deoxyhemoglobin__mean_72h": 123,
+    "Deoxyhemoglobin__min_24h": 124,
+    "Deoxyhemoglobin__min_72h": 125,
+    "Deoxyhemoglobin__prev1": 126,
+    "Deoxyhemoglobin__prior_count": 127,
+    "Eos_abs": 128,
+    "Eos_abs__delta": 129,
+    "Eos_abs__first_admission": 130,
+    "Eos_abs__latest": 131,
+    "Eos_abs__max_24h": 132,
+    "Eos_abs__max_72h": 133,
+    "Eos_abs__mean_24h": 134,
+    "Eos_abs__mean_72h": 135,
+    "Eos_abs__min_24h": 136,
+    "Eos_abs__min_72h": 137,
+    "Eos_abs__prev1": 138,
+    "Eos_abs__prev2": 139,
+    "Eos_abs__prev3": 140,
+    "Eos_abs__prior_count": 141,
+    "Eos_abs__slope_per_day": 142,
+    "Eos_abs__std_24h": 143,
+    "Eos_abs__std_72h": 144,
+    "GGT": 145,
+    "GGT__delta": 146,
+    "GGT__first_admission": 147,
+    "GGT__latest": 148,
+    "GGT__max_24h": 149,
+    "GGT__max_72h": 150,
+    "GGT__mean_24h": 151,
+    "GGT__mean_72h": 152,
+    "GGT__min_24h": 153,
+    "GGT__min_72h": 154,
+    "GGT__prev1": 155,
+    "GGT__prev2": 156,
+    "GGT__prev3": 157,
+    "GGT__prior_count": 158,
+    "GGT__slope_per_day": 159,
+    "GGT__std_72h": 160,
+    "Globulin": 161,
+    "Globulin__delta": 162,
+    "Globulin__first_admission": 163,
+    "Globulin__latest": 164,
+    "Globulin__max_24h": 165,
+    "Globulin__max_72h": 166,
+    "Globulin__mean_24h": 167,
+    "Globulin__mean_72h": 168,
+    "Globulin__min_24h": 169,
+    "Globulin__min_72h": 170,
+    "Globulin__prev1": 171,
+    "Globulin__prev2": 172,
+    "Globulin__prior_count": 173,
+    "Globulin__slope_per_day": 174,
+    "Globulin__std_72h": 175,
+    "Glucose__latest": 176,
+    "HCT": 177,
+    "HCT__delta": 178,
+    "HCT__first_admission": 179,
+    "HCT__latest": 180,
+    "HCT__max_24h": 181,
+    "HCT__max_72h": 182,
+    "HCT__mean_24h": 183,
+    "HCT__mean_72h": 184,
+    "HCT__min_24h": 185,
+    "HCT__min_72h": 186,
+    "HCT__prev1": 187,
+    "HCT__prev2": 188,
+    "HCT__prev3": 189,
+    "HCT__prior_count": 190,
+    "HCT__slope_per_day": 191,
+    "HCT__std_24h": 192,
+    "HCT__std_72h": 193,
+    "HGB": 194,
+    "HGB__delta": 195,
+    "HGB__first_admission": 196,
+    "HGB__latest": 197,
+    "HGB__max_24h": 198,
+    "HGB__max_72h": 199,
+    "HGB__mean_24h": 200,
+    "HGB__mean_72h": 201,
+    "HGB__min_24h": 202,
+    "HGB__min_72h": 203,
+    "HGB__prev1": 204,
+    "HGB__prev2": 205,
+    "HGB__prev3": 206,
+    "HGB__prior_count": 207,
+    "HGB__slope_per_day": 208,
+    "HGB__std_24h": 209,
+    "HGB__std_72h": 210,
+    "LDH__latest": 211,
+    "Lactate__latest": 212,
+    "Lympho_abs": 213,
+    "Lympho_abs__delta": 214,
+    "Lympho_abs__first_admission": 215,
+    "Lympho_abs__latest": 216,
+    "Lympho_abs__max_24h": 217,
+    "Lympho_abs__max_72h": 218,
+    "Lympho_abs__mean_24h": 219,
+    "Lympho_abs__mean_72h": 220,
+    "Lympho_abs__min_24h": 221,
+    "Lympho_abs__min_72h": 222,
+    "Lympho_abs__prev1": 223,
+    "Lympho_abs__prev2": 224,
+    "Lympho_abs__prior_count": 225,
+    "Lympho_abs__slope_per_day": 226,
+    "Lympho_abs__std_72h": 227,
+    "MCV": 228,
+    "MCV__first_admission": 229,
+    "MCV__latest": 230,
+    "MCV__max_24h": 231,
+    "MCV__max_72h": 232,
+    "MCV__mean_24h": 233,
+    "MCV__mean_72h": 234,
+    "MCV__min_24h": 235,
+    "MCV__min_72h": 236,
+    "MCV__prev1": 237,
+    "MCV__prior_count": 238,
+    "MPV": 239,
+    "MPV__first_admission": 240,
+    "MPV__latest": 241,
+    "MPV__max_24h": 242,
+    "MPV__max_72h": 243,
+    "MPV__mean_24h": 244,
+    "MPV__mean_72h": 245,
+    "MPV__min_24h": 246,
+    "MPV__min_72h": 247,
+    "MPV__prev1": 248,
+    "MPV__prior_count": 249,
+    "Magnesium": 250,
+    "Magnesium__delta": 251,
+    "Magnesium__first_admission": 252,
+    "Magnesium__latest": 253,
+    "Magnesium__max_24h": 254,
+    "Magnesium__max_72h": 255,
+    "Magnesium__mean_24h": 256,
+    "Magnesium__mean_72h": 257,
+    "Magnesium__min_24h": 258,
+    "Magnesium__min_72h": 259,
+    "Magnesium__prev1": 260,
+    "Magnesium__prev2": 261,
+    "Magnesium__prior_count": 262,
+    "Magnesium__slope_per_day": 263,
+    "Magnesium__std_72h": 264,
+    "Methemoglobin__latest": 265,
+    "Mono_abs__latest": 266,
+    "NRBC_abs__latest": 267,
+    "Neutro_abs__latest": 268,
+    "O2_saturation__latest": 269,
+    "Osmolality": 270,
+    "Osmolality__delta": 271,
+    "Osmolality__first_admission": 272,
+    "Osmolality__latest": 273,
+    "Osmolality__max_24h": 274,
+    "Osmolality__max_72h": 275,
+    "Osmolality__mean_24h": 276,
+    "Osmolality__mean_72h": 277,
+    "Osmolality__min_24h": 278,
+    "Osmolality__min_72h": 279,
+    "Osmolality__prev1": 280,
+    "Osmolality__prev2": 281,
+    "Osmolality__prev3": 282,
+    "Osmolality__prior_count": 283,
+    "Osmolality__slope_per_day": 284,
+    "Osmolality__std_72h": 285,
+    "Oxyhemoglobin": 286,
+    "Oxyhemoglobin__delta": 287,
+    "Oxyhemoglobin__first_admission": 288,
+    "Oxyhemoglobin__latest": 289,
+    "Oxyhemoglobin__max_24h": 290,
+    "Oxyhemoglobin__max_72h": 291,
+    "Oxyhemoglobin__mean_24h": 292,
+    "Oxyhemoglobin__mean_72h": 293,
+    "Oxyhemoglobin__min_24h": 294,
+    "Oxyhemoglobin__min_72h": 295,
+    "Oxyhemoglobin__prev1": 296,
+    "Oxyhemoglobin__prev2": 297,
+    "Oxyhemoglobin__prev3": 298,
+    "Oxyhemoglobin__prior_count": 299,
+    "Oxyhemoglobin__slope_per_day": 300,
+    "PLT": 301,
+    "PLT__first_admission": 302,
+    "PLT__latest": 303,
+    "PLT__max_24h": 304,
+    "PLT__max_72h": 305,
+    "PLT__mean_24h": 306,
+    "PLT__mean_72h": 307,
+    "PLT__min_24h": 308,
+    "PLT__min_72h": 309,
+    "PLT__prev1": 310,
+    "PLT__prior_count": 311,
+    "PTT__latest": 312,
+    "PT__latest": 313,
+    "Phosphorus": 314,
+    "Phosphorus__delta": 315,
+    "Phosphorus__first_admission": 316,
+    "Phosphorus__latest": 317,
+    "Phosphorus__max_24h": 318,
+    "Phosphorus__max_72h": 319,
+    "Phosphorus__mean_24h": 320,
+    "Phosphorus__mean_72h": 321,
+    "Phosphorus__min_24h": 322,
+    "Phosphorus__min_72h": 323,
+    "Phosphorus__prev1": 324,
+    "Phosphorus__prev2": 325,
+    "Phosphorus__prev3": 326,
+    "Phosphorus__prior_count": 327,
+    "Phosphorus__slope_per_day": 328,
+    "Phosphorus__std_72h": 329,
+    "Potassium": 330,
+    "Potassium__delta": 331,
+    "Potassium__first_admission": 332,
+    "Potassium__latest": 333,
+    "Potassium__max_72h": 334,
+    "Potassium__mean_72h": 335,
+    "Potassium__min_72h": 336,
+    "Potassium__prev1": 337,
+    "Potassium__prev2": 338,
+    "Potassium__prev3": 339,
+    "Potassium__prior_count": 340,
+    "Potassium__slope_per_day": 341,
+    "Potassium__std_72h": 342,
+    "Protein_total__latest": 343,
+    "RBC__latest": 344,
+    "RDW": 345,
+    "RDW__delta": 346,
+    "RDW__first_admission": 347,
+    "RDW__latest": 348,
+    "RDW__max_24h": 349,
+    "RDW__max_72h": 350,
+    "RDW__mean_24h": 351,
+    "RDW__mean_72h": 352,
+    "RDW__min_24h": 353,
+    "RDW__min_72h": 354,
+    "RDW__prev1": 355,
+    "RDW__prev2": 356,
+    "RDW__prev3": 357,
+    "RDW__prior_count": 358,
+    "RDW__slope_per_day": 359,
+    "RDW__std_72h": 360,
+    "Reticulo_abs__latest": 361,
+    "Sodium": 362,
+    "Sodium__first_admission": 363,
+    "Sodium__latest": 364,
+    "Sodium__max_72h": 365,
+    "Sodium__mean_72h": 366,
+    "Sodium__min_72h": 367,
+    "Sodium__prev1": 368,
+    "Sodium__prior_count": 369,
+    "Specific_gravity__latest": 370,
+    "TSH__latest": 371,
+    "Troponin_I_HS__latest": 372,
+    "Urea": 373,
+    "Urea__delta": 374,
+    "Urea__first_admission": 375,
+    "Urea__latest": 376,
+    "Urea__max_24h": 377,
+    "Urea__max_72h": 378,
+    "Urea__mean_24h": 379,
+    "Urea__mean_72h": 380,
+    "Urea__min_24h": 381,
+    "Urea__min_72h": 382,
+    "Urea__prev1": 383,
+    "Urea__prev2": 384,
+    "Urea__prev3": 385,
+    "Urea__prior_count": 386,
+    "Urea__slope_per_day": 387,
+    "Urea__std_72h": 388,
+    "Uric_acid__latest": 389,
+    "Urobilinogen__latest": 390,
+    "WBC__latest": 391,
+    "age": 392,
+    "charlson__cerebrovascular": 393,
+    "charlson__chronic_pulmonary": 394,
+    "charlson__diabetes": 395,
+    "charlson__group_count": 396,
+    "charlson__heart_failure": 397,
+    "charlson__liver_disease": 398,
+    "charlson__malignancy": 399,
+    "charlson__metastatic_tumor": 400,
+    "charlson__myocardial_infarction": 401,
+    "charlson__peptic_ulcer": 402,
+    "charlson__renal_disease": 403,
+    "charlson__rheumatic": 404,
+    "consult__count_24h": 405,
+    "consult__count_72h": 406,
+    "consult__urgent_24h": 407,
+    "consult__urgent_72h": 408,
+    "days_in_admission": 409,
+    "dialysis__count_7d": 410,
+    "dialysis__days_since_last": 411,
+    "dx__log1p_prior_count": 412,
+    "dx_chapter__certain_infectious_and_parasitic_diseases": 413,
+    "dx_chapter__certain_infectious_and_parasitic_diseases_diseases_of_the_genitourinary_system": 414,
+    "dx_chapter__congenital_malformations_deformations_and_chromosomal_abnormalities": 415,
+    "dx_chapter__diseases_of_the_circulatory_system": 416,
+    "dx_chapter__diseases_of_the_digestive_system": 417,
+    "dx_chapter__diseases_of_the_eye_and_adnexa": 418,
+    "dx_chapter__diseases_of_the_genitourinary_system": 419,
+    "dx_chapter__diseases_of_the_musculoskeletal_system_and_connective_tissue": 420,
+    "dx_chapter__diseases_of_the_nervous_system": 421,
+    "dx_chapter__diseases_of_the_nervous_system_endocrine_nutritional_and_metabolic_diseases_neoplasms": 422,
+    "dx_chapter__diseases_of_the_respiratory_system": 423,
+    "dx_chapter__diseases_of_the_skin_and_subcutaneous_tissue": 424,
+    "dx_chapter__diseases_of_the_skin_and_subcutaneous_tissue_injury_poisoning_and_certain_other_consequences_of_external_causes": 425,
+    "dx_chapter__endocrine_nutritional_and_metabolic_diseases": 426,
+    "dx_chapter__external_causes_of_morbidity_and_mortality": 427,
+    "dx_chapter__factors_influencing_health_status_and_contact_with_health_services": 428,
+    "dx_chapter__injury_poisoning_and_certain_other_consequences_of_external_causes": 429,
+    "dx_chapter__injury_poisoning_and_certain_other_consequences_of_external_causes_diseases_of_the_respiratory_system": 430,
+    "dx_chapter__mental_and_behavioural_disorders": 431,
+    "dx_chapter__neoplasms": 432,
+    "dx_chapter__neoplasms_endocrine_nutritional_and_metabolic_diseases": 433,
+    "dx_chapter__neoplasms_symptoms_signs_and_abnormal_clinical_and_laboratory_findings_not_elsewhere_classified": 434,
+    "dx_chapter__not_specified": 435,
+    "dx_chapter__pregnancy_childbirth_and_the_puerperium": 436,
+    "dx_chapter__symptoms_signs_and_abnormal_clinical_and_laboratory_findings_not_elsewhere_classified": 437,
+    "dx_chapter__symptoms_signs_and_abnormal_clinical_and_laboratory_findings_not_elsewhere_classified_mental_and_behavioural_disorders": 438,
+    "dx_chapter__u": 439,
+    "ecg__latest_atrial_fibrillation": 440,
+    "ecg__latest_ischemia": 441,
+    "ecg__prior_count": 442,
+    "echo__prior_count": 443,
+    "imaging___2_24h": 444,
+    "imaging___2_72h": 445,
+    "imaging__angio_room11_24h": 446,
+    "imaging__angio_room11_72h": 447,
+    "imaging__count_24h": 448,
+    "imaging__count_72h": 449,
+    "imaging__cr_miyun_left_24h": 450,
+    "imaging__cr_miyun_left_72h": 451,
+    "imaging__cr_room4_72h": 452,
+    "imaging__iu22_room3_72h": 453,
+    "imaging__iu22_room4_24h": 454,
+    "imaging__iu22_room4_72h": 455,
+    "imaging__philips_brilians_128_24h": 456,
+    "imaging__philips_brilians_128_72h": 457,
+    "med__administrations_24h": 458,
+    "med__administrations_72h": 459,
+    "med__atc1__alimentary_tract_and_metabolism__24h": 460,
+    "med__atc1__alimentary_tract_and_metabolism__72h": 461,
+    "med__atc1__antiinfectives_for_systemic_use__24h": 462,
+    "med__atc1__antiinfectives_for_systemic_use__72h": 463,
+    "med__atc1__antineoplastic_and_immunomodulating_agents__24h": 464,
+    "med__atc1__antineoplastic_and_immunomodulating_agents__72h": 465,
+    "med__atc1__blood_and_blood_forming_organs__24h": 466,
+    "med__atc1__blood_and_blood_forming_organs__72h": 467,
+    "med__atc1__cardiovascular_system__24h": 468,
+    "med__atc1__cardiovascular_system__72h": 469,
+    "med__atc1__dermatologicals__24h": 470,
+    "med__atc1__dermatologicals__72h": 471,
+    "med__atc1__genito_urinary_system_and_sex_hormones__24h": 472,
+    "med__atc1__genito_urinary_system_and_sex_hormones__72h": 473,
+    "med__atc1__musculo_skeletal_system__24h": 474,
+    "med__atc1__musculo_skeletal_system__72h": 475,
+    "med__atc1__nervous_system__24h": 476,
+    "med__atc1__nervous_system__72h": 477,
+    "med__atc1__respiratory_system__24h": 478,
+    "med__atc1__respiratory_system__72h": 479,
+    "med__atc1__sensory_organs__24h": 480,
+    "med__atc1__sensory_organs__72h": 481,
+    "med__atc1__systemic_hormonal_preparations_excluding_sex_hormones_and_insulins__24h": 482,
+    "med__atc1__systemic_hormonal_preparations_excluding_sex_hormones_and_insulins__72h": 483,
+    "med__atc1__unspecified__24h": 484,
+    "med__atc1__unspecified__72h": 485,
+    "med__atc1__various__24h": 486,
+    "med__atc1__various__72h": 487,
+    "med__high_risk_24h": 488,
+    "med__high_risk_72h": 489,
+    "med__iv_solution_24h": 490,
+    "med__iv_solution_72h": 491,
+    "med__unique_24h": 492,
+    "med__unique_72h": 493,
+    "ordering_department__873000": 494,
+    "ordering_department__874000": 495,
+    "pCO2": 496,
+    "pCO2__first_admission": 497,
+    "pCO2__latest": 498,
+    "pCO2__prev1": 499,
+    "pCO2__prior_count": 500,
+    "pH": 501,
+    "pH__delta": 502,
+    "pH__first_admission": 503,
+    "pH__latest": 504,
+    "pH__max_24h": 505,
+    "pH__max_72h": 506,
+    "pH__mean_24h": 507,
+    "pH__mean_72h": 508,
+    "pH__min_24h": 509,
+    "pH__min_72h": 510,
+    "pH__prev1": 511,
+    "pH__prev2": 512,
+    "pH__prev3": 513,
+    "pH__prior_count": 514,
+    "pH__slope_per_day": 515,
+    "pH__std_24h": 516,
+    "pH__std_72h": 517,
+    "pO2": 518,
+    "pO2__delta": 519,
+    "pO2__first_admission": 520,
+    "pO2__latest": 521,
+    "pO2__max_24h": 522,
+    "pO2__max_72h": 523,
+    "pO2__mean_24h": 524,
+    "pO2__mean_72h": 525,
+    "pO2__min_24h": 526,
+    "pO2__min_72h": 527,
+    "pO2__prev1": 528,
+    "pO2__prev2": 529,
+    "pO2__prev3": 530,
+    "pO2__prior_count": 531,
+    "pO2__slope_per_day": 532,
+    "pO2__std_72h": 533,
+    "prior_admissions": 534,
+    "prior_lab_orders": 535,
+    "sex_numeric": 536,
+    "vital__dbp__latest": 537,
+    "vital__dbp__max_24h": 538,
+    "vital__dbp__mean_24h": 539,
+    "vital__dbp__min_24h": 540,
+    "vital__pulse__latest": 541,
+    "vital__pulse__max_24h": 542,
+    "vital__pulse__mean_24h": 543,
+    "vital__pulse__min_24h": 544,
+    "vital__sbp__latest": 545,
+    "vital__sbp__max_24h": 546,
+    "vital__sbp__mean_24h": 547,
+    "vital__sbp__min_24h": 548,
+    "vital__storation__latest": 549,
+    "vital__storation__max_24h": 550,
+    "vital__storation__mean_24h": 551,
+    "vital__storation__min_24h": 552
+  },
+  "normalizers": {
+    "ALT": {
+      "mean": 19.0,
+      "std": 1.0
+    },
+    "ALT__prev1": {
+      "mean": 8.0,
+      "std": 1.0
+    },
+    "ALT__prev2": {
+      "mean": 9.0,
+      "std": 1.0
+    },
+    "ALT__prev3": {
+      "mean": 9.0,
+      "std": 1.0
+    },
+    "ALT__first_admission": {
+      "mean": 16.0,
+      "std": 1.0
+    },
+    "ALT__prior_count": {
+      "mean": 36.0,
+      "std": 1.0
+    },
+    "ALT__delta": {
+      "mean": -1.0,
+      "std": 1.0
+    },
+    "ALT__slope_per_day": {
+      "mean": -1.0,
+      "std": 1.0
+    },
+    "ALT__mean_72h": {
+      "mean": 8.666666666666666,
+      "std": 1.0
+    },
+    "ALT__min_72h": {
+      "mean": 8.0,
+      "std": 1.0
+    },
+    "ALT__max_72h": {
+      "mean": 9.0,
+      "std": 1.0
+    },
+    "ALT__std_72h": {
+      "mean": 0.5773502691896257,
+      "std": 1.0
+    },
+    "Globulin__latest": {
+      "mean": 2.525,
+      "std": 0.7383822406676187
+    },
+    "MPV__latest": {
+      "mean": 9.275416666666667,
+      "std": 1.28688570836298
+    },
+    "PLT__latest": {
+      "mean": 205.23809523809524,
+      "std": 191.51101044112687
+    },
+    "Baso_abs__latest": {
+      "mean": 0.051500000000000004,
+      "std": 0.05208406666150407
+    },
+    "Calcium__latest": {
+      "mean": 8.235294117647058,
+      "std": 1.1203682044287093
+    },
+    "Bilirubin_total__latest": {
+      "mean": 0.8117647058823529,
+      "std": 0.4313212982032501
+    },
+    "LDH__latest": {
+      "mean": 414.05,
+      "std": 280.04400993415305
+    },
+    "Magnesium__latest": {
+      "mean": 1.89047619047619,
+      "std": 0.2792929199736225
+    },
+    "Albumin__latest": {
+      "mean": 2.9615384615384617,
+      "std": 0.3584978522378783
+    },
+    "Phosphorus__latest": {
+      "mean": 3.444444444444445,
+      "std": 0.974996043043569
+    },
+    "MCV__latest": {
+      "mean": 89.68357142857143,
+      "std": 4.7255107163789445
+    },
+    "Chloride__latest": {
+      "mean": 102.66666666666667,
+      "std": 3.745897226532788
+    },
+    "Eos_abs__latest": {
+      "mean": 0.17041666666666666,
+      "std": 0.2884654682780746
+    },
+    "Mono_abs__latest": {
+      "mean": 0.6865217391304348,
+      "std": 0.5065021455437811
+    },
+    "GGT__latest": {
+      "mean": 263.6363636363636,
+      "std": 323.35802637810076
+    },
+    "Protein_total__latest": {
+      "mean": 5.68,
+      "std": 1.0916043239196151
+    },
+    "vital__sbp__latest": {
+      "mean": 148.42105263157896,
+      "std": 43.434543358791096
+    },
+    "vital__sbp__mean_24h": {
+      "mean": 126.16346153846153,
+      "std": 17.565239821407605
+    },
+    "vital__sbp__min_24h": {
+      "mean": 120.3076923076923,
+      "std": 21.229096924104372
+    },
+    "vital__sbp__max_24h": {
+      "mean": 130.69230769230768,
+      "std": 16.963239056558177
+    },
+    "vital__dbp__latest": {
+      "mean": 83.15789473684211,
+      "std": 26.63251506571923
+    },
+    "vital__dbp__mean_24h": {
+      "mean": 70.65705128205128,
+      "std": 13.812084524498829
+    },
+    "vital__dbp__min_24h": {
+      "mean": 67.15384615384616,
+      "std": 15.195374568730566
+    },
+    "vital__dbp__max_24h": {
+      "mean": 73.5,
+      "std": 14.063728578810867
+    },
+    "vital__pulse__latest": {
+      "mean": 94.73684210526316,
+      "std": 19.654494879672416
+    },
+    "vital__pulse__mean_24h": {
+      "mean": 86.12765567765567,
+      "std": 13.38771373888847
+    },
+    "vital__pulse__min_24h": {
+      "mean": 83.84615384615384,
+      "std": 12.838320965262577
+    },
+    "vital__pulse__max_24h": {
+      "mean": 88.57692307692308,
+      "std": 14.363878512336415
+    },
+    "vital__storation__latest": {
+      "mean": 95.925,
+      "std": 2.2292095011460904
+    },
+    "vital__storation__mean_24h": {
+      "mean": 96.23214285714286,
+      "std": 2.1205435463514513
+    },
+    "vital__storation__min_24h": {
+      "mean": 95.53571428571429,
+      "std": 2.2277814533929563
+    },
+    "vital__storation__max_24h": {
+      "mean": 96.85714285714286,
+      "std": 2.325545799442815
+    },
+    "charlson__diabetes": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "charlson__heart_failure": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "charlson__malignancy": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "charlson__myocardial_infarction": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__certain_infectious_and_parasitic_diseases": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_circulatory_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_digestive_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_eye_and_adnexa": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_genitourinary_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_musculoskeletal_system_and_connective_tissue": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_respiratory_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_skin_and_subcutaneous_tissue": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__endocrine_nutritional_and_metabolic_diseases": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__factors_influencing_health_status_and_contact_with_health_services": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__injury_poisoning_and_certain_other_consequences_of_external_causes": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__neoplasms": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__not_specified": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__symptoms_signs_and_abnormal_clinical_and_laboratory_findings_not_elsewhere_classified": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "charlson__group_count": {
+      "mean": 1.475,
+      "std": 1.2447389284504602
+    },
+    "dx__log1p_prior_count": {
+      "mean": 3.7704360403652544,
+      "std": 0.8348330772485845
+    },
+    "med__administrations_24h": {
+      "mean": 20.3,
+      "std": 11.702278980324015
+    },
+    "med__unique_24h": {
+      "mean": 11.3,
+      "std": 5.465955238260434
+    },
+    "med__high_risk_24h": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "med__iv_solution_24h": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "med__atc1__alimentary_tract_and_metabolism__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__cardiovascular_system__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__antiinfectives_for_systemic_use__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__sensory_organs__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__blood_and_blood_forming_organs__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__systemic_hormonal_preparations_excluding_sex_hormones_and_insulins__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__genito_urinary_system_and_sex_hormones__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__various__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__antineoplastic_and_immunomodulating_agents__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__administrations_72h": {
+      "mean": 50.2,
+      "std": 37.61063679333281
+    },
+    "med__unique_72h": {
+      "mean": 14.466666666666667,
+      "std": 7.78345824310905
+    },
+    "med__high_risk_72h": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "med__iv_solution_72h": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "med__atc1__antiinfectives_for_systemic_use__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__cardiovascular_system__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__various__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__alimentary_tract_and_metabolism__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__genito_urinary_system_and_sex_hormones__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__musculo_skeletal_system__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__sensory_organs__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__antineoplastic_and_immunomodulating_agents__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__nervous_system__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__blood_and_blood_forming_organs__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__systemic_hormonal_preparations_excluding_sex_hormones_and_insulins__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "consult__count_72h": {
+      "mean": 2.0,
+      "std": 1.4142135623730951
+    },
+    "consult__urgent_72h": {
+      "mean": 0.05555555555555555,
+      "std": 0.2290614236454256
+    },
+    "echo__prior_count": {
+      "mean": 1.3529411764705883,
+      "std": 0.7624400821656306
+    },
+    "age": {
+      "mean": 63.582409308692675,
+      "std": 15.337166444022934
+    },
+    "sex_numeric": {
+      "mean": 0.5,
+      "std": 0.5
+    },
+    "days_in_admission": {
+      "mean": 13.003958333333333,
+      "std": 13.274301547649584
+    },
+    "prior_lab_orders": {
+      "mean": 46.85,
+      "std": 55.00343171112144
+    },
+    "prior_admissions": {
+      "mean": 1.25,
+      "std": 1.4274102423620199
+    },
+    "ordering_department__874000": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Albumin": {
+      "mean": 3.3333333333333335,
+      "std": 0.590668171555645
+    },
+    "Albumin__prev1": {
+      "mean": 3.466666666666667,
+      "std": 0.6182412330330469
+    },
+    "Albumin__prev2": {
+      "mean": 3.6,
+      "std": 0.787400787401181
+    },
+    "Albumin__prev3": {
+      "mean": 3.6666666666666665,
+      "std": 0.8259674462242579
+    },
+    "Albumin__first_admission": {
+      "mean": 4.0,
+      "std": 0.28284271247461906
+    },
+    "Albumin__prior_count": {
+      "mean": 10.333333333333334,
+      "std": 9.672412085697939
+    },
+    "Albumin__delta": {
+      "mean": -0.1333333333333333,
+      "std": 0.16996731711975951
+    },
+    "Albumin__slope_per_day": {
+      "mean": 799999.833333334,
+      "std": 1131370.967749608
+    },
+    "Albumin__mean_24h": {
+      "mean": 3.4499999999999997,
+      "std": 0.6416125518306719
+    },
+    "Albumin__min_24h": {
+      "mean": 3.4333333333333336,
+      "std": 0.664997911442
+    },
+    "Albumin__max_24h": {
+      "mean": 3.466666666666667,
+      "std": 0.6182412330330469
+    },
+    "Albumin__mean_72h": {
+      "mean": 3.5833333333333335,
+      "std": 0.7327017482249187
+    },
+    "Albumin__min_72h": {
+      "mean": 3.4333333333333336,
+      "std": 0.664997911442
+    },
+    "Albumin__max_72h": {
+      "mean": 3.733333333333333,
+      "std": 0.8013876853447537
+    },
+    "Albumin__std_72h": {
+      "mean": 0.15837478304206926,
+      "std": 0.07397961646246246
+    },
+    "NRBC_abs__latest": {
+      "mean": 0.07380952380952382,
+      "std": 0.2614151267251488
+    },
+    "Oxyhemoglobin__latest": {
+      "mean": 69.41764705882352,
+      "std": 27.98266764590744
+    },
+    "Lympho_abs__latest": {
+      "mean": 0.7122222222222222,
+      "std": 0.35996227511528595
+    },
+    "Potassium__latest": {
+      "mean": 4.265217391304347,
+      "std": 0.6597817133437088
+    },
+    "Sodium__latest": {
+      "mean": 139.89473684210526,
+      "std": 5.087598304671398
+    },
+    "Lactate__latest": {
+      "mean": 16.866666666666667,
+      "std": 13.365960081074942
+    },
+    "Carboxyhemoglobin__latest": {
+      "mean": 0.8416666666666667,
+      "std": 0.9953712316964405
+    },
+    "Calcium_ionized__latest": {
+      "mean": 1.0857142857142859,
+      "std": 0.1382913222003404
+    },
+    "Uric_acid__latest": {
+      "mean": 5.74375,
+      "std": 3.1018076886712365
+    },
+    "CRP__latest": {
+      "mean": 96.294375,
+      "std": 113.80928855813735
+    },
+    "CPK__latest": {
+      "mean": 246.85714285714286,
+      "std": 491.6597047817956
+    },
+    "TSH__latest": {
+      "mean": 3.605,
+      "std": 3.205
+    },
+    "charlson__chronic_pulmonary": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__respiratory_system__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__respiratory_system__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "ordering_department__873000": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Alkaline_Phosphatase__latest": {
+      "mean": 175.07692307692307,
+      "std": 126.89332984740889
+    },
+    "WBC__latest": {
+      "mean": 11.955714285714285,
+      "std": 6.600586244835393
+    },
+    "RBC__latest": {
+      "mean": 3.3425000000000002,
+      "std": 0.6469882147303767
+    },
+    "RDW__latest": {
+      "mean": 17.92,
+      "std": 5.221598003895523
+    },
+    "Creatinine__latest": {
+      "mean": 1.1499999999999997,
+      "std": 0.6391400472509918
+    },
+    "Osmolality__latest": {
+      "mean": 294.7368421052632,
+      "std": 13.874786315142252
+    },
+    "AST__latest": {
+      "mean": 65.4,
+      "std": 62.685245472918105
+    },
+    "med__atc1__nervous_system__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Albumin__std_24h": {
+      "mean": 0.07071067811865482,
+      "std": 1.0
+    },
+    "Methemoglobin__latest": {
+      "mean": 0.52,
+      "std": 0.6577233460962141
+    },
+    "PTT__latest": {
+      "mean": 31.4,
+      "std": 3.954743986657038
+    },
+    "Bilirubin_direct__latest": {
+      "mean": 0.315,
+      "std": 0.2062159062730128
+    },
+    "PT__latest": {
+      "mean": 83.55555555555556,
+      "std": 20.434780324573598
+    },
+    "pH__latest": {
+      "mean": 7.086692307692307,
+      "std": 0.714355910498335
+    },
+    "O2_saturation__latest": {
+      "mean": 63.17647058823528,
+      "std": 32.02597345559611
+    },
+    "pCO2__latest": {
+      "mean": 45.77647058823529,
+      "std": 12.134323191177927
+    },
+    "med__atc1__musculo_skeletal_system__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__unspecified__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__unspecified__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "imaging__count_24h": {
+      "mean": 1.1176470588235294,
+      "std": 0.32218973970892123
+    },
+    "imaging__angio_room11_24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "consult__count_24h": {
+      "mean": 1.4545454545454546,
+      "std": 0.6555547773570889
+    },
+    "consult__urgent_24h": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "imaging__count_72h": {
+      "mean": 2.227272727272727,
+      "std": 1.165091419816027
+    },
+    "imaging__angio_room11_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Bilirubin_total": {
+      "mean": 0.37,
+      "std": 1.0
+    },
+    "Bilirubin_total__prev1": {
+      "mean": 0.39,
+      "std": 1.0
+    },
+    "Bilirubin_total__prev2": {
+      "mean": 0.25,
+      "std": 1.0
+    },
+    "Bilirubin_total__prev3": {
+      "mean": 0.32,
+      "std": 1.0
+    },
+    "Bilirubin_total__first_admission": {
+      "mean": 0.14,
+      "std": 1.0
+    },
+    "Bilirubin_total__prior_count": {
+      "mean": 20.0,
+      "std": 1.0
+    },
+    "Bilirubin_total__delta": {
+      "mean": 0.14,
+      "std": 1.0
+    },
+    "Bilirubin_total__slope_per_day": {
+      "mean": 0.14,
+      "std": 1.0
+    },
+    "Bilirubin_total__mean_24h": {
+      "mean": 0.39,
+      "std": 1.0
+    },
+    "Bilirubin_total__min_24h": {
+      "mean": 0.39,
+      "std": 1.0
+    },
+    "Bilirubin_total__max_24h": {
+      "mean": 0.39,
+      "std": 1.0
+    },
+    "Bilirubin_total__mean_72h": {
+      "mean": 0.32,
+      "std": 1.0
+    },
+    "Bilirubin_total__min_72h": {
+      "mean": 0.25,
+      "std": 1.0
+    },
+    "Bilirubin_total__max_72h": {
+      "mean": 0.39,
+      "std": 1.0
+    },
+    "Bilirubin_total__std_72h": {
+      "mean": 0.07,
+      "std": 1.0
+    },
+    "Glucose__latest": {
+      "mean": 120.15,
+      "std": 33.69462123247567
+    },
+    "ALT__latest": {
+      "mean": 26.363636363636363,
+      "std": 18.162262210282105
+    },
+    "HGB__latest": {
+      "mean": 9.727500000000001,
+      "std": 1.4028965571274312
+    },
+    "Deoxyhemoglobin__latest": {
+      "mean": 23.115384615384617,
+      "std": 30.3500816410978
+    },
+    "imaging___2_24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "imaging___2_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Calcium_ionized": {
+      "mean": 1.19,
+      "std": 1.0
+    },
+    "Calcium_ionized__prev1": {
+      "mean": 1.16,
+      "std": 1.0
+    },
+    "Calcium_ionized__prev2": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Calcium_ionized__prev3": {
+      "mean": 1.17,
+      "std": 1.0
+    },
+    "Calcium_ionized__first_admission": {
+      "mean": 1.26,
+      "std": 1.0
+    },
+    "Calcium_ionized__prior_count": {
+      "mean": 23.0,
+      "std": 1.0
+    },
+    "Calcium_ionized__delta": {
+      "mean": -0.040000000000000036,
+      "std": 1.0
+    },
+    "Calcium_ionized__slope_per_day": {
+      "mean": -960000.0000000009,
+      "std": 1.0
+    },
+    "Calcium_ionized__mean_24h": {
+      "mean": 1.1766666666666667,
+      "std": 1.0
+    },
+    "Calcium_ionized__min_24h": {
+      "mean": 1.16,
+      "std": 1.0
+    },
+    "Calcium_ionized__max_24h": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Calcium_ionized__std_24h": {
+      "mean": 0.020816659994661344,
+      "std": 1.0
+    },
+    "Calcium_ionized__mean_72h": {
+      "mean": 1.1766666666666667,
+      "std": 1.0
+    },
+    "Calcium_ionized__min_72h": {
+      "mean": 1.16,
+      "std": 1.0
+    },
+    "Calcium_ionized__max_72h": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Calcium_ionized__std_72h": {
+      "mean": 0.020816659994661344,
+      "std": 1.0
+    },
+    "pO2__latest": {
+      "mean": 71.78461538461539,
+      "std": 39.42562318231139
+    },
+    "HCT__latest": {
+      "mean": 30.117500000000003,
+      "std": 2.8739349476516227
+    },
+    "Amylase__latest": {
+      "mean": 49.0,
+      "std": 29.06314963431642
+    },
+    "Carboxyhemoglobin": {
+      "mean": 0.25,
+      "std": 0.04999999999999999
+    },
+    "Carboxyhemoglobin__prev1": {
+      "mean": 0.30000000000000004,
+      "std": 0.1
+    },
+    "Carboxyhemoglobin__prev2": {
+      "mean": 0.25,
+      "std": 0.04999999999999999
+    },
+    "Carboxyhemoglobin__prev3": {
+      "mean": 0.5,
+      "std": 0.30000000000000004
+    },
+    "Carboxyhemoglobin__first_admission": {
+      "mean": 0.5,
+      "std": 1.0
+    },
+    "Carboxyhemoglobin__prior_count": {
+      "mean": 112.0,
+      "std": 30.0
+    },
+    "Carboxyhemoglobin__delta": {
+      "mean": 0.05000000000000002,
+      "std": 0.05000000000000002
+    },
+    "Carboxyhemoglobin__slope_per_day": {
+      "mean": 1200000.0000000005,
+      "std": 1200000.0000000005
+    },
+    "Carboxyhemoglobin__mean_24h": {
+      "mean": 0.35000000000000003,
+      "std": 0.14999999999999997
+    },
+    "Carboxyhemoglobin__min_24h": {
+      "mean": 0.25,
+      "std": 0.04999999999999999
+    },
+    "Carboxyhemoglobin__max_24h": {
+      "mean": 0.5,
+      "std": 0.30000000000000004
+    },
+    "Carboxyhemoglobin__std_24h": {
+      "mean": 0.13228756555322957,
+      "std": 0.1322875655532295
+    },
+    "Carboxyhemoglobin__mean_72h": {
+      "mean": 0.35000000000000003,
+      "std": 0.14999999999999997
+    },
+    "Carboxyhemoglobin__min_72h": {
+      "mean": 0.25,
+      "std": 0.04999999999999999
+    },
+    "Carboxyhemoglobin__max_72h": {
+      "mean": 0.5,
+      "std": 0.30000000000000004
+    },
+    "Carboxyhemoglobin__std_72h": {
+      "mean": 0.13228756555322957,
+      "std": 0.1322875655532295
+    },
+    "Neutro_abs__latest": {
+      "mean": 8.0885,
+      "std": 3.3670807459875385
+    },
+    "imaging__philips_brilians_128_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Chloride": {
+      "mean": 100.0,
+      "std": 1.0
+    },
+    "Chloride__prev1": {
+      "mean": 101.0,
+      "std": 1.0
+    },
+    "Chloride__prev2": {
+      "mean": 101.0,
+      "std": 1.0
+    },
+    "Chloride__prev3": {
+      "mean": 102.0,
+      "std": 1.0
+    },
+    "Chloride__first_admission": {
+      "mean": 103.0,
+      "std": 1.0
+    },
+    "Chloride__prior_count": {
+      "mean": 26.0,
+      "std": 1.0
+    },
+    "Chloride__delta": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "Chloride__slope_per_day": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "Chloride__mean_24h": {
+      "mean": 101.33333333333333,
+      "std": 1.0
+    },
+    "Chloride__min_24h": {
+      "mean": 101.0,
+      "std": 1.0
+    },
+    "Chloride__max_24h": {
+      "mean": 102.0,
+      "std": 1.0
+    },
+    "Chloride__std_24h": {
+      "mean": 0.5773502691896257,
+      "std": 1.0
+    },
+    "Chloride__mean_72h": {
+      "mean": 101.33333333333333,
+      "std": 1.0
+    },
+    "Chloride__min_72h": {
+      "mean": 101.0,
+      "std": 1.0
+    },
+    "Chloride__max_72h": {
+      "mean": 102.0,
+      "std": 1.0
+    },
+    "Chloride__std_72h": {
+      "mean": 0.5773502691896257,
+      "std": 1.0
+    },
+    "charlson__renal_disease": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "ecg__prior_count": {
+      "mean": 3.6666666666666665,
+      "std": 1.247219128924647
+    },
+    "ecg__latest_atrial_fibrillation": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "ecg__latest_ischemia": {
+      "mean": 0.0,
+      "std": 1.0
+    },
+    "dialysis__days_since_last": {
+      "mean": 4.238541666666666,
+      "std": 1.965625
+    },
+    "dialysis__count_7d": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Creatinine": {
+      "mean": 1.25,
+      "std": 1.0
+    },
+    "Creatinine__prev1": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__first_admission": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Creatinine__mean_24h": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__min_24h": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__max_24h": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__mean_72h": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__min_72h": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "Creatinine__max_72h": {
+      "mean": 1.38,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_skin_and_subcutaneous_tissue_injury_poisoning_and_certain_other_consequences_of_external_causes": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin": {
+      "mean": 15.1,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__prev1": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__first_admission": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__mean_24h": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__min_24h": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__max_24h": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__mean_72h": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__min_72h": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Deoxyhemoglobin__max_72h": {
+      "mean": 20.9,
+      "std": 1.0
+    },
+    "Eos_abs": {
+      "mean": 0.48,
+      "std": 0.17
+    },
+    "Eos_abs__prev1": {
+      "mean": 0.19,
+      "std": 0.19
+    },
+    "Eos_abs__prev2": {
+      "mean": 0.51,
+      "std": 1.0
+    },
+    "Eos_abs__prev3": {
+      "mean": 0.17,
+      "std": 1.0
+    },
+    "Eos_abs__first_admission": {
+      "mean": 0.405,
+      "std": 0.024999999999999994
+    },
+    "Eos_abs__prior_count": {
+      "mean": 5.5,
+      "std": 4.5
+    },
+    "Eos_abs__delta": {
+      "mean": -0.51,
+      "std": 1.0
+    },
+    "Eos_abs__slope_per_day": {
+      "mean": -12240000.000000002,
+      "std": 1.0
+    },
+    "Eos_abs__mean_24h": {
+      "mean": 0.3175,
+      "std": 0.0625
+    },
+    "Eos_abs__min_24h": {
+      "mean": 0.19,
+      "std": 0.19
+    },
+    "Eos_abs__max_24h": {
+      "mean": 0.445,
+      "std": 0.065
+    },
+    "Eos_abs__std_24h": {
+      "mean": 0.36062445840513924,
+      "std": 1.0
+    },
+    "Eos_abs__mean_72h": {
+      "mean": 0.30333333333333334,
+      "std": 0.07666666666666666
+    },
+    "Eos_abs__min_72h": {
+      "mean": 0.19,
+      "std": 0.19
+    },
+    "Eos_abs__max_72h": {
+      "mean": 0.445,
+      "std": 0.065
+    },
+    "Eos_abs__std_72h": {
+      "mean": 0.2596792893808309,
+      "std": 1.0
+    },
+    "Reticulo_abs__latest": {
+      "mean": 284.44666666666666,
+      "std": 277.40062308669906
+    },
+    "Urea__latest": {
+      "mean": 50.1764705882353,
+      "std": 39.882526461534724
+    },
+    "charlson__peptic_ulcer": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__injury_poisoning_and_certain_other_consequences_of_external_causes_diseases_of_the_respiratory_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__mental_and_behavioural_disorders": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__symptoms_signs_and_abnormal_clinical_and_laboratory_findings_not_elsewhere_classified_mental_and_behavioural_disorders": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__dermatologicals__24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "med__atc1__dermatologicals__72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Specific_gravity__latest": {
+      "mean": 1.0156666666666665,
+      "std": 0.004921607686744476
+    },
+    "GGT": {
+      "mean": 99.0,
+      "std": 1.0
+    },
+    "GGT__prev1": {
+      "mean": 79.0,
+      "std": 1.0
+    },
+    "GGT__prev2": {
+      "mean": 67.0,
+      "std": 1.0
+    },
+    "GGT__prev3": {
+      "mean": 62.0,
+      "std": 1.0
+    },
+    "GGT__first_admission": {
+      "mean": 29.0,
+      "std": 1.0
+    },
+    "GGT__prior_count": {
+      "mean": 24.0,
+      "std": 1.0
+    },
+    "GGT__delta": {
+      "mean": 12.0,
+      "std": 1.0
+    },
+    "GGT__slope_per_day": {
+      "mean": 6.0,
+      "std": 1.0
+    },
+    "GGT__mean_24h": {
+      "mean": 79.0,
+      "std": 1.0
+    },
+    "GGT__min_24h": {
+      "mean": 79.0,
+      "std": 1.0
+    },
+    "GGT__max_24h": {
+      "mean": 79.0,
+      "std": 1.0
+    },
+    "GGT__mean_72h": {
+      "mean": 73.0,
+      "std": 1.0
+    },
+    "GGT__min_72h": {
+      "mean": 67.0,
+      "std": 1.0
+    },
+    "GGT__max_72h": {
+      "mean": 79.0,
+      "std": 1.0
+    },
+    "GGT__std_72h": {
+      "mean": 8.48528137423857,
+      "std": 1.0
+    },
+    "imaging__cr_room4_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Globulin": {
+      "mean": 1.8,
+      "std": 1.0
+    },
+    "Globulin__prev1": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Globulin__prev2": {
+      "mean": 2.2,
+      "std": 1.0
+    },
+    "Globulin__first_admission": {
+      "mean": 2.2,
+      "std": 1.0
+    },
+    "Globulin__prior_count": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Globulin__delta": {
+      "mean": -0.20000000000000018,
+      "std": 1.0
+    },
+    "Globulin__slope_per_day": {
+      "mean": -0.20000000000000018,
+      "std": 1.0
+    },
+    "Globulin__mean_24h": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Globulin__min_24h": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Globulin__max_24h": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Globulin__mean_72h": {
+      "mean": 2.1,
+      "std": 1.0
+    },
+    "Globulin__min_72h": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Globulin__max_72h": {
+      "mean": 2.2,
+      "std": 1.0
+    },
+    "Globulin__std_72h": {
+      "mean": 0.14142135623730964,
+      "std": 1.0
+    },
+    "charlson__metastatic_tumor": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__neoplasms_endocrine_nutritional_and_metabolic_diseases": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "HCT": {
+      "mean": 33.48,
+      "std": 1.0
+    },
+    "HCT__prev1": {
+      "mean": 26.18,
+      "std": 1.0
+    },
+    "HCT__prev2": {
+      "mean": 24.29,
+      "std": 1.0
+    },
+    "HCT__prev3": {
+      "mean": 21.54,
+      "std": 1.0
+    },
+    "HCT__first_admission": {
+      "mean": 21.87,
+      "std": 1.0
+    },
+    "HCT__prior_count": {
+      "mean": 33.0,
+      "std": 1.0
+    },
+    "HCT__delta": {
+      "mean": 1.8900000000000006,
+      "std": 1.0
+    },
+    "HCT__slope_per_day": {
+      "mean": 45360000.000000015,
+      "std": 1.0
+    },
+    "HCT__mean_24h": {
+      "mean": 25.235,
+      "std": 1.0
+    },
+    "HCT__min_24h": {
+      "mean": 24.29,
+      "std": 1.0
+    },
+    "HCT__max_24h": {
+      "mean": 26.18,
+      "std": 1.0
+    },
+    "HCT__std_24h": {
+      "mean": 1.3364318164425752,
+      "std": 1.0
+    },
+    "HCT__mean_72h": {
+      "mean": 24.00333333333333,
+      "std": 1.0
+    },
+    "HCT__min_72h": {
+      "mean": 21.54,
+      "std": 1.0
+    },
+    "HCT__max_72h": {
+      "mean": 26.18,
+      "std": 1.0
+    },
+    "HCT__std_72h": {
+      "mean": 2.333245236432153,
+      "std": 1.0
+    },
+    "HGB": {
+      "mean": 11.62,
+      "std": 1.0
+    },
+    "HGB__prev1": {
+      "mean": 10.85,
+      "std": 1.0
+    },
+    "HGB__prev2": {
+      "mean": 10.01,
+      "std": 1.0
+    },
+    "HGB__prev3": {
+      "mean": 9.86,
+      "std": 1.0
+    },
+    "HGB__first_admission": {
+      "mean": 9.46,
+      "std": 1.0
+    },
+    "HGB__prior_count": {
+      "mean": 15.0,
+      "std": 1.0
+    },
+    "HGB__delta": {
+      "mean": 0.8399999999999999,
+      "std": 1.0
+    },
+    "HGB__slope_per_day": {
+      "mean": 20159999.999999996,
+      "std": 1.0
+    },
+    "HGB__mean_24h": {
+      "mean": 10.43,
+      "std": 1.0
+    },
+    "HGB__min_24h": {
+      "mean": 10.01,
+      "std": 1.0
+    },
+    "HGB__max_24h": {
+      "mean": 10.85,
+      "std": 1.0
+    },
+    "HGB__std_24h": {
+      "mean": 0.5939696961966998,
+      "std": 1.0
+    },
+    "HGB__mean_72h": {
+      "mean": 10.24,
+      "std": 1.0
+    },
+    "HGB__min_72h": {
+      "mean": 9.86,
+      "std": 1.0
+    },
+    "HGB__max_72h": {
+      "mean": 10.85,
+      "std": 1.0
+    },
+    "HGB__std_72h": {
+      "mean": 0.5335728628781641,
+      "std": 1.0
+    },
+    "Lympho_abs": {
+      "mean": 1.1400000000000001,
+      "std": 0.4
+    },
+    "Lympho_abs__prev1": {
+      "mean": 1.5350000000000001,
+      "std": 0.275
+    },
+    "Lympho_abs__prev2": {
+      "mean": 2.16,
+      "std": 1.0
+    },
+    "Lympho_abs__first_admission": {
+      "mean": 1.71,
+      "std": 0.45000000000000007
+    },
+    "Lympho_abs__prior_count": {
+      "mean": 1.5,
+      "std": 0.5
+    },
+    "Lympho_abs__delta": {
+      "mean": -0.3500000000000001,
+      "std": 1.0
+    },
+    "Lympho_abs__slope_per_day": {
+      "mean": -0.3500000000000001,
+      "std": 1.0
+    },
+    "Lympho_abs__mean_24h": {
+      "mean": 1.81,
+      "std": 1.0
+    },
+    "Lympho_abs__min_24h": {
+      "mean": 1.81,
+      "std": 1.0
+    },
+    "Lympho_abs__max_24h": {
+      "mean": 1.81,
+      "std": 1.0
+    },
+    "Lympho_abs__mean_72h": {
+      "mean": 1.985,
+      "std": 1.0
+    },
+    "Lympho_abs__min_72h": {
+      "mean": 1.81,
+      "std": 1.0
+    },
+    "Lympho_abs__max_72h": {
+      "mean": 2.16,
+      "std": 1.0
+    },
+    "Lympho_abs__std_72h": {
+      "mean": 0.2474873734152917,
+      "std": 1.0
+    },
+    "charlson__rheumatic": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__external_causes_of_morbidity_and_mortality": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "imaging__philips_brilians_128_24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "charlson__cerebrovascular": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__diseases_of_the_nervous_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "MCV": {
+      "mean": 88.71000000000001,
+      "std": 1.2299999999999969
+    },
+    "MCV__prev1": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__first_admission": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "MCV__mean_24h": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__min_24h": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__max_24h": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__mean_72h": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__min_72h": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MCV__max_72h": {
+      "mean": 88.495,
+      "std": 1.5150000000000006
+    },
+    "MPV": {
+      "mean": 8.05,
+      "std": 1.0
+    },
+    "MPV__prev1": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__first_admission": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "MPV__mean_24h": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__min_24h": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__max_24h": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__mean_72h": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__min_72h": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "MPV__max_72h": {
+      "mean": 9.6,
+      "std": 1.0
+    },
+    "charlson__liver_disease": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__neoplasms_symptoms_signs_and_abnormal_clinical_and_laboratory_findings_not_elsewhere_classified": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__u": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Magnesium": {
+      "mean": 1.5,
+      "std": 1.0
+    },
+    "Magnesium__prev1": {
+      "mean": 1.6,
+      "std": 1.0
+    },
+    "Magnesium__prev2": {
+      "mean": 1.7,
+      "std": 1.0
+    },
+    "Magnesium__first_admission": {
+      "mean": 1.7,
+      "std": 1.0
+    },
+    "Magnesium__prior_count": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Magnesium__delta": {
+      "mean": -0.09999999999999987,
+      "std": 1.0
+    },
+    "Magnesium__slope_per_day": {
+      "mean": -0.09999999999999987,
+      "std": 1.0
+    },
+    "Magnesium__mean_24h": {
+      "mean": 1.6,
+      "std": 1.0
+    },
+    "Magnesium__min_24h": {
+      "mean": 1.6,
+      "std": 1.0
+    },
+    "Magnesium__max_24h": {
+      "mean": 1.6,
+      "std": 1.0
+    },
+    "Magnesium__mean_72h": {
+      "mean": 1.65,
+      "std": 1.0
+    },
+    "Magnesium__min_72h": {
+      "mean": 1.6,
+      "std": 1.0
+    },
+    "Magnesium__max_72h": {
+      "mean": 1.7,
+      "std": 1.0
+    },
+    "Magnesium__std_72h": {
+      "mean": 0.07071067811865465,
+      "std": 1.0
+    },
+    "Osmolality": {
+      "mean": 302.0,
+      "std": 4.0
+    },
+    "Osmolality__prev1": {
+      "mean": 301.5,
+      "std": 3.5
+    },
+    "Osmolality__prev2": {
+      "mean": 302.0,
+      "std": 1.0
+    },
+    "Osmolality__prev3": {
+      "mean": 303.0,
+      "std": 1.0
+    },
+    "Osmolality__first_admission": {
+      "mean": 299.5,
+      "std": 1.5
+    },
+    "Osmolality__prior_count": {
+      "mean": 15.0,
+      "std": 14.0
+    },
+    "Osmolality__delta": {
+      "mean": 3.0,
+      "std": 1.0
+    },
+    "Osmolality__slope_per_day": {
+      "mean": 3.0,
+      "std": 1.0
+    },
+    "Osmolality__mean_72h": {
+      "mean": 300.75,
+      "std": 2.75
+    },
+    "Osmolality__min_72h": {
+      "mean": 300.0,
+      "std": 2.0
+    },
+    "Osmolality__max_72h": {
+      "mean": 301.5,
+      "std": 3.5
+    },
+    "Osmolality__std_72h": {
+      "mean": 2.1213203435596424,
+      "std": 1.0
+    },
+    "Osmolality__mean_24h": {
+      "mean": 298.0,
+      "std": 1.0
+    },
+    "Osmolality__min_24h": {
+      "mean": 298.0,
+      "std": 1.0
+    },
+    "Osmolality__max_24h": {
+      "mean": 298.0,
+      "std": 1.0
+    },
+    "dx_chapter__congenital_malformations_deformations_and_chromosomal_abnormalities": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "dx_chapter__pregnancy_childbirth_and_the_puerperium": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "imaging__cr_miyun_left_24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "imaging__cr_miyun_left_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Oxyhemoglobin": {
+      "mean": 54.0,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__prev1": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__prev2": {
+      "mean": 93.1,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__prev3": {
+      "mean": 82.4,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__first_admission": {
+      "mean": 90.1,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__prior_count": {
+      "mean": 8.0,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__delta": {
+      "mean": -78.19999999999999,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__slope_per_day": {
+      "mean": -15.639999999999999,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__mean_24h": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__min_24h": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__max_24h": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__mean_72h": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__min_72h": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Oxyhemoglobin__max_72h": {
+      "mean": 14.9,
+      "std": 1.0
+    },
+    "Troponin_I_HS__latest": {
+      "mean": 58.650000000000006,
+      "std": 3.5500000000000007
+    },
+    "PLT": {
+      "mean": 3.0,
+      "std": 1.0
+    },
+    "PLT__prev1": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__first_admission": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "PLT__mean_24h": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__min_24h": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__max_24h": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__mean_72h": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__min_72h": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "PLT__max_72h": {
+      "mean": 379.0,
+      "std": 1.0
+    },
+    "Phosphorus": {
+      "mean": 2.0,
+      "std": 1.0
+    },
+    "Phosphorus__prev1": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Phosphorus__prev2": {
+      "mean": 1.9,
+      "std": 1.0
+    },
+    "Phosphorus__prev3": {
+      "mean": 3.7,
+      "std": 1.0
+    },
+    "Phosphorus__first_admission": {
+      "mean": 4.7,
+      "std": 1.0
+    },
+    "Phosphorus__prior_count": {
+      "mean": 6.0,
+      "std": 1.0
+    },
+    "Phosphorus__delta": {
+      "mean": -0.7,
+      "std": 1.0
+    },
+    "Phosphorus__slope_per_day": {
+      "mean": -0.7,
+      "std": 1.0
+    },
+    "Phosphorus__mean_24h": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Phosphorus__min_24h": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Phosphorus__max_24h": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Phosphorus__mean_72h": {
+      "mean": 2.2666666666666666,
+      "std": 1.0
+    },
+    "Phosphorus__min_72h": {
+      "mean": 1.2,
+      "std": 1.0
+    },
+    "Phosphorus__max_72h": {
+      "mean": 3.7,
+      "std": 1.0
+    },
+    "Phosphorus__std_72h": {
+      "mean": 1.2897028081435402,
+      "std": 1.0
+    },
+    "Potassium": {
+      "mean": 3.5,
+      "std": 1.0
+    },
+    "Potassium__prev1": {
+      "mean": 4.0,
+      "std": 1.0
+    },
+    "Potassium__prev2": {
+      "mean": 4.4,
+      "std": 1.0
+    },
+    "Potassium__prev3": {
+      "mean": 3.8,
+      "std": 1.0
+    },
+    "Potassium__first_admission": {
+      "mean": 4.1,
+      "std": 1.0
+    },
+    "Potassium__prior_count": {
+      "mean": 31.0,
+      "std": 1.0
+    },
+    "Potassium__delta": {
+      "mean": -0.40000000000000036,
+      "std": 1.0
+    },
+    "Potassium__slope_per_day": {
+      "mean": -0.40000000000000036,
+      "std": 1.0
+    },
+    "Potassium__mean_72h": {
+      "mean": 4.066666666666666,
+      "std": 1.0
+    },
+    "Potassium__min_72h": {
+      "mean": 3.8,
+      "std": 1.0
+    },
+    "Potassium__max_72h": {
+      "mean": 4.4,
+      "std": 1.0
+    },
+    "Potassium__std_72h": {
+      "mean": 0.3055050463303896,
+      "std": 1.0
+    },
+    "RDW": {
+      "mean": 21.47,
+      "std": 5.78
+    },
+    "RDW__prev1": {
+      "mean": 20.875,
+      "std": 5.7749999999999995
+    },
+    "RDW__prev2": {
+      "mean": 21.18,
+      "std": 5.830000000000001
+    },
+    "RDW__prev3": {
+      "mean": 21.575,
+      "std": 5.914999999999999
+    },
+    "RDW__first_admission": {
+      "mean": 22.835,
+      "std": 8.445
+    },
+    "RDW__prior_count": {
+      "mean": 10.0,
+      "std": 1.0
+    },
+    "RDW__delta": {
+      "mean": -0.3050000000000015,
+      "std": 0.05500000000000149
+    },
+    "RDW__slope_per_day": {
+      "mean": -0.3050000000000015,
+      "std": 0.05500000000000149
+    },
+    "RDW__mean_24h": {
+      "mean": 20.875,
+      "std": 5.7749999999999995
+    },
+    "RDW__min_24h": {
+      "mean": 20.875,
+      "std": 5.7749999999999995
+    },
+    "RDW__max_24h": {
+      "mean": 20.875,
+      "std": 5.7749999999999995
+    },
+    "RDW__mean_72h": {
+      "mean": 21.099999999999998,
+      "std": 5.7299999999999995
+    },
+    "RDW__min_72h": {
+      "mean": 20.875,
+      "std": 5.7749999999999995
+    },
+    "RDW__max_72h": {
+      "mean": 21.335,
+      "std": 5.675000000000001
+    },
+    "RDW__std_72h": {
+      "mean": 0.2675468220046351,
+      "std": 0.01298838077747591
+    },
+    "imaging__iu22_room4_24h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "imaging__iu22_room4_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Sodium": {
+      "mean": 144.0,
+      "std": 1.0
+    },
+    "Sodium__prev1": {
+      "mean": 142.0,
+      "std": 1.0
+    },
+    "Sodium__first_admission": {
+      "mean": 142.0,
+      "std": 1.0
+    },
+    "Sodium__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Sodium__mean_72h": {
+      "mean": 142.0,
+      "std": 1.0
+    },
+    "Sodium__min_72h": {
+      "mean": 142.0,
+      "std": 1.0
+    },
+    "Sodium__max_72h": {
+      "mean": 142.0,
+      "std": 1.0
+    },
+    "Urobilinogen__latest": {
+      "mean": 17.0,
+      "std": 1.0
+    },
+    "dx_chapter__certain_infectious_and_parasitic_diseases_diseases_of_the_genitourinary_system": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Urea": {
+      "mean": 46.25,
+      "std": 9.256754290786809
+    },
+    "Urea__prev1": {
+      "mean": 47.25,
+      "std": 7.980444849756184
+    },
+    "Urea__first_admission": {
+      "mean": 49.75,
+      "std": 11.882234638316145
+    },
+    "Urea__prior_count": {
+      "mean": 10.75,
+      "std": 5.931905258852336
+    },
+    "Urea__mean_24h": {
+      "mean": 49.333333333333336,
+      "std": 8.219218670625303
+    },
+    "Urea__min_24h": {
+      "mean": 49.333333333333336,
+      "std": 8.219218670625303
+    },
+    "Urea__max_24h": {
+      "mean": 49.333333333333336,
+      "std": 8.219218670625303
+    },
+    "Urea__mean_72h": {
+      "mean": 47.208333333333336,
+      "std": 7.602425599767486
+    },
+    "Urea__min_72h": {
+      "mean": 46.25,
+      "std": 6.417748826496718
+    },
+    "Urea__max_72h": {
+      "mean": 48.0,
+      "std": 8.573214099741124
+    },
+    "dx_chapter__diseases_of_the_nervous_system_endocrine_nutritional_and_metabolic_diseases_neoplasms": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "Urea__prev2": {
+      "mean": 46.333333333333336,
+      "std": 11.2644968324772
+    },
+    "Urea__prev3": {
+      "mean": 43.666666666666664,
+      "std": 8.806563209081938
+    },
+    "Urea__delta": {
+      "mean": 0.6666666666666666,
+      "std": 3.0912061651652345
+    },
+    "Urea__slope_per_day": {
+      "mean": 0.0,
+      "std": 1.8708286933869707
+    },
+    "Urea__std_72h": {
+      "mean": 1.8810786222452205,
+      "std": 1.173971841058673
+    },
+    "pCO2": {
+      "mean": 41.4,
+      "std": 1.0
+    },
+    "pCO2__prev1": {
+      "mean": 52.9,
+      "std": 1.0
+    },
+    "pCO2__first_admission": {
+      "mean": 52.9,
+      "std": 1.0
+    },
+    "pCO2__prior_count": {
+      "mean": 1.0,
+      "std": 1.0
+    },
+    "pH": {
+      "mean": 7.452500000000001,
+      "std": 0.00550000000000006
+    },
+    "pH__prev1": {
+      "mean": 7.385,
+      "std": 0.05900000000000016
+    },
+    "pH__prev2": {
+      "mean": 7.4115,
+      "std": 0.00550000000000006
+    },
+    "pH__prev3": {
+      "mean": 7.4215,
+      "std": 0.024499999999999744
+    },
+    "pH__first_admission": {
+      "mean": 7.313,
+      "std": 1.0
+    },
+    "pH__prior_count": {
+      "mean": 136.5,
+      "std": 11.5
+    },
+    "pH__delta": {
+      "mean": -0.026499999999999968,
+      "std": 0.0535000000000001
+    },
+    "pH__slope_per_day": {
+      "mean": -635999.9999999993,
+      "std": 1284000.0000000026
+    },
+    "pH__mean_24h": {
+      "mean": 7.406000000000001,
+      "std": 0.029666666666666064
+    },
+    "pH__min_24h": {
+      "mean": 7.371499999999999,
+      "std": 0.045500000000000096
+    },
+    "pH__max_24h": {
+      "mean": 7.426,
+      "std": 0.020000000000000018
+    },
+    "pH__std_24h": {
+      "mean": 0.030009157774276547,
+      "std": 0.013812450289934749
+    },
+    "pH__mean_72h": {
+      "mean": 7.406000000000001,
+      "std": 0.029666666666666064
+    },
+    "pH__min_72h": {
+      "mean": 7.371499999999999,
+      "std": 0.045500000000000096
+    },
+    "pH__max_72h": {
+      "mean": 7.426,
+      "std": 0.020000000000000018
+    },
+    "pH__std_72h": {
+      "mean": 0.030009157774276547,
+      "std": 0.013812450289934749
+    },
+    "pO2": {
+      "mean": 46.2,
+      "std": 1.0
+    },
+    "pO2__prev1": {
+      "mean": 30.0,
+      "std": 1.0
+    },
+    "pO2__prev2": {
+      "mean": 62.8,
+      "std": 1.0
+    },
+    "pO2__prev3": {
+      "mean": 80.8,
+      "std": 1.0
+    },
+    "pO2__first_admission": {
+      "mean": 68.8,
+      "std": 1.0
+    },
+    "pO2__prior_count": {
+      "mean": 33.0,
+      "std": 1.0
+    },
+    "pO2__delta": {
+      "mean": -32.8,
+      "std": 1.0
+    },
+    "pO2__slope_per_day": {
+      "mean": -32.8,
+      "std": 1.0
+    },
+    "pO2__mean_24h": {
+      "mean": 30.0,
+      "std": 1.0
+    },
+    "pO2__min_24h": {
+      "mean": 30.0,
+      "std": 1.0
+    },
+    "pO2__max_24h": {
+      "mean": 30.0,
+      "std": 1.0
+    },
+    "pO2__mean_72h": {
+      "mean": 57.86666666666667,
+      "std": 1.0
+    },
+    "pO2__min_72h": {
+      "mean": 30.0,
+      "std": 1.0
+    },
+    "pO2__max_72h": {
+      "mean": 80.8,
+      "std": 1.0
+    },
+    "pO2__std_72h": {
+      "mean": 25.75681139685837,
+      "std": 1.0
+    },
+    "imaging__iu22_room3_72h": {
+      "mean": 1.0,
+      "std": 1.0
+    }
+  },
+  "sigma_by_lab": {
+    "Albumin": 0.5691870581836387,
+    "Bilirubin_total": 0.8925384044647217,
+    "Creatinine": 0.18234923835554248,
+    "Globulin": 0.7731227099895477,
+    "HGB": 4.133660582304001,
+    "Lympho_abs": 0.04281431913375844,
+    "PLT": 247.13450434803963,
+    "Phosphorus": 0.044587004184722945,
+    "Sodium": 4.974673725664616,
+    "pCO2": 2.415034592151642,
+    "pH": 0.008057155287824358
+  },
+  "calibrated_labs": [],
+  "thresholds": [
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    0.95,
+    0.99
+  ],
+  "global_confusion_at_050": {
+    "TP_keep_unstable": 1,
+    "FN_cancel_unstable": 0,
+    "FP_keep_stable": 13,
+    "TN_cancel_stable": 6,
+    "Total": 20,
+    "Saved%": 30.0,
+    "FN_among_unstable%": 0.0,
+    "FN_among_cancelled%": 0.0
+  },
+  "feature_mode": "expanded_order_time"
+}

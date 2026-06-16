@@ -1,0 +1,468 @@
+{
+  "id": "507411",
+  "name": "Richard Hayes",
+  "mrn": "507411",
+  "age": 71,
+  "sex": "M",
+  "scenario": "Real-derived admission · 45 labs · panels: BG_chem, BG_gas, CBC",
+  "labs": {
+    "ALT": {
+      "features": {
+        "prev1_ALT": 46.0,
+        "first_in_adm_ALT": 30.0,
+        "age": 70.9,
+        "days_since_last_ALT": 3.0
+      },
+      "prev1": 46.0,
+      "actual_next": 49.0
+    },
+    "AST": {
+      "features": {
+        "prev1_AST": 106.0,
+        "first_in_adm_LDH": 430.0,
+        "age": 70.9,
+        "first_in_adm_AST": 54.0,
+        "days_since_last_AST": 3.0
+      },
+      "prev1": 106.0,
+      "actual_next": 190.0
+    },
+    "Albumin": {
+      "features": {
+        "first_in_adm_Albumin": 3.7,
+        "prev1_Albumin": 1.6,
+        "test_number_in_admission": 50.0,
+        "days_since_last_Albumin": 3.0
+      },
+      "prev1": 1.6,
+      "actual_next": 1.7
+    },
+    "Alkaline_Phosphatase": {
+      "features": {
+        "first_in_adm_Alkaline_Phosphatase": 90.0,
+        "prev1_Alkaline_Phosphatase": 412.0,
+        "days_since_last_Alkaline_Phosphatase": 3.0
+      },
+      "prev1": 412.0,
+      "actual_next": 537.0
+    },
+    "Baso_abs": {
+      "features": {
+        "prev1_Baso_abs": 0.0,
+        "first_in_adm_Baso_abs": 0.01,
+        "first_in_adm_WBC": 3.81,
+        "prev1_NRBC_abs": 0.02,
+        "days_since_last_Baso_abs": 5.0
+      },
+      "prev1": 0.0,
+      "actual_next": 0.01
+    },
+    "Bilirubin_direct": {
+      "features": {
+        "first_in_adm_Bilirubin_direct": 1.39,
+        "prev1_Bilirubin_direct": 2.5,
+        "days_since_last_Bilirubin_direct": 3.0
+      },
+      "prev1": 2.5,
+      "actual_next": 2.07
+    },
+    "Bilirubin_neonatal": {
+      "features": {
+        "first_in_adm_pCO2": 40.2,
+        "admissionnumber": 2540539.0,
+        "first_in_adm_pO2": 51.3,
+        "prev1_Bilirubin_neonatal": 4.2,
+        "first_in_adm_Bilirubin_neonatal": 3.0,
+        "days_since_last_Bilirubin_neonatal": 4.0
+      },
+      "prev1": 4.2,
+      "actual_next": 3.1
+    },
+    "Bilirubin_total": {
+      "features": {
+        "first_in_adm_Bilirubin_total": 0.83,
+        "prev1_Bilirubin_total": 5.1,
+        "first_in_adm_Bilirubin_direct": 1.39,
+        "days_since_last_Bilirubin_total": 3.0
+      },
+      "prev1": 5.1,
+      "actual_next": 3.79
+    },
+    "CPK": {
+      "features": {
+        "prev1_CPK": 249.0,
+        "first_in_adm_CPK": 48.0,
+        "first_in_adm_AST": 54.0,
+        "first_in_adm_Sodium": 136.0,
+        "days_since_last_CPK": 3.0
+      },
+      "prev1": 249.0,
+      "actual_next": 370.0
+    },
+    "CRP": {
+      "features": {
+        "prev1_CRP": 100.8,
+        "first_in_adm_CRP": 184.74,
+        "days_since_last_Bilirubin_direct": 3.0,
+        "days_since_last_CRP": 3.0
+      },
+      "prev1": 100.8,
+      "actual_next": 150.84
+    },
+    "Calcium": {
+      "features": {
+        "first_in_adm_Calcium": 9.1,
+        "prev1_Calcium": 7.1,
+        "test_number_in_admission": 50.0,
+        "days_since_last_Calcium": 3.0
+      },
+      "prev1": 7.1,
+      "actual_next": 7.6
+    },
+    "Carboxyhemoglobin": {
+      "features": {
+        "first_in_adm_Carboxyhemoglobin": 1.2,
+        "age": 70.9,
+        "prev1_Carboxyhemoglobin": 1.5,
+        "days_since_last_Carboxyhemoglobin": 1.0
+      },
+      "prev1": 1.5,
+      "actual_next": 0.8
+    },
+    "Chloride": {
+      "features": {
+        "first_in_adm_Chloride": 104.0,
+        "prev1_Chloride": 100.0,
+        "days_since_last_Chloride": 3.0
+      },
+      "prev1": 100.0,
+      "actual_next": 103.0
+    },
+    "Creatinine": {
+      "features": {
+        "first_in_adm_Creatinine": 1.13,
+        "prev1_Creatinine": 0.87,
+        "days_since_last_Creatinine": 3.0
+      },
+      "prev1": 0.87,
+      "actual_next": 0.83
+    },
+    "Deoxyhemoglobin": {
+      "features": {
+        "first_in_adm_O2_saturation": 87.5,
+        "age": 70.9,
+        "first_in_adm_pCO2": 40.2,
+        "dbp": 64.0,
+        "first_in_adm_Carboxyhemoglobin": 1.2,
+        "prev1_Deoxyhemoglobin": 48.6,
+        "first_in_adm_Deoxyhemoglobin": 12.3,
+        "days_since_last_Deoxyhemoglobin": 1.0
+      },
+      "prev1": 48.6,
+      "actual_next": 41.7
+    },
+    "Eos_abs": {
+      "features": {
+        "first_in_adm_Eos_abs": 0.0,
+        "test_number_overall": 51.0,
+        "prev1_HCT": 26.9,
+        "prev1_Eos_abs": 0.0,
+        "days_since_last_Eos_abs": 5.0
+      },
+      "prev1": 0.0,
+      "actual_next": 0.0
+    },
+    "Ferritin": {
+      "features": {
+        "first_in_adm_Ferritin": 8407.1,
+        "prev1_Ferritin": 8407.1,
+        "days_since_last_Ferritin": 3.0
+      },
+      "prev1": 8407.1,
+      "actual_next": 22248.9
+    },
+    "Globulin": {
+      "features": {
+        "first_in_adm_Globulin": 2.8,
+        "prev1_Globulin": 1.1,
+        "days_since_last_Globulin": 3.0
+      },
+      "prev1": 1.1,
+      "actual_next": 1.1
+    },
+    "Glucose": {
+      "features": {
+        "first_in_adm_Glucose": 148.0,
+        "prev1_Glucose": 400.0,
+        "days_since_last_Glucose": 3.0
+      },
+      "prev1": 400.0,
+      "actual_next": 226.0
+    },
+    "HCT": {
+      "features": {
+        "first_in_adm_HCT": 37.44,
+        "prev1_HCT": 26.9,
+        "test_number_in_admission": 51.0,
+        "first_in_adm_Reticulo_abs": 65.4,
+        "days_since_last_HCT": 11.0
+      },
+      "prev1": 26.9,
+      "actual_next": 17.76
+    },
+    "HGB": {
+      "features": {
+        "first_in_adm_HGB": 13.12,
+        "prev1_HCT": 26.9,
+        "first_in_adm_Reticulo_abs": 65.4,
+        "test_number_overall": 51.0,
+        "prev1_HGB": 6.77,
+        "days_since_last_HGB": 5.0
+      },
+      "prev1": 6.77,
+      "actual_next": 6.38
+    },
+    "LDH": {
+      "features": {
+        "prev1_LDH": 1111.0,
+        "first_in_adm_LDH": 430.0,
+        "days_since_last_GGT": 50.0,
+        "days_since_last_LDH": 3.0
+      },
+      "prev1": 1111.0,
+      "actual_next": 1358.0
+    },
+    "Lympho_abs": {
+      "features": {
+        "first_in_adm_WBC": 3.81,
+        "num_high_risk_drugs": 4.0,
+        "prev1_Lympho_abs": 0.16,
+        "first_in_adm_Lympho_abs": 0.62,
+        "days_since_last_Lympho_abs": 5.0
+      },
+      "prev1": 0.16,
+      "actual_next": 0.31
+    },
+    "MCV": {
+      "features": {
+        "first_in_adm_MCV": 109.01,
+        "prev1_MCV": 100.48,
+        "days_since_last_MCV": 11.0
+      },
+      "prev1": 100.48,
+      "actual_next": 89.02
+    },
+    "MPV": {
+      "features": {
+        "first_in_adm_MPV": 9.03,
+        "prev1_MPV": 11.07,
+        "days_since_last_MPV": 5.0
+      },
+      "prev1": 11.07,
+      "actual_next": 9.9
+    },
+    "Magnesium": {
+      "features": {
+        "prev1_Magnesium": 1.7,
+        "first_in_adm_Magnesium": 2.1,
+        "days_since_last_Magnesium": 7.0
+      },
+      "prev1": 1.7,
+      "actual_next": 2.1
+    },
+    "Mono_abs": {
+      "features": {
+        "prev1_Mono_abs": 0.09,
+        "first_in_adm_Mono_abs": 0.82,
+        "prev1_MCV": 100.48,
+        "prev1_HGB": 6.77,
+        "days_since_last_Mono_abs": 5.0
+      },
+      "prev1": 0.09,
+      "actual_next": 0.16
+    },
+    "NRBC_abs": {
+      "features": {
+        "prev1_NRBC_abs": 0.02,
+        "first_in_adm_RBC": 3.43,
+        "pulse": 89.0,
+        "first_in_adm_NRBC_abs": 0.0,
+        "days_since_last_NRBC_abs": 5.0
+      },
+      "prev1": 0.02,
+      "actual_next": 0.03
+    },
+    "Neutro_abs": {
+      "features": {
+        "prev1_Neutro_abs": 2.7,
+        "first_in_adm_Neutro_abs": 2.36,
+        "test_number_overall": 51.0,
+        "days_since_last_Neutro_abs": 5.0
+      },
+      "prev1": 2.7,
+      "actual_next": 3.16
+    },
+    "O2_saturation": {
+      "features": {
+        "first_in_adm_O2_saturation": 87.5,
+        "prev1_O2_saturation": 50.5,
+        "dbp": 64.0,
+        "days_in_admission": 47.0,
+        "prev1_Deoxyhemoglobin": 48.6,
+        "days_since_last_O2_saturation": 1.0
+      },
+      "prev1": 50.5,
+      "actual_next": 57.8
+    },
+    "Osmolality": {
+      "features": {
+        "first_in_adm_Osmolality": 290.0,
+        "prev1_Osmolality": 304.0,
+        "days_since_last_Osmolality": 9.0
+      },
+      "prev1": 304.0,
+      "actual_next": 322.0
+    },
+    "Oxyhemoglobin": {
+      "features": {
+        "first_in_adm_O2_saturation": 87.5,
+        "prev1_Oxyhemoglobin": 49.6,
+        "prev1_Lactate": 20.0,
+        "dbp": 64.0,
+        "days_since_last_Carboxyhemoglobin": 1.0,
+        "age": 70.9,
+        "first_in_adm_Oxyhemoglobin": 78.1,
+        "days_since_last_Oxyhemoglobin": 1.0
+      },
+      "prev1": 49.6,
+      "actual_next": 57.2
+    },
+    "PLT": {
+      "features": {
+        "first_in_adm_PLT": 122.0,
+        "prev1_PLT": 8.0,
+        "days_since_last_PLT": 5.0
+      },
+      "prev1": 8.0,
+      "actual_next": 7.0
+    },
+    "Phosphorus": {
+      "features": {
+        "prev1_Phosphorus": 4.0,
+        "first_in_adm_Phosphorus": 2.8,
+        "first_in_adm_Creatinine": 1.13,
+        "days_since_last_Phosphorus": 3.0
+      },
+      "prev1": 4.0,
+      "actual_next": 4.8
+    },
+    "Potassium": {
+      "features": {
+        "prev1_Potassium": 4.5,
+        "first_in_adm_Potassium": 5.5,
+        "days_since_last_Potassium": 3.0
+      },
+      "prev1": 4.5,
+      "actual_next": 4.1
+    },
+    "Protein_total": {
+      "features": {
+        "first_in_adm_Protein_total": 6.6,
+        "prev1_Protein_total": 3.3,
+        "test_number_in_admission": 43.0,
+        "days_since_last_Protein_total": 2.0
+      },
+      "prev1": 3.3,
+      "actual_next": 3.0
+    },
+    "RBC": {
+      "features": {
+        "first_in_adm_RBC": 3.43,
+        "prev1_RBC": 1.81,
+        "days_since_last_RBC": 5.0
+      },
+      "prev1": 1.81,
+      "actual_next": 2.0
+    },
+    "RDW": {
+      "features": {
+        "first_in_adm_RDW": 14.44,
+        "prev1_RDW": 29.17,
+        "days_since_last_RDW": 5.0
+      },
+      "prev1": 29.17,
+      "actual_next": 16.64
+    },
+    "Reticulo_abs": {
+      "features": {
+        "first_in_adm_Reticulo_abs": 65.4,
+        "prev1_Reticulo_abs": 36.75,
+        "days_since_last_Reticulo_abs": 5.0
+      },
+      "prev1": 36.75,
+      "actual_next": 41.74
+    },
+    "Sodium": {
+      "features": {
+        "prev1_Sodium": 135.0,
+        "first_in_adm_Sodium": 136.0,
+        "days_since_last_Sodium": 3.0
+      },
+      "prev1": 135.0,
+      "actual_next": 142.0
+    },
+    "Urea": {
+      "features": {
+        "first_in_adm_Urea": 49.0,
+        "prev1_Urea": 127.0,
+        "days_since_last_Urea": 3.0
+      },
+      "prev1": 127.0,
+      "actual_next": 154.0
+    },
+    "Uric_acid": {
+      "features": {
+        "first_in_adm_Uric_acid": 5.8,
+        "prev1_Uric_acid": 3.6,
+        "days_since_last_Uric_acid": 3.0
+      },
+      "prev1": 3.6,
+      "actual_next": 3.7
+    },
+    "WBC": {
+      "features": {
+        "first_in_adm_WBC": 3.81,
+        "prev1_WBC": 2.96,
+        "pulse": 89.0,
+        "days_since_last_WBC": 5.0
+      },
+      "prev1": 2.96,
+      "actual_next": 3.64
+    },
+    "pCO2": {
+      "features": {
+        "first_in_adm_pCO2": 40.2,
+        "first_in_adm_pO2": 51.3,
+        "prev1_pCO2": 49.2,
+        "storation": 100.0,
+        "days_since_last_pCO2": 1.0
+      },
+      "prev1": 49.2,
+      "actual_next": 47.3
+    },
+    "pO2": {
+      "features": {
+        "first_in_adm_pCO2": 40.2,
+        "first_in_adm_O2_saturation": 87.5,
+        "age": 70.9,
+        "bg_num_background_diagnoses": 113.0,
+        "prev1_pO2": 30.1,
+        "first_in_adm_Oxyhemoglobin": 78.1,
+        "first_in_adm_pO2": 51.3,
+        "days_since_last_pO2": 1.0
+      },
+      "prev1": 30.1,
+      "actual_next": 33.2
+    }
+  }
+}

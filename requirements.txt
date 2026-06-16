@@ -1,0 +1,17 @@
+# Sheba Lab-Value Prediction — backend dependencies
+# Already present in the target Python 3.11 env: ngboost, scikit-learn, scipy,
+# numpy, pandas, joblib, pydantic. Only the items below are new.
+fastapi>=0.110
+uvicorn[standard]>=0.29
+
+# PyTorch (CPU-only build - sufficient for inference):
+# pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch
+
+# Pinned-by-presence (do not need install, listed for portability):
+ngboost
+scikit-learn
+scipy
+numpy
+pandas
+joblib
