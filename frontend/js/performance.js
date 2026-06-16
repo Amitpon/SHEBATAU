@@ -685,9 +685,10 @@ function _renderInsufficient() {
 
 // ── Per-lab detail ─────────────────────────────────────────────────────────────
 async function _getLabPerf(lab) {
-  if (_perfCache[lab]) return _perfCache[lab];
+  const cacheKey = `${lab}:${_activeModel}`;
+  if (_perfCache[cacheKey]) return _perfCache[cacheKey];
   const data = await getJSON(`/api/lab/${encodeURIComponent(lab)}/performance?model=${_activeModel}`);
-  _perfCache[lab] = data;
+  _perfCache[cacheKey] = data;
   return data;
 }
 

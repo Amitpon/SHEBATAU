@@ -1698,19 +1698,26 @@ function _doRenderResults(sortKey, state) {
   });
 
   // C) Summary counts
+  // For labs inside a multi-lab tube, use the tube's JOINT decision (from profile result)
+  // instead of the individual lab decision, so the banner agrees with what the card shows.
+  const _labJointDecision = {};
+  _wizState.tubes.forEach((tube) => {
+    if (tube.labs.length <= 1) return;
+    const pr = _getProfileResult(tube.id);
+    if (pr && !pr.error && pr.available !== false && pr.decision) {
+      tube.labs.forEach((lab) => { _labJointDecision[lab] = pr.decision; });
+    }
+  });
+  const _effectiveDecision = (lab) => {
+    if (_labJointDecision[lab]) return _labJointDecision[lab];
+    const r = _getResult(lab);
+    return (r && !r.error) ? r.decision : null;
+  };
+
   const totalCount  = _wizState.selectedLabs.length;
-  const repeatCount = _wizState.selectedLabs.filter((l) => {
-    const r = _getResult(l);
-    return r && !r.error && r.decision === 'repeat';
-  }).length;
-  const skipCount   = _wizState.selectedLabs.filter((l) => {
-    const r = _getResult(l);
-    return r && !r.error && r.decision === 'skip';
-  }).length;
-  const errorCount  = _wizState.selectedLabs.filter((l) => {
-    const r = _getResult(l);
-    return !r || r.error;
-  }).length;
+  const repeatCount = _wizState.selectedLabs.filter((l) => _effectiveDecision(l) === 'repeat').length;
+  const skipCount   = _wizState.selectedLabs.filter((l) => _effectiveDecision(l) === 'skip').length;
+  const errorCount  = _wizState.selectedLabs.filter((l) => !_effectiveDecision(l)).length;
   const savingsPct  = totalCount > 0 ? Math.round((skipCount / totalCount) * 100) : 0;
 
   const step5Summary = document.getElementById('step5Summary');
