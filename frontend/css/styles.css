@@ -966,6 +966,123 @@ input[type="range"] { accent-color: var(--navy); flex: 1; min-width: 100px; max-
 .badge.unstable { background: var(--red); color: #fff; }
 
 /* ================================================================
+   CLINICAL MODE
+================================================================ */
+.result-card-compact.clinical-compact {
+  grid-template-columns: 140px 110px 80px 1fr 30px;
+}
+.clinical-calib-note {
+  font-size: 10px; color: var(--red); font-weight: 600;
+  margin-top: 2px; line-height: 1.3;
+}
+.clinical-calib-warning {
+  background: var(--red-bg); color: var(--red);
+  border: 1px solid currentColor; border-radius: var(--radius-sm);
+  padding: var(--sp-2) var(--sp-3); font-size: 12px; font-weight: 600;
+  margin-bottom: var(--sp-3);
+}
+.clinical-detail { padding: var(--sp-3) var(--sp-4); }
+
+/* Settings: display mode radio group */
+.settings-radio-group { display: flex; flex-direction: column; gap: var(--sp-2); }
+.settings-radio-label {
+  display: flex; align-items: flex-start; gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--radius-sm);
+  border: 1px solid var(--line); cursor: pointer; transition: border-color .15s;
+}
+.settings-radio-label:has(input:checked) { border-color: var(--navy); background: var(--navy-xlight); }
+.settings-radio-label input[type="radio"] { margin-top: 3px; }
+.settings-radio-meta { display: flex; flex-direction: column; }
+.settings-radio-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+.settings-radio-recommended {
+  font-size: 10px; font-weight: 700; color: var(--green);
+  background: var(--green-bg); padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+}
+.settings-radio-desc { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.settings-threshold-row {
+  display: flex; align-items: center; gap: var(--sp-2);
+  margin-top: var(--sp-3); padding: var(--sp-2) var(--sp-3);
+  background: var(--surface); border-radius: var(--radius-sm);
+}
+.settings-threshold-row label { font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.settings-threshold-row input[type="range"] { flex: 1; }
+.settings-threshold-row .thr-val { font-size: 13px; font-weight: 700; color: var(--navy); min-width: 28px; text-align: center; }
+.settings-threshold-row input[type="number"] {
+  width: 56px; text-align: center; font-size: 13px; font-weight: 700; color: var(--navy);
+  border: 1px solid var(--line); border-radius: 4px; padding: 2px 4px; margin-left: auto;
+}
+.settings-clin-bands-group { padding: var(--sp-2) var(--sp-3); background: var(--surface); border-radius: var(--radius-sm); }
+.settings-clin-bands-group .settings-threshold-row { background: transparent; padding: 2px 0; margin-top: 4px; }
+
+/* Clinical-mode tier note (under value / probability) */
+.clinical-tier-note { font-size: 10px; font-weight: 600; line-height: 1.3; }
+.clinical-tier-note.tier-high { color: var(--green); }
+.clinical-tier-note.tier-good { color: #65a30d; }
+.clinical-tier-note.tier-ok   { color: #d97706; }
+.clinical-tier-note.tier-poor { color: var(--red); }
+.clinical-tier-block {
+  border-radius: var(--radius-sm); padding: var(--sp-2) var(--sp-3);
+  font-size: 12px; font-weight: 600; margin-bottom: var(--sp-2);
+}
+.clinical-tier-block.tier-high { background: var(--green-bg); color: var(--green); }
+.clinical-tier-block.tier-good { background: #ecfccb; color: #65a30d; }
+.clinical-tier-block.tier-ok   { background: var(--yellow-bg); color: #d97706; }
+.clinical-tier-block.tier-poor { background: var(--red-bg); color: var(--red); }
+
+/* Clinical mode: model-disagreement flag - deliberately a DIFFERENT color/icon than the
+   "poor reliability" warning triangle below, so doctors don't conflate "model is unsure"
+   (amber triangle) with "the two models disagree" (indigo balance icon) - they call for
+   different responses. */
+.clinical-disagree-note {
+  font-size: 11px; font-weight: 600; color: #4f46e5; background: #eef2ff;
+  padding: 4px var(--sp-3); border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 5px;
+}
+.clinical-disagree-flag { color: #4f46e5; margin-left: 4px; font-size: 11px; }
+.clinical-disagree-icon { font-size: 12px; }
+
+/* Clinical mode: 3-state reliability icon (item 1+2) - color is never the only signal,
+   every icon ships with a short text label next to it. high/good -> filled circle,
+   ok -> half-filled circle, poor -> outlined triangle (the one icon that should make a
+   doctor pause). Kept to 3 visual states so the badge isn't read as "4 shades of grey". */
+.clinical-tier-icon { font-size: 12px; margin-right: 3px; display: inline-block; }
+.clinical-tier-icon.ctv-full { color: var(--green); }
+.clinical-tier-icon.ctv-half { color: #d97706; }
+.clinical-tier-icon.ctv-low  { color: var(--red); }
+
+/* Clinical mode: compact value/range marker shown in the COLLAPSED card row, so a doctor
+   can see "previous vs predicted range" without opening the card. The full bell curve
+   stays in the expanded detail. */
+.clinical-mini-marker { display: inline-flex; align-items: center; gap: 4px; }
+.clinical-mini-marker svg { width: 64px; height: 16px; vertical-align: middle; }
+
+/* Clinical mode: mini-sparkline of the lab's own recent history, shown next to the
+   predicted value in the collapsed card (trend at a glance, no need to open the card). */
+.clinical-sparkline { width: 44px; height: 16px; vertical-align: middle; margin-left: 4px; }
+
+/* Clinical mode: panel/tube-level rollup chip ("3 of 18 flagged") so a doctor scanning a
+   CBC panel doesn't have to expand all 18 member rows to know if anything needs attention. */
+.clinical-panel-chip {
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 999px; margin-left: var(--sp-2);
+}
+.clinical-panel-chip.chip-clear { background: var(--green-bg); color: var(--green); }
+.clinical-panel-chip.chip-flag  { background: var(--yellow-bg); color: #d97706; }
+
+/* Clinical mode: predicted-value distribution graph (prev vs predicted + 95% range) */
+.clinical-graph-block {
+  display: flex; align-items: center; gap: var(--sp-4);
+  margin: var(--sp-2) 0 var(--sp-3); padding: var(--sp-2) var(--sp-3);
+  background: var(--surface); border-radius: var(--radius-sm);
+}
+.clinical-graph-block svg { width: 200px; height: 110px; flex-shrink: 0; }
+.clinical-graph-legend { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--ink-2); }
+.cgl-item { display: flex; align-items: center; gap: 6px; }
+.cgl-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+.cgl-dot.cgl-prev { background: #d97706; }
+.cgl-dot.cgl-pred { background: #232a86; }
+
+/* ================================================================
    MODAL OVERLAY
 ================================================================ */
 .modal-overlay {

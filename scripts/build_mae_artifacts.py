@@ -33,13 +33,13 @@ from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).resolve().parents[1]          # Modeling/demo
 PROJECT = ROOT.parents[1]                           # project
-SRC_MODELS = PROJECT / "Modeling" / "MAE" / "models"
+SRC_MODELS = PROJECT / "Modeling" / "MAE" / "models_clean_minimal_32"
 DEST_MODELS = ROOT / "models" / "MAE"
 DEST_PKL = DEST_MODELS / "pkl"
 DEST_CALIB = ROOT / "calibration" / "mae"
 DEST_PNG = DEST_MODELS / "png"
 
-DEFAULT_THRESHOLDS = (0.50, 0.625, 0.75, 0.85, 0.875, 0.99)
+DEFAULT_THRESHOLDS = (0.80, 0.85, 0.90, 0.95)
 
 
 def _tag(threshold: float) -> str:
@@ -361,11 +361,14 @@ def _summary_pngs(enriched: pd.DataFrame, thresholds_df: pd.DataFrame) -> None:
 
 
 def main() -> None:
+    global SRC_MODELS
     parser = argparse.ArgumentParser(description="Build missing MAE demo artifacts.")
+    parser.add_argument("--src-models", type=Path, default=SRC_MODELS)
     parser.add_argument("--base-threshold", type=float, default=0.85)
     parser.add_argument("--thresholds", type=float, nargs="*", default=list(DEFAULT_THRESHOLDS))
     args = parser.parse_args()
 
+    SRC_MODELS = args.src_models.resolve()
     thresholds = tuple(float(x) for x in args.thresholds)
     _copy_core_artifacts()
     pred = _load_predictions(args.base_threshold)

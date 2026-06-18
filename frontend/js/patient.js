@@ -1662,6 +1662,34 @@ function _doRenderResults(sortKey, state) {
   // Sort
   cards.sort((a, b) => {
     if (sortKey === 'urgency') {
+      // Clinical mode: sort by clinical urgency category, not raw probability - REPEAT
+      // with high confidence first (needs the draw, and we're sure), then REPEAT with
+      // low confidence, then SKIP with low confidence (worth a second look), then SKIP
+      // with high confidence last (least attention needed).
+      if (isClinicalMode()) {
+        const rankOf = (card) => {
+          if (card.type === 'single') {
+            const { ng, mae } = _resultModelsFor(card.lab);
+            const pick = clinicalPickResult(ng, mae);
+            if (!pick.r) return 1.5;
+            const rel = pick.r.reliability || {};
+            const calibTier = clinicalCalibTier(rel.calibration_score);
+            const dec = calibTier.forceRepeat ? 'repeat' : pick.r.decision;
+            return clinicalUrgencyRank(dec, calibTier.key);
+          }
+          const ranks = card.tube.labs.map((l) => {
+            const { ng, mae } = _resultModelsFor(l);
+            const pick = clinicalPickResult(ng, mae);
+            if (!pick.r) return 1.5;
+            const rel = pick.r.reliability || {};
+            const calibTier = clinicalCalibTier(rel.calibration_score);
+            const dec = calibTier.forceRepeat ? 'repeat' : pick.r.decision;
+            return clinicalUrgencyRank(dec, calibTier.key);
+          });
+          return Math.min(...ranks);
+        };
+        return rankOf(a) - rankOf(b);
+      }
       return _pUnstableForCard(b) - _pUnstableForCard(a);
     }
     if (sortKey === 'confidence') {
@@ -1709,6 +1737,16 @@ function _doRenderResults(sortKey, state) {
     }
   });
   const _effectiveDecision = (lab) => {
+    if (isClinicalMode()) {
+      const { ng, mae } = _resultModelsFor(lab);
+      const pick = clinicalPickResult(ng, mae);
+      if (pick.r) {
+        const rel = pick.r.reliability || {};
+        if (clinicalCalibTier(rel.calibration_score).forceRepeat) return 'repeat';
+        if (_labJointDecision[lab]) return _labJointDecision[lab];
+        return pick.r.decision;
+      }
+    }
     if (_labJointDecision[lab]) return _labJointDecision[lab];
     const r = _getResult(lab);
     return (r && !r.error) ? r.decision : null;
@@ -1723,7 +1761,19 @@ function _doRenderResults(sortKey, state) {
   const step5Summary = document.getElementById('step5Summary');
   if (step5Summary) step5Summary.textContent = `${repeatCount} REPEAT, ${skipCount} skip`;
 
-  const summaryBanner = totalCount > 0 ? `
+  const summaryBanner = totalCount > 0 ? (isClinicalMode() ? `
+    <div class="results-summary-banner">
+      <div class="rsb-item rsb-repeat">
+        <span class="rsb-num">${repeatCount}</span>
+        <span class="rsb-lab">need repeating</span>
+      </div>
+      <div class="rsb-divider"></div>
+      <div class="rsb-item rsb-skip">
+        <span class="rsb-num">${skipCount}</span>
+        <span class="rsb-lab">can skip</span>
+      </div>
+      ${errorCount > 0 ? `<div class="rsb-divider"></div><div class="rsb-item rsb-error"><span class="rsb-num">${errorCount}</span><span class="rsb-lab">errors</span></div>` : ''}
+    </div>` : `
     <div class="results-summary-banner">
       <div class="rsb-item">
         <span class="rsb-num">${totalCount}</span>
@@ -1745,7 +1795,7 @@ function _doRenderResults(sortKey, state) {
         <span class="rsb-lab">fewer draws</span>
       </div>
       ${errorCount > 0 ? `<div class="rsb-divider"></div><div class="rsb-item rsb-error"><span class="rsb-num">${errorCount}</span><span class="rsb-lab">errors</span></div>` : ''}
-    </div>` : '';
+    </div>`) : '';
 
   // Render all cards into one flat list
   let html = '';
@@ -1762,6 +1812,13 @@ function _doRenderResults(sortKey, state) {
   // Bind accordion
   _bindResultAccordion(wrap, state);
 }
+
+// Re-render results when display mode changes
+document.addEventListener('displayModeChanged', () => {
+  if (_wizState && _wizState.step === 5 && _wizState.predictResults) {
+    _doRenderResults('urgency', _wizState);
+  }
+});
 
 // G) Single result card
 // Renders a compact secondary row showing the OTHER model's result under the primary card.
@@ -1814,18 +1871,76 @@ function _renderResultCard(lab, state) {
     </div>`;
   }
 
-  const dec       = r.decision === 'skip';
+  const q         = r.quant_step;
+  const clinical  = isClinicalMode();
+
+  if (clinical) {
+    // Single consistent model pick - same one the expanded detail will use, so
+    // the compact card and the opened detail never disagree on which model's
+    // numbers are shown.
+    const pick      = clinicalPickResult(ngR, maeR);
+    const cr         = pick.r || r;
+    const crel       = cr.reliability || {};
+    const vScore     = crel.value_score       != null ? crel.value_score       : null;
+    const cScore     = crel.calibration_score != null ? crel.calibration_score : null;
+    const valueTier  = clinicalValueTier(vScore);
+    const calibTier  = clinicalCalibTier(cScore);
+    const dec        = calibTier.forceRepeat ? false : (cr.decision === 'skip');
+    const pct        = (cr.p_stable * 100).toFixed(1) + '%';
+    const pColor     = dec ? 'var(--green)' : 'var(--red)';
+    const predicted  = _qfmt(cr.value != null ? cr.value : cr.mu, cr.quant_step);
+    const realBadge  = cr._realCase
+      ? '<span class="rc-real-badge real" title="Real patient inputs with a known next result - this tests the model">REAL</span>'
+      : '<span class="rc-real-badge manual" title="Values were entered or edited by hand - not a verified real case">MANUAL</span>';
+    const probHtml = calibTier.useProb
+      ? `<span class="rc-pstable" style="color:${pColor}">${pct}<br><span class="clinical-tier-note tier-${calibTier.key}">${clinicalTierIconHtml(calibTier.key)}${calibTier.label}</span></span>`
+      : `<span class="clinical-tier-note tier-${calibTier.key}" style="display:block">${clinicalTierIconHtml(calibTier.key)}${calibTier.label}</span>`;
+    const prevNum  = _finiteNumber(cr.prev1);
+    const predNum  = cr.value != null ? cr.value : cr.mu;
+    const firstNum = _finiteNumber(cr.inputs && cr.inputs['first_in_adm_' + lab]);
+    const miniMarker = valueTier.show && cr.ci95
+      ? renderMiniRangeSvg(prevNum, predNum, cr.ci95[0], cr.ci95[1])
+      : '';
+    const sparkline = valueTier.show
+      ? renderSparklineSvg(firstNum, prevNum, predNum)
+      : '';
+    const valueHtml = valueTier.show
+      ? `<span class="rc-predicted">${predicted}<br><span class="clinical-tier-note tier-${valueTier.key}">${clinicalTierIconHtml(valueTier.key)}${valueTier.label}</span>
+          <span class="clinical-mini-marker">${miniMarker}${sparkline}</span></span>`
+      : `<span class="clinical-tier-note tier-${valueTier.key}">${clinicalTierIconHtml(valueTier.key)}${valueTier.label}</span>`;
+    const disagreeNote = pick.disagree
+      ? `<div class="clinical-disagree-note"><span class="clinical-disagree-icon">&#9878;</span>The two models disagree - showing the safer recommendation</div>`
+      : '';
+    return `<div class="result-card" id="rcard_${_labId(lab)}" data-lab="${lab}" data-cardtype="single">
+      <div class="result-card-compact clinical-compact ${dec ? 'skip-row' : 'repeat-row'}">
+        <span class="rc-lab-name-wrap">${lab} ${realBadge}</span>
+        <span class="rc-decision-badge ${dec ? 'skip' : 'repeat'}">${dec ? '&#10003; SKIP' : '&#8635; REPEAT'}</span>
+        ${probHtml}
+        ${valueHtml}
+        <span class="rc-expand-icon">&#9660;</span>
+      </div>
+      ${disagreeNote}
+      <div class="result-card-detail" id="rdetail_${_labId(lab)}">
+        <div class="skeleton-card">
+          <div class="skeleton-line skeleton-lg"></div>
+          <div class="skeleton-line skeleton-md"></div>
+          <div class="skeleton-line skeleton-sm"></div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  const rel       = r.reliability || {};
+  const vScore    = rel.value_score       != null ? rel.value_score       : null;
+  const cScore    = rel.calibration_score != null ? rel.calibration_score : null;
+  const dec       = (r.decision === 'skip');
   const pct       = (r.p_stable * 100).toFixed(1) + '%';
   const pColor    = dec ? 'var(--green)' : 'var(--red)';
-  const q         = r.quant_step;
   const predicted = _qfmt(r.value != null ? r.value : r.mu, q);
   const ci        = r.ci95 ? `[${_qfmt(Math.max(r.ci95[0], 0), q)} - ${_qfmt(r.ci95[1], q)}]` : '';
   const realBadge = r._realCase
     ? '<span class="rc-real-badge real" title="Real patient inputs with a known next result - this tests the model">REAL</span>'
     : '<span class="rc-real-badge manual" title="Values were entered or edited by hand - not a verified real case">MANUAL</span>';
-  const rel       = r.reliability || {};
-  const vScore    = rel.value_score       != null ? rel.value_score       : null;
-  const cScore    = rel.calibration_score != null ? rel.calibration_score : null;
 
   const trustDotHtml = `<div class="rc-confidence">${_trustChips(vScore, cScore)}</div>`;
   // Secondary row only when the lab has a second model at all (covered or not).
@@ -1889,6 +2004,27 @@ function _tubeVerdict(tube) {
 }
 
 // G) Tube result card - shows the joint result for BOTH models (NGBoost first).
+// Panel/tube rollup (item 8): count how many member labs need a second look (forced
+// repeat due to poor calibration, poor value reliability, or a model disagreement) so a
+// doctor scanning a CBC panel doesn't have to expand all 18 rows to know if anything
+// needs attention.
+function _panelFlagCount(tube) {
+  let flagged = 0;
+  tube.labs.forEach((lab) => {
+    const { ng, mae } = _resultModelsFor(lab);
+    const pick = clinicalPickResult(ng, mae);
+    if (!pick.r) { flagged++; return; }
+    const rel = pick.r.reliability || {};
+    const calibTier = clinicalCalibTier(rel.calibration_score);
+    const valueTier = clinicalValueTier(rel.value_score);
+    // calibTier.forceRepeat is exactly calibTier.key === 'poor' - this is the case the
+    // doctor specifically asked about: a test forced to REPEAT only because calibration
+    // is too low to trust a skip call (the model itself may have said skip).
+    if (calibTier.forceRepeat || valueTier.key === 'poor' || pick.disagree) flagged++;
+  });
+  return { flagged, total: tube.labs.length };
+}
+
 function _renderTubeResultCard(tube, state) {
   // Primary = NGBoost joint if usable, else MAE (so a panel only one model can do
   // jointly still shows). Secondary = the other model's joint row.
@@ -1909,21 +2045,28 @@ function _renderTubeResultCard(tube, state) {
   const pc = PANEL_COLORS[tube.panelFamily] || { color: '#374151', bg: '#f3f4f6' };
   const borderColor = tube.isPanel ? pc.color : 'var(--navy)';
 
-  const tubeRowClass = `result-card-compact tube-compact${jointDec ? (jointDec === 'skip' ? ' skip-row' : ' repeat-row') : ''}`;
+  const clinical = isClinicalMode();
+  const tubeRowClass = `result-card-compact tube-compact${clinical ? ' clinical-compact' : ''}${jointDec ? (jointDec === 'skip' ? ' skip-row' : ' repeat-row') : ''}`;
   return `<div class="result-card tube-result-card" id="rcard_tube_${tube.id}" data-tubeid="${tube.id}" data-cardtype="tube">
     <div class="${tubeRowClass}" data-tubeid="${tube.id}">
-      <span class="rc-lab-name-wrap" style="font-size:12px"><span class="ngb-model-tag">${_modelLabel(primaryModel)}</span>${tube.name}</span>
+      <span class="rc-lab-name-wrap" style="font-size:12px">${clinical ? '' : `<span class="ngb-model-tag">${_modelLabel(primaryModel)}</span>`}${tube.name}</span>
       <span class="rc-tube-members">${tube.labs.length} tests</span>
+      ${clinical ? (() => {
+        const { flagged, total } = _panelFlagCount(tube);
+        return flagged > 0
+          ? `<span class="clinical-panel-chip chip-flag" title="${flagged} of ${total} tests need a second look">&#9650; ${flagged} of ${total} flagged</span>`
+          : `<span class="clinical-panel-chip chip-clear" title="All tests in this panel look reliable">&#9679; all clear</span>`;
+      })() : ''}
       ${hasProfResult && jointSkip ? `
         <span class="rc-decision-badge ${jointDec === 'skip' ? 'skip' : 'repeat'}">
           ${jointDec === 'skip' ? '&#10003; SKIP' : '&#8635; REPEAT'}
         </span>
         <span class="rc-pstable" style="color:${jointDec === 'skip' ? 'var(--green)' : 'var(--red)'}">P(all stable) ${jointSkip}</span>` : ''}
       <span class="rc-expand-icon">&#9660;</span>
-      <span class="rc-tube-chips">${tube.labs.map((l) => `<span class="tube-mini-chip">${l}</span>`).join('')}</span>
+      ${clinical ? '' : `<span class="rc-tube-chips">${tube.labs.map((l) => `<span class="tube-mini-chip">${l}</span>`).join('')}</span>`}
     </div>
-    ${_renderTubeSecondaryRow(otherR, secondaryModel)}
-    ${modelVerdictBanner(_tubeVerdict(tube))}
+    ${clinical ? '' : _renderTubeSecondaryRow(otherR, secondaryModel)}
+    ${clinical ? '' : modelVerdictBanner(_tubeVerdict(tube))}
     <div class="result-card-detail" id="rdetail_tube_${tube.id}">
       <div class="loading-text" style="padding:12px 0">Loading detail...</div>
     </div>
@@ -2068,6 +2211,12 @@ function _compareTableJoint(tube, pick) {
 function _renderCardDetail(lab, state) {
   const detail = document.getElementById(`rdetail_${_labId(lab)}`);
   if (!detail) return;
+
+  if (isClinicalMode()) {
+    _renderCardDetailClinical(lab, detail);
+    return;
+  }
+
   const { ng, mae } = _resultModelsFor(lab);
   const verdictBanner = modelVerdictBanner(modelVerdict(ng, mae));
   const pick = pickModelsToShow(ng, mae);
@@ -2087,13 +2236,73 @@ function _renderCardDetail(lab, state) {
   }
 
   detail.innerHTML = `${verdictBanner}${table}${blocks}`;
-  // Draw each shown model's bell curve into its own svg.
   toDraw.forEach(([m, rr]) => {
     if (rr && !rr.error && rr.available !== false && rr.mu != null && rr.sigma != null) {
       const el = document.getElementById(`belldet_${m}_${_labId(lab)}`);
       if (el) renderBell(el, rr.mu, rr.sigma, rr.stability_window, rr.ci95);
     }
   });
+}
+
+function _renderCardDetailClinical(lab, detail) {
+  const { ng, mae } = _resultModelsFor(lab);
+  const pick = clinicalPickResult(ng, mae);
+  const r = pick.r;
+  if (!r) {
+    detail.innerHTML = '<div class="clinical-detail" style="color:var(--muted);font-size:12px">No model data available.</div>';
+    return;
+  }
+  const q = r.quant_step;
+  const rel = r.reliability || {};
+  const calibTier = clinicalCalibTier(rel.calibration_score);
+  const valueTier = clinicalValueTier(rel.value_score);
+  const disagreeBlock = pick.disagree
+    ? `<div class="clinical-disagree-note"><span class="clinical-disagree-icon">&#9878;</span>NGBoost and Masked AE disagree on this test - the safer recommendation is shown.</div>`
+    : '';
+  const calibBlock = `<div class="clinical-tier-block tier-${calibTier.key}">${clinicalTierIconHtml(calibTier.key)}${calibTier.label}</div>`;
+  const valueBlock = `<div class="clinical-tier-block tier-${valueTier.key}">${clinicalTierIconHtml(valueTier.key)}${valueTier.label}</div>`;
+
+  const bellId = `bellclin_${_labId(lab)}`;
+  let graphHtml = '';
+  if (valueTier.show && r.mu != null && r.sigma != null) {
+    const prevNum = _finiteNumber(r.prev1);
+    const predDisp = _qfmt(r.value != null ? r.value : r.mu, q);
+    const ciStr = r.ci95 ? `${_qfmt(Math.max(r.ci95[0], 0), q)} - ${_qfmt(r.ci95[1], q)}` : '-';
+    const prevDisp = prevNum != null ? _qfmt(prevNum, q) : '-';
+    graphHtml = `
+      <div class="clinical-graph-block">
+        <svg id="${bellId}" viewBox="0 0 220 120" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="clinical-graph-legend">
+          <div class="cgl-item"><span class="cgl-dot cgl-prev"></span>Previous result: <strong>${prevDisp}</strong></div>
+          <div class="cgl-item"><span class="cgl-dot cgl-pred"></span>Predicted: <strong>${predDisp}</strong></div>
+          <div class="cgl-item">95% range: <strong>${ciStr}</strong></div>
+        </div>
+      </div>`;
+  }
+
+  const imps = clinicalImportances(r, pick.other);
+  const impHtml = imps.length ? `
+    <div class="detail-section-head" style="margin-top:var(--sp-2)">Key influencing factors</div>
+    <div class="importances-list">
+      ${imps.map((f, i) => {
+        const color = IMP_COLORS[i % IMP_COLORS.length];
+        const pct = typeof f.pct === 'number' ? f.pct : parseFloat(f.pct) || 0;
+        return `<div class="imp-row">
+          <span class="imp-name">${_friendlyLabel(f.feature, lab)}</span>
+          <span class="imp-track">
+            <span class="imp-fill" style="width:${pct}%;background:${color}"></span>
+          </span>
+          <span class="imp-pct" style="color:${color}">${pct.toFixed(1)}%</span>
+        </div>`;
+      }).join('')}
+    </div>` : '<div style="color:var(--muted);font-size:12px">No feature importance data.</div>';
+
+  detail.innerHTML = `<div class="clinical-detail">${disagreeBlock}${calibBlock}${valueBlock}${graphHtml}${impHtml}</div>`;
+
+  if (valueTier.show && r.mu != null && r.sigma != null) {
+    const el = document.getElementById(bellId);
+    if (el) renderBell(el, r.mu, r.sigma, r.stability_window, r.ci95, _finiteNumber(r.prev1));
+  }
 }
 
 // Full rich detail block for ONE model: header, bell, stats, decision, key factors,
@@ -2295,6 +2504,12 @@ function _renderTubeDetail(tubeId, state) {
   if (!detail) return;
   const tube = _wizState.tubes.find((t) => t.id === tubeId);
   if (!tube) return;
+
+  if (isClinicalMode()) {
+    _renderTubeDetailClinical(tube, detail, state);
+    return;
+  }
+
   // Joint comparison table for BOTH models, then the joint analysis of the model with
   // the higher AVERAGE member calibration (both panels only when about the same).
   const pick = _tubeJointPick(tube);
@@ -2433,6 +2648,71 @@ function _renderTubeDetail(tubeId, state) {
 
 }
 
+function _renderTubeDetailClinical(tube, detail, state) {
+  const pr = _getProfileResult(tube.id);
+  const hasJoint = pr && !pr.error && pr.available !== false && pr.joint_skip != null;
+  let html = '';
+  if (hasJoint) {
+    const jointPct = (pr.joint_skip * 100).toFixed(1) + '%';
+    const isSkip = pr.decision === 'skip';
+    html += `<div class="tube-detail-summary" style="margin-bottom:var(--sp-3)">
+      <div class="tube-joint-badge ${isSkip ? 'skip' : 'repeat'}">
+        Joint P(all stable): <strong>${jointPct}</strong>
+        ${isSkip ? '- SKIP all tests' : '- REPEAT (at least one test needed)'}
+      </div>
+    </div>`;
+  }
+
+  html += `<div class="detail-section-head">Individual test results</div>`;
+  tube.labs.forEach((lab) => {
+    const { ng, mae } = _resultModelsFor(lab);
+    const pick = clinicalPickResult(ng, mae);
+    const r = pick.r;
+    const ok = !!r;
+    const rel = ok ? (r.reliability || {}) : {};
+    const calibTier = clinicalCalibTier(rel.calibration_score);
+    const valueTier = clinicalValueTier(rel.value_score);
+    const dec = ok ? (calibTier.forceRepeat ? false : r.decision === 'skip') : false;
+    const q = ok ? r.quant_step : 1;
+    const disagreeFlag = ok && pick.disagree ? '<span class="clinical-disagree-flag" title="Models disagree - safer recommendation shown">&#9878;</span>' : '';
+
+    html += `<div class="tube-member-result" data-lab="${lab}">
+      <div class="tube-member-header" data-tubemember="${lab}">
+        <span class="tube-member-lab">${lab}${disagreeFlag}</span>
+        ${ok ? `
+          <span class="rc-decision-badge ${dec ? 'skip' : 'repeat'}" style="font-size:11px">${dec ? '&#10003; SKIP' : '&#8635; REPEAT'}</span>
+          ${calibTier.useProb
+            ? `<span class="rc-pstable" style="color:${dec ? 'var(--green)' : 'var(--red)'}">P(stable): ${(r.p_stable * 100).toFixed(1)}%</span>`
+            : `<span class="clinical-tier-note tier-${calibTier.key}">${clinicalTierIconHtml(calibTier.key)}${calibTier.label}</span>`}
+          ${valueTier.show ? `<span style="font-size:11px;color:var(--ink-2)">${_qfmt(r.value != null ? r.value : r.mu, q)}</span>` : ''}
+        ` : `<span class="error-text" style="font-size:11px">No data</span>`}
+        <span class="rc-expand-icon" style="margin-left:auto">&#9660;</span>
+      </div>
+      <div class="tube-member-detail" id="tubeMemberDetail_${tube.id}_${_labId(lab)}"></div>
+    </div>`;
+  });
+
+  detail.innerHTML = html;
+
+  detail.querySelectorAll('.tube-member-header').forEach((hdr) => {
+    hdr.addEventListener('click', () => {
+      const row = hdr.closest('.tube-member-result');
+      if (!row) return;
+      const lab = row.dataset.lab;
+      const wasOpen = row.classList.contains('expanded');
+      detail.querySelectorAll('.tube-member-result').forEach((r2) => r2.classList.remove('expanded'));
+      if (!wasOpen) {
+        row.classList.add('expanded');
+        const el = document.getElementById(`tubeMemberDetail_${tube.id}_${_labId(lab)}`);
+        if (el && !el.dataset.rendered) {
+          _renderCardDetailClinical(lab, el);
+          el.dataset.rendered = '1';
+        }
+      }
+    });
+  });
+}
+
 // Render a mini correlation matrix for a tube (in case performance.js version isn't available)
 function _renderTubeMatrix(svg, labs, matrix) {
   if (typeof _renderCorrMatrix === 'function') {
@@ -2557,8 +2837,8 @@ function _compositeTrust(vl, dl) {
 }
 
 // Color + label a 0-100 trust score by the canonical confidence bands (modelQuality
-// in app.js, single source of truth): >=90 excellent, >=75 very good, >=60 reasonable,
-// <=59 poor.
+// in app.js, single source of truth): >=90 excellent, >=75 very good, >=50 reasonable,
+// <=49 poor.
 function _scoreColor(score) {
   if (score == null) return 'var(--muted)';
   return modelQuality(score).color;
@@ -2571,7 +2851,7 @@ function _scoreBandLabel(score) {
 
 // Two labeled, color-by-value trust chips for the compact row.
 function _trustChips(vScore, cScore) {
-  const GUIDE = 'Score guide: 90+ excellent | 75-89 very good | 60-74 reasonable | <60 poor';
+  const GUIDE = 'Score guide: 90+ excellent | 75-89 very good | 50-74 reasonable | <50 poor';
   const chip = (val, lab, desc) => val == null ? '' : `
     <span class="rc-score-chip" title="${desc} | ${GUIDE}">
       <span class="rcs-num" style="color:${_scoreColor(val)}">${val}</span>

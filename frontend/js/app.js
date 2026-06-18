@@ -16,11 +16,92 @@ async function getJSON(url, opts) {
   return r.json();
 }
 
+// ── Clinical / Detailed display mode ─────────────────────────────────────────
+const DISPLAY_MODE_KEY = 'sheba_display_mode';
+function isClinicalMode() {
+  return (localStorage.getItem(DISPLAY_MODE_KEY) || 'clinical') === 'clinical';
+}
+function setDisplayMode(mode) {
+  localStorage.setItem(DISPLAY_MODE_KEY, mode);
+  document.dispatchEvent(new CustomEvent('displayModeChanged', { detail: { mode } }));
+}
+
+// ── Clinical mode reliability bands (configurable, per score type) ──────────
+// Same High/Good/Ok cutoffs as QUALITY by default, but value and calibration
+// each have their own storage key so a clinician can tune them independently.
+const CLINICAL_BANDS_DEFAULT = { high: 90, good: 75, ok: 50 };
+const CLINICAL_BANDS_KEYS = { value: 'sheba_clinical_bands_value', calibration: 'sheba_clinical_bands_calibration' };
+
+function getClinicalBands(kind) {
+  try {
+    const raw = localStorage.getItem(CLINICAL_BANDS_KEYS[kind]);
+    if (raw) {
+      const v = JSON.parse(raw);
+      if (v && typeof v.high === 'number' && typeof v.good === 'number' && typeof v.ok === 'number') return v;
+    }
+  } catch (_) {}
+  return { ...CLINICAL_BANDS_DEFAULT };
+}
+function setClinicalBands(kind, bands) {
+  const clamp = (n) => Math.max(50, Math.min(99, n));
+  localStorage.setItem(CLINICAL_BANDS_KEYS[kind], JSON.stringify({
+    high: clamp(bands.high), good: clamp(bands.good), ok: clamp(bands.ok),
+  }));
+  document.dispatchEvent(new CustomEvent('displayModeChanged', { detail: { mode: 'clinical' } }));
+}
+
+// Value-accuracy tier: whether/how to show the predicted value in clinical mode.
+function clinicalValueTier(score) {
+  const b = getClinicalBands('value');
+  if (score == null)     return { key: 'poor', show: false, label: 'No value-accuracy data available' };
+  if (score >= b.high)   return { key: 'high', show: true,  label: 'Very reliable value' };
+  if (score >= b.good)   return { key: 'good', show: true,  label: 'Reliable value' };
+  if (score >= b.ok)     return { key: 'ok',   show: true,  label: 'Reasonable prediction' };
+  return { key: 'poor', show: false, label: 'Not accurate enough to rely on' };
+}
+
+// Calibration tier: whether/how much to trust the skip/repeat probability.
+function clinicalCalibTier(score) {
+  const b = getClinicalBands('calibration');
+  if (score == null)   return { key: 'poor', useProb: false, forceRepeat: true, label: 'No calibration data - repeat recommended' };
+  if (score >= b.high) return { key: 'high', useProb: true,  forceRepeat: false, label: 'Strongly trust this probability' };
+  if (score >= b.good) return { key: 'good', useProb: true,  forceRepeat: false, label: 'Trust this probability' };
+  if (score >= b.ok)   return { key: 'ok',   useProb: true,  forceRepeat: false, label: 'Usable with clinical judgment' };
+  return { key: 'poor', useProb: false, forceRepeat: true, label: 'Calibration insufficient - repeat recommended' };
+}
+
+// 3-state visual icon for a 4-key tier (item 1+2): high/good both render as a filled
+// circle (both are "trust it"), ok as a half-filled circle, poor as a warning triangle -
+// so the badge reads as 3 plain states instead of 4 shades that look like a typo of each
+// other. Color is paired with both an icon AND the tier's own text label (never color-only).
+function clinicalTierIcon(tierKey) {
+  if (tierKey === 'high' || tierKey === 'good') return { char: '&#9679;', cls: 'ctv-full' };
+  if (tierKey === 'ok') return { char: '&#9685;', cls: 'ctv-half' };
+  return { char: '&#9650;', cls: 'ctv-low' };
+}
+function clinicalTierIconHtml(tierKey) {
+  const v = clinicalTierIcon(tierKey);
+  return `<span class="clinical-tier-icon ${v.cls}">${v.char}</span>`;
+}
+
+// Urgency rank for sorting clinical-mode result cards (item 5): a doctor scanning top to
+// bottom should see "needs a draw, and we're confident about that" first, then "needs a
+// draw but we're unsure", then "could skip but we're unsure" (worth a second look), and
+// finally "can safely skip, high confidence" last - it needs the least attention.
+function clinicalUrgencyRank(decision, calibTierKey) {
+  const repeat = decision === 'repeat';
+  const highConf = calibTierKey === 'high' || calibTierKey === 'good';
+  if (repeat && highConf) return 0;
+  if (repeat && !highConf) return 1;
+  if (!repeat && !highConf) return 2;
+  return 3;
+}
+
 // ── Model quality bands (SINGLE source of truth, used everywhere) ───────────────
-// >=90 excellent ; >=75 very good ; >=60 reasonable ; <=59 poor. A score gap <=
+// >=90 excellent ; >=75 very good ; >=50 reasonable ; <=49 poor. A score gap <=
 // closeDelta is treated as "about the same" (a pragmatic stand-in for statistical
 // significance; we have no per-lab score confidence intervals to run a true test).
-const QUALITY = { excellentMin: 90, veryGoodMin: 75, okMin: 60, closeDelta: 5 };
+const QUALITY = { excellentMin: 90, veryGoodMin: 75, okMin: 50, closeDelta: 5 };
 
 function modelQuality(score) {
   if (score == null) return { key: 'unknown', label: 'unknown', color: '#9ca3af' };
@@ -102,6 +183,36 @@ function pickModelsToShow(ngR, maeR) {
   return pickModelsByCalibration(ngOk, maeOk, ngOk ? cOf(ngR) : null, maeOk ? cOf(maeR) : null);
 }
 
+// ── Clinical mode: ONE model selection, used everywhere (compact card, expanded
+// detail, tube members) so a single lab never shows two different models' numbers
+// in different parts of the same card. Reuses the same disagreement/conservative
+// rule as modelVerdict() - safety (REPEAT) wins over a small calibration edge.
+function clinicalPickResult(ngR, maeR) {
+  const ok = (r) => r && r.available !== false && !r.error && r.decision != null;
+  const ngOk = ok(ngR), maeOk = ok(maeR);
+  if (!ngOk && !maeOk) return { r: null, other: null, model: null, disagree: false };
+  if (ngOk && !maeOk)  return { r: ngR, other: maeR, model: 'ngboost', disagree: false };
+  if (!ngOk && maeOk)  return { r: maeR, other: ngR, model: 'mae', disagree: false };
+
+  const v = _verdictFrom(ngR.decision, maeR.decision,
+                          (ngR.reliability || {}).calibration_score,
+                          (maeR.reliability || {}).calibration_score);
+  const model = v.state === 'disagree'
+    ? v.recommended
+    : (v.recommended || 'ngboost'); // agree + no clear winner -> default to NGBoost as headline
+  const r = model === 'mae' ? maeR : ngR;
+  const other = model === 'mae' ? ngR : maeR;
+  return { r, other, model, disagree: v.state === 'disagree', verdict: v };
+}
+
+// Feature importances for the clinical detail view: fall back to the other model's
+// list if the picked model's attribution came back empty (e.g. MAE attention failure).
+function clinicalImportances(r, other) {
+  if (r && Array.isArray(r.importances) && r.importances.length) return r.importances;
+  if (other && Array.isArray(other.importances) && other.importances.length) return other.importances;
+  return [];
+}
+
 // HTML banner for a dual-model verdict (works for single tests and tubes).
 function modelVerdictBanner(v) {
   if (!v || v.state === 'none') return '';
@@ -137,8 +248,8 @@ function modelVerdictBanner(v) {
       <span class="agree-sub">Calibration: ${scorePair}.</span></span>
     </div>`;
   }
-  // agree. Safety caution: agreeing to SKIP while BOTH are poorly calibrated (<60)
-  // is the risky case - flag it rather than reassure.
+  // agree. Safety caution: agreeing to SKIP while BOTH are poorly calibrated
+  // (< QUALITY.okMin) is the risky case - flag it rather than reassure.
   const lowSkip = v.decision === 'skip' && v.ngC != null && v.maeC != null
                 && v.ngC < QUALITY.okMin && v.maeC < QUALITY.okMin;
   const caution = lowSkip

@@ -81,6 +81,7 @@ except ImportError:
 #   5=background_disease, 6=medication, 7=imaging, 8=consultation,
 #   9=ecg, 10=echo, 11=dialysis, 12=administrative
 _DEFAULT_TYPE_MAP: dict[str, int] = {
+    "target_mask":       0,
     "lab_history":       1,
     "panel_sibling":     2,
     "unrelated_lab":     3,
@@ -248,6 +249,18 @@ def _load_type_map() -> dict[str, int]:
     not the integer ID order. The embedding IDs are fixed by order_event_dataset.py.
     """
     return {**_DEFAULT_TYPE_MAP, **_load_type_overrides()}
+
+
+@lru_cache(maxsize=1)
+def _load_mae_config() -> dict:
+    import json
+    path = MAE_DIR / "mae_config.json"
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
 
 
 @lru_cache(maxsize=1)
@@ -514,16 +527,16 @@ def mae_input_features(lab: str) -> list[str]:
         cols.append(f"prev2_{lab}")
     if has(f"{lab}__prev3"):
         cols.append(f"prev3_{lab}")
-    # vitals - only if the trained artifact actually carries these token codes
-    for ng_key, code in (("pulse", "vital__pulse__latest"),
-                         ("sbp", "vital__sbp__latest"),
-                         ("dbp", "vital__dbp__latest")):
-        if has(code):
-            cols.append(ng_key)
     if has("age"):
         cols.append("age")
+    if has("sex_numeric"):
+        cols.append("sex_numeric")
     if has("days_in_admission"):
         cols.append("days_in_admission")
+    if has("prior_lab_orders"):
+        cols.append("prior_lab_orders")
+    if has("prior_admissions"):
+        cols.append("prior_admissions")
     # same-panel siblings (MAE attends to other labs in the same panel)
     ngb = get_registry()
     fam = ngb.family(lab)
@@ -531,7 +544,7 @@ def mae_input_features(lab: str) -> list[str]:
         for sib in ngb.panels().get(fam, []):
             if sib == lab:
                 continue
-            if has(f"panel__{sib}__latest") or has(f"unrelated__{sib}__latest"):
+            if has(f"panel__{sib}__latest"):
                 cols.append(f"prev1_{sib}")
     # de-dup preserving order
     seen, out = set(), []
@@ -725,6 +738,12 @@ class MaeAdapter(ModelAdapter):
         code_to_id  = mae_reg["code_to_id"]
         normalizers = mae_reg.get("normalizers", {})
         type_map    = _load_type_map()
+        mae_cfg     = _load_mae_config()
+        enabled_families = set(mae_cfg.get("enabled_token_types") or [])
+        admin_allowlist = set(mae_cfg.get("administrative_feature_allowlist") or [])
+        max_tokens = int(mae_cfg.get("max_tokens") or 32)
+        max_context_siblings = int(mae_cfg.get("max_context_siblings") or 4)
+        max_context_unrelated = int(mae_cfg.get("max_context_unrelated_labs") or 0)
 
         src_codes_l: list[int]   = []
         src_types_l: list[int]   = []
@@ -732,6 +751,11 @@ class MaeAdapter(ModelAdapter):
         src_times_l: list[float] = []
 
         def _add(code: str, raw_val: float, days: float = 0.0, fam: str = "lab_history"):
+            if fam != "target_mask":
+                if enabled_families and fam not in enabled_families:
+                    return
+                if fam == "administrative" and admin_allowlist and code not in admin_allowlist:
+                    return
             raw_val = _finite_float_or_none(raw_val)
             days = _finite_float_or_none(days)
             if raw_val is None or days is None:
@@ -751,6 +775,10 @@ class MaeAdapter(ModelAdapter):
             src_values_l.append(_normalize(raw_val, code, normalizers))
             src_times_l.append(float(days))
 
+        # Match training: the source sequence includes one masked target token
+        # carrying lab identity/timing but not the current result value.
+        _add(lab, 0.0, days=0.0, fam="target_mask")
+
         # Exact MAE order-event tokens from demo patient JSONs. These are the
         # preferred inputs for MAE; the flat NGBoost-style fields below are only
         # fallback/override conveniences for manual edits.
@@ -763,12 +791,12 @@ class MaeAdapter(ModelAdapter):
             if fam is None:
                 if code.startswith("panel__"):
                     fam = "panel_sibling"
+                elif code in {"age", "sex_numeric", "days_in_admission", "prior_lab_orders", "prior_admissions"}:
+                    fam = "administrative"
                 elif code.startswith("unrelated__"):
                     fam = "unrelated_lab"
                 elif code.startswith("vital__"):
                     fam = "vital"
-                elif code in {"age", "sex_numeric", "days_in_admission", "prior_lab_orders", "prior_admissions"}:
-                    fam = "administrative"
                 else:
                     fam = "lab_history"
             recency = features.get(f"mae_time__{code}", 0.0)
@@ -791,17 +819,6 @@ class MaeAdapter(ModelAdapter):
         if fim_feature is not None:
             _add(f"{lab}__delta",       prev1_val - fim_val,  days=days_last, fam="lab_history")
 
-        # Vitals (map NGBoost flat names to MAE vital token codes)
-        vital_map = {
-            "pulse": "vital__pulse__latest",
-            "sbp":   "vital__sbp__latest",
-            "dbp":   "vital__dbp__latest",
-        }
-        for ng_key, mae_code in vital_map.items():
-            val = _finite_float_or_none(features.get(ng_key))
-            if val is not None:
-                _add(mae_code, val, fam="vital")
-
         # Administrative features
         age_val = _finite_float_or_none(features.get("age"))
         if age_val is not None:
@@ -813,6 +830,12 @@ class MaeAdapter(ModelAdapter):
         admit_days = _finite_float_or_none(features.get("days_in_admission"))
         if admit_days is not None:
             _add("days_in_admission", admit_days, fam="administrative")
+        prior_lab_orders = _finite_float_or_none(features.get("prior_lab_orders", features.get("test_number_in_admission")))
+        if prior_lab_orders is not None:
+            _add("prior_lab_orders", prior_lab_orders, fam="administrative")
+        prior_admissions = _finite_float_or_none(features.get("prior_admissions"))
+        if prior_admissions is not None:
+            _add("prior_admissions", prior_admissions, fam="administrative")
 
         # Panel sibling tokens (other labs in same panel, from features)
         for feat_key, feat_val in features.items():
@@ -825,10 +848,6 @@ class MaeAdapter(ModelAdapter):
                 mae_code = f"panel__{other_lab}__latest"
                 if mae_code in code_to_id:
                     _add(mae_code, feat_val, fam="panel_sibling")
-                else:
-                    mae_code2 = f"unrelated__{other_lab}__latest"
-                    if mae_code2 in code_to_id:
-                        _add(mae_code2, feat_val, fam="unrelated_lab")
 
         # Historical depth tokens (prev2, prev3) for the target lab
         for depth in [2, 3]:
@@ -841,6 +860,51 @@ class MaeAdapter(ModelAdapter):
 
         if not src_codes_l:
             return self._unavailable(lab, "No valid input tokens could be constructed.")
+
+        def _cap_tokens() -> None:
+            nonlocal src_codes_l, src_types_l, src_values_l, src_times_l
+            id_to_code = {v: k for k, v in code_to_id.items()}
+            id_to_type = {v: k for k, v in type_map.items()}
+            tokens = []
+            for pos, (cid, tid, val, tim) in enumerate(zip(src_codes_l, src_types_l, src_values_l, src_times_l)):
+                tokens.append({
+                    "cid": cid,
+                    "code": id_to_code.get(cid, ""),
+                    "tid": tid,
+                    "fam": id_to_type.get(tid, "other"),
+                    "value": val,
+                    "time": tim,
+                    "pos": pos,
+                })
+            target = [t for t in tokens if t["fam"] == "target_mask"]
+            lab_hist = [t for t in tokens if t["fam"] == "lab_history"]
+            admin = [t for t in tokens if t["fam"] == "administrative"]
+            panel = [t for t in tokens if t["fam"] == "panel_sibling"]
+            unrelated = [t for t in tokens if t["fam"] == "unrelated_lab"]
+            other = [t for t in tokens if t["fam"] not in {"target_mask", "lab_history", "administrative", "panel_sibling", "unrelated_lab"}]
+
+            def by_pos(group):
+                return sorted(group, key=lambda t: t["pos"])
+
+            def by_recency(group, cap):
+                if cap <= 0:
+                    return []
+                return sorted(group, key=lambda t: t["time"])[:cap]
+
+            kept = (
+                by_pos(target)
+                + by_pos(lab_hist)
+                + by_pos(admin)
+                + by_recency(panel, max_context_siblings)
+                + by_recency(unrelated, max_context_unrelated)
+                + by_pos(other)
+            )[:max_tokens]
+            src_codes_l = [t["cid"] for t in kept]
+            src_types_l = [t["tid"] for t in kept]
+            src_values_l = [t["value"] for t in kept]
+            src_times_l = [t["time"] for t in kept]
+
+        _cap_tokens()
 
         # --- forward pass (captures last-decoder-layer inputs for attribution) --
         try:

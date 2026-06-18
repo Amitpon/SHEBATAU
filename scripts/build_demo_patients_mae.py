@@ -114,11 +114,24 @@ def _archive_existing_patients() -> None:
 def _load_feature_registry() -> pd.DataFrame:
     cfg = _load_json(MAE_DIR / "mae_config.json")
     enabled = set(cfg.get("enabled_token_types") or [])
+    admin_allowlist = set(cfg.get("administrative_feature_allowlist") or [])
     registry = pd.read_csv(ORDER_REGISTRY)
     if enabled:
         registry = registry[registry["token_type"].isin(enabled)].copy()
+    if admin_allowlist:
+        registry = registry[
+            ~registry["token_type"].eq("administrative")
+            | registry["feature_code"].isin(admin_allowlist)
+        ].copy()
     registry = registry.dropna(subset=["feature_code", "value_column", "time_column"])
-    return registry.reset_index(drop=True)
+    priority = {
+        "lab_history": 0,
+        "administrative": 1,
+        "panel_sibling": 2,
+        "unrelated_lab": 3,
+    }
+    registry["_priority"] = registry["token_type"].map(priority).fillna(9)
+    return registry.sort_values(["_priority", "feature_code"]).drop(columns=["_priority"]).reset_index(drop=True)
 
 
 def _choose_demo_rows(meta: pd.DataFrame, lab_columns: list[str], max_patients: int) -> pd.DataFrame:
@@ -292,12 +305,15 @@ def _build_patients(rows: pd.DataFrame, feature_registry: pd.DataFrame, max_mae_
     return patients
 
 
-def main(max_patients: int = 16, max_mae_tokens: int = 95) -> None:
+def main(max_patients: int = 16, max_mae_tokens: int | None = None) -> None:
     if not ORDER_EVENTS.exists():
         raise FileNotFoundError(f"Missing order-event Parquet: {ORDER_EVENTS}")
     if not ORDER_REGISTRY.exists():
         raise FileNotFoundError(f"Missing order-event feature registry: {ORDER_REGISTRY}")
     mae_reg = _load_json(MAE_DIR / "mae_registry.json")
+    mae_cfg = _load_json(MAE_DIR / "mae_config.json")
+    if max_mae_tokens is None:
+        max_mae_tokens = max(1, int(mae_cfg.get("max_tokens", 32)) - 1)
     lab_columns = list(mae_reg.get("lab_columns", []))
     if not lab_columns:
         raise RuntimeError("MAE registry has no lab_columns.")
@@ -330,6 +346,6 @@ def main(max_patients: int = 16, max_mae_tokens: int = 95) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-patients", type=int, default=16)
-    parser.add_argument("--max-mae-tokens", type=int, default=95)
+    parser.add_argument("--max-mae-tokens", type=int, default=None)
     args = parser.parse_args()
     main(max_patients=args.max_patients, max_mae_tokens=args.max_mae_tokens)

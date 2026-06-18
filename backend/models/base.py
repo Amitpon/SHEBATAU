@@ -41,11 +41,13 @@ SCORING_CONFIG = {
         "bss_floor": 0.5,      # multiplier retained when BSS == 0
     },
     # Doctor-facing confidence bands (score 0-100 -> label + colour). Single scheme
-    # used across the whole app: >=90 excellent, >=75 very good, >=60 reasonable, <=59 poor.
+    # used across the whole app: >=90 excellent, >=75 very good, >=50 reasonable, <=49 poor.
+    # Lowered from 60 to 50 (2026-06) so every lab returns at least one of
+    # {value, probability} from its best model - no lab is left with nothing to show.
     "bands": [
         {"min": 90, "label": "excellent",  "color": "#15803d"},
         {"min": 75, "label": "very good",  "color": "#65a30d"},
-        {"min": 60, "label": "reasonable", "color": "#d97706"},
+        {"min": 50, "label": "reasonable", "color": "#d97706"},
         {"min": 0,  "label": "poor",       "color": "#dc2626"},
     ],
 }

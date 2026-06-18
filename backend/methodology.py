@@ -13,7 +13,9 @@ _EXPLAINERS = {
     "ngboost": {
         "title": "NGBoost - Probabilistic Gradient Boosting",
         "summary": (
-            "We adopted the NGBoost framework from Jiang et al. (2024), which predicts a "
+            "We adopted the NGBoost framework from "
+            "<a href=\"/Professional Articles/ngboost/labstabilityprediction.pdf\" "
+            "target=\"_blank\" rel=\"noopener\" class=\"ref-link\">Jiang et al. (2024)</a>, which predicts a "
             "Normal(mu, sigma) distribution per repeated lab order and computes "
             "P(stable) = Phi(prev + delta) - Phi(prev - delta), recommending cancellation "
             "when P(stable) >= the selected threshold. "

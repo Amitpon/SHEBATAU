@@ -192,6 +192,37 @@ function _buildDraftFromConfig(cfg) {
 
 function _renderSettingsBody(container) {
   container.innerHTML = `
+    <!-- BLOCK 0: Display mode -->
+    <div class="settings-block" id="settingsBlockMode" style="border-left:3px solid var(--navy)">
+      <div class="settings-block-header" id="settingsBlockModeHdr">
+        <span>Display mode</span>
+        <span class="settings-block-toggle">&#9660;</span>
+      </div>
+      <div class="settings-block-body" id="settingsBlockModeBody">
+        <div class="settings-note" style="margin-bottom:var(--sp-2)">
+          Choose how prediction results are displayed.
+        </div>
+        <div class="settings-radio-group">
+          <label class="settings-radio-label">
+            <input type="radio" name="displayMode" value="clinical" ${isClinicalMode() ? 'checked' : ''} />
+            <span class="settings-radio-meta">
+              <span class="settings-radio-title">Clinical <span class="settings-radio-recommended">recommended</span></span>
+              <span class="settings-radio-desc">Compact cards, no numeric scores. Low-confidence labs flagged automatically.</span>
+            </span>
+          </label>
+          <label class="settings-radio-label">
+            <input type="radio" name="displayMode" value="detailed" ${!isClinicalMode() ? 'checked' : ''} />
+            <span class="settings-radio-meta">
+              <span class="settings-radio-title">Detailed</span>
+              <span class="settings-radio-desc">Full model output: bell curves, trust analysis, verification, all scores.</span>
+            </span>
+          </label>
+        </div>
+        ${_renderClinicalBandsGroup('value', 'Value accuracy bands', 'Controls whether the predicted value is shown.')}
+        ${_renderClinicalBandsGroup('calibration', 'Calibration / probability trust bands', 'Controls whether the skip/repeat probability is trusted, or the test is always flagged for repeat.')}
+      </div>
+    </div>
+
     <!-- BLOCK 1: Value accuracy -->
     <div class="settings-block teal-block" id="settingsBlockValue">
       <div class="settings-block-header" id="settingsBlockValueHdr">
@@ -227,7 +258,7 @@ function _renderSettingsBody(container) {
   `;
 
   // Wire collapsible headers
-  ['Value', 'Decision', 'Stab'].forEach((name) => {
+  ['Mode', 'Value', 'Decision', 'Stab'].forEach((name) => {
     const hdr = document.getElementById(`settingsBlock${name}Hdr`);
     const blk = document.getElementById(`settingsBlock${name}`);
     if (hdr && blk) {
@@ -236,6 +267,7 @@ function _renderSettingsBody(container) {
   });
 
   // Wire all sliders + radios + stab inputs
+  _bindDisplayModeControls();
   _bindValueSliders();
   _bindDecisionControls();
   _bindStabControls();
@@ -559,6 +591,42 @@ function _bindStabControls() {
       });
     });
   }
+}
+
+// ── Display mode: clinical reliability bands editor ───────────────────────────
+
+function _renderClinicalBandsGroup(kind, title, desc) {
+  const b = getClinicalBands(kind);
+  const row = (tierKey, tierLabel) => `
+    <div class="settings-threshold-row">
+      <label>${tierLabel}</label>
+      <input type="number" class="clin-band-input" data-kind="${kind}" data-tier="${tierKey}" min="50" max="99" value="${b[tierKey]}" />
+    </div>`;
+  return `
+    <div class="settings-clin-bands-group" style="margin-top:var(--sp-3)">
+      <div class="settings-radio-title" style="margin-bottom:var(--sp-1)">${title}</div>
+      <div class="settings-radio-desc" style="margin-bottom:var(--sp-2)">${desc}</div>
+      ${row('high', 'High - min %')}
+      ${row('good', 'Good - min %')}
+      ${row('ok', 'Usable - min %')}
+    </div>`;
+}
+
+// ── Bind display mode controls ───────────────────────────────────────────────
+
+function _bindDisplayModeControls() {
+  document.querySelectorAll('input[name="displayMode"]').forEach((radio) => {
+    radio.addEventListener('change', () => setDisplayMode(radio.value));
+  });
+  document.querySelectorAll('.clin-band-input').forEach((input) => {
+    input.addEventListener('change', () => {
+      const kind = input.dataset.kind;
+      const tier = input.dataset.tier;
+      const bands = getClinicalBands(kind);
+      bands[tier] = parseInt(input.value, 10) || bands[tier];
+      setClinicalBands(kind, bands);
+    });
+  });
 }
 
 // ── Bind slider interactions ──────────────────────────────────────────────────

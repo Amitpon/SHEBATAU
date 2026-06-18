@@ -58,7 +58,7 @@ function _summaryChartUrl(chart) {
 }
 
 // ── Confidence band helpers (canonical modelQuality in app.js: >=90 excellent,
-// >=75 very good, >=60 reasonable, <=59 poor) ──
+// >=75 very good, >=50 reasonable, <=49 poor) ──
 function _perfScoreColor(score) {
   if (score == null) return '#9ca3af';
   return modelQuality(score).color;
@@ -1723,8 +1723,8 @@ function _drawScatterSvg(svg, idSuffix) {
 
   const parts = [];
 
-  // Background quadrants (60/60 threshold)
-  const midX = toX(60), midY = toY(60);
+  // Background quadrants (50/50 threshold - matches the app-wide "poor" cutoff)
+  const midX = toX(50), midY = toY(50);
   parts.push(`<rect x="${midX.toFixed(1)}" y="${padT}" width="${(padL + plotW - midX).toFixed(1)}" height="${(midY - padT).toFixed(1)}" fill="#dcfce7" opacity="0.4"/>`);
   parts.push(`<rect x="${padL}" y="${padT}" width="${(midX - padL).toFixed(1)}" height="${(midY - padT).toFixed(1)}" fill="#fef9c3" opacity="0.3"/>`);
   parts.push(`<rect x="${midX.toFixed(1)}" y="${midY.toFixed(1)}" width="${(padL + plotW - midX).toFixed(1)}" height="${(padT + plotH - midY).toFixed(1)}" fill="#fef9c3" opacity="0.3"/>`);
@@ -1763,8 +1763,8 @@ function _drawScatterSvg(svg, idSuffix) {
     const cx = toX(d.value_score);
     const cy = toY(d.calibration_score);
     let color;
-    if (d.value_score >= 60 && d.calibration_score >= 60) color = '#16a34a';
-    else if (d.value_score < 60 && d.calibration_score < 60) color = '#dc2626';
+    if (d.value_score >= 50 && d.calibration_score >= 50) color = '#16a34a';
+    else if (d.value_score < 50 && d.calibration_score < 50) color = '#dc2626';
     else color = '#d97706';
     const scores = `(V:${d.value_score} C:${d.calibration_score})`;
     parts.push(`<g data-lab="${d.lab}" data-scores="${scores}" style="cursor:pointer">` +
@@ -2527,7 +2527,9 @@ const XMODEL_METRICS = {
   value_score:       { label: 'Value accuracy',        higherBetter: true },
   calibration_score: { label: 'Decision calibration',  higherBetter: true },
 };
-const XMODEL_GOOD = 75;   // score >= 75 = "we trust it" (matches the band labels)
+const XMODEL_GOOD = 75;      // score >= 75 = "we trust it" (matches the band labels)
+const XMODEL_POOR = 50;      // score < 50 = "poor" (matches the app-wide poor cutoff)
+const XMODEL_EXCELLENT = 90; // score >= 90 = "excellent" (matches the band labels)
 
 // Panel colors for dots (kept local so this works independent of other widgets)
 const XMODEL_FAM_COLORS = {
@@ -2569,7 +2571,7 @@ function _renderXmodelControls() {
     <span class="xmodel-ctrl-label">Compare on:</span>
     ${Object.entries(XMODEL_METRICS).map(([k, m]) =>
       `<button class="xmodel-metric-btn${k === _xmodel.metric ? ' active' : ''}" data-metric="${k}">${m.label}</button>`).join('')}
-    <span class="xmodel-ctrl-hint">Both scores are 0-100 (higher = better). Threshold for "trusted" = ${XMODEL_GOOD}.</span>`;
+    <span class="xmodel-ctrl-hint">Both scores are 0-100 (higher = better). Dashed lines: ${XMODEL_POOR} poor, ${XMODEL_GOOD} trusted, ${XMODEL_EXCELLENT} excellent.</span>`;
   ctrl.querySelectorAll('.xmodel-metric-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       _xmodel.metric = btn.dataset.metric;
@@ -2649,14 +2651,18 @@ function _xmodelScatterSvg(points) {
   const plotW = W - ML - MR, plotH = H - MT - MB;
   const sx = (v) => ML + (v / 100) * plotW;
   const sy = (v) => MT + plotH - (v / 100) * plotH;
-  const G = XMODEL_GOOD;
+  const G = XMODEL_GOOD, P = XMODEL_POOR, E = XMODEL_EXCELLENT;
 
-  // Quadrant background tints
+  // Quadrant background tints - same three thresholds as the band system everywhere
+  // else (50 poor / 75 good / 90 excellent), nested from the "both low" corner to the
+  // "both high" corner so the shading matches the per-cell q-poor/q-vg/q-exc colors.
   const quad = [
-    // x>=G, y>=G : strong both (green)
+    // x>=G, y>=G : trusted in both (light green)
     `<rect x="${sx(G)}" y="${sy(100)}" width="${sx(100) - sx(G)}" height="${sy(G) - sy(100)}" fill="#16a34a" opacity="0.07"/>`,
-    // x<G, y<G : weak both (red)
-    `<rect x="${sx(0)}" y="${sy(G)}" width="${sx(G) - sx(0)}" height="${sy(0) - sy(G)}" fill="#dc2626" opacity="0.06"/>`,
+    // x>=E, y>=E : excellent in both (darker green, nested inside the trusted zone)
+    `<rect x="${sx(E)}" y="${sy(100)}" width="${sx(100) - sx(E)}" height="${sy(E) - sy(100)}" fill="#15803d" opacity="0.10"/>`,
+    // x<P, y<P : weak in both (red) - matches the table's "Weak in both" verdict
+    `<rect x="${sx(0)}" y="${sy(P)}" width="${sx(P) - sx(0)}" height="${sy(0) - sy(P)}" fill="#dc2626" opacity="0.06"/>`,
   ].join('');
 
   // Axes + grid (0,25,50,75,100)
@@ -2670,9 +2676,10 @@ function _xmodelScatterSvg(points) {
 
   // Diagonal y=x (equal performance)
   const diag = `<line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(100)}" y2="${sy(100)}" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.8"/>`;
-  // "Trusted" threshold lines
-  const thr = `<line x1="${sx(G)}" y1="${MT}" x2="${sx(G)}" y2="${MT + plotH}" stroke="#16a34a" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
-               <line x1="${ML}" y1="${sy(G)}" x2="${ML + plotW}" y2="${sy(G)}" stroke="#16a34a" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>`;
+  // Threshold lines at the same 50/75/90 cutoffs used everywhere else (poor/good/excellent)
+  const thrLine = (v, color) => `<line x1="${sx(v)}" y1="${MT}" x2="${sx(v)}" y2="${MT + plotH}" stroke="${color}" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+               <line x1="${ML}" y1="${sy(v)}" x2="${ML + plotW}" y2="${sy(v)}" stroke="${color}" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>`;
+  const thr = thrLine(P, '#dc2626') + thrLine(G, '#16a34a') + thrLine(E, '#15803d');
 
   const dots = points.map((p) => {
     const c = _xmodelFamColor(p.family);
@@ -2701,8 +2708,9 @@ function _xmodelScatterSvg(points) {
 }
 
 // Quality class for a 0-100 score (4 canonical bands): >=90 excellent, >=75 very good,
-// >=60 reasonable, <=59 poor.
-function _xmodelQ(v) { return v == null ? '' : v >= 90 ? 'q-exc' : v >= 75 ? 'q-vg' : v >= 60 ? 'q-ok' : 'q-poor'; }
+// >=50 reasonable, <=49 poor. Matches the backend SCORING_CONFIG bands and the
+// clinical-mode default "ok" cutoff (see app.js CLINICAL_BANDS_DEFAULT).
+function _xmodelQ(v) { return v == null ? '' : v >= 90 ? 'q-exc' : v >= 75 ? 'q-vg' : v >= 50 ? 'q-ok' : 'q-poor'; }
 
 function _xmodelVerdictTable(rows, key) {
   if (!rows || !rows.length) return '';
@@ -2711,12 +2719,12 @@ function _xmodelVerdictTable(rows, key) {
   const num = (v, q) => (v == null ? '<span class="xmodel-na">-</span>' : `<span class="${q || ''}">${Math.round(v)}</span>`);
 
   // Verdict on the toggled metric. Closeness rule: |x-y|<=5 => "about the same".
-  // Bands: excellent >=75, not-reliable <60. Single-model labs get an "only" verdict.
+  // Bands: excellent >=75, not-reliable <50 (matches the app-wide "poor" cutoff).
   const verdict = (p) => {
     if (p.x != null && p.y != null) {
       if (Math.abs(p.x - p.y) <= CLOSE) {
         if (p.x >= 75 && p.y >= 75) return { t: 'Trusted in both', c: 'v-both', rank: 0 };
-        if (p.x < 60 && p.y < 60)   return { t: 'Weak in both', c: 'v-weak', rank: 3 };
+        if (p.x < 50 && p.y < 50)   return { t: 'Weak in both', c: 'v-weak', rank: 3 };
         return { t: 'About the same', c: 'v-same', rank: 1 };
       }
       return p.x > p.y
