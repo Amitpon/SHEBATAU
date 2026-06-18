@@ -62,7 +62,7 @@ messaging must come from the metrics files, never invented.
 │   ├── models/                 # ADAPTER layer (code), one per model family
 │   │   ├── base.py             # ModelAdapter interface + reliability_label()
 │   │   ├── ngboost_adapter.py  # pred_dist -> mu/sigma/CI, calibrated P(stable), importances
-│   │   └── mae_adapter.py      # stub (no artifacts yet)
+│   │   └── mae_adapter.py      # MAE adapter - complete (see Model status below)
 │   ├── registry.py             # loads registry.json + helpers, panels(), top_correlations()
 │   ├── predict.py              # input assembly + single-lab orchestration + verification
 │   ├── montecarlo.py           # joint panel skip-prob via Gaussian copula on correlations
@@ -81,7 +81,7 @@ messaging must come from the metrics files, never invented.
     │   ├── pipeline_results.csv # richer per-lab performance (ROC_AUC, Brier, SMAPE…)
     │   ├── global_lab_correlation.csv/.pkl
     │   └── pkl/                 # the model + calibrator .pkl files
-    └── MAE/                     # future MAE-embedding models (empty for now)
+    └── MAE/                     # MAE-embedding models - complete (see Model status below)
 ```
 
 > Note: backend code lives in `backend/models/` (adapters); trained **artifacts** live in
@@ -158,10 +158,34 @@ A top navigation with these sections (references/articles always reachable at th
   `data/patients/*.json` are synthetic-named and
   self-contained; only generate them via `scripts/build_demo_patients.py`, never copy IDs,
   hashes, real dates, MRNs or free-text.
-- This is not git-tracked yet; no commits until the user asks and a repo is initialized.
+- Git-tracked, remote is `https://github.com/Amitpon/SHEBATAU.git`. Only commit/push when
+  the user explicitly asks; stage files one by one (never `git add -A`/`.`), never commit
+  `.claude/`, log files, or `data/patients/patients.csv`/`data.csv`.
 - NEVER install packages without listing them and asking first.
 
-## Model status (last updated 2026-06-14)
+## Clinical Mode (frontend/js/app.js, patient.js, dist-chart.js)
+A doctor-facing display mode (default; toggle to "Detailed" in Settings, persisted in
+`localStorage`). Strips raw numbers/curves down to plain-language tiers so the UI never
+implies more precision than the model actually has:
+- **Reliability bands** (single source of truth, 0-100 score -> tier): `>=90` excellent,
+  `>=75` very good, `>=50` reasonable, `<50` poor. Defined in `backend/models/base.py`
+  (`SCORING_CONFIG`) and mirrored in `frontend/js/app.js` (`QUALITY`, `CLINICAL_BANDS_DEFAULT`)
+  and `frontend/js/performance.js` (`XMODEL_POOR/GOOD/EXCELLENT`) - keep all three in sync if
+  the cutoff ever changes again. The "poor" cutoff was lowered from 60 to 50 (2026-06) so every
+  lab returns at least a value or a probability from its best model (none are left with nothing
+  to show); only the calibration *or* the value axis needs to clear 50, not both.
+- **Two independent axes per lab**: `value_score` (is the predicted number trustworthy) and
+  `calibration_score` (is the stated skip/repeat probability trustworthy). `calibration_score
+  < ok` forces the displayed decision to REPEAT regardless of the model's raw call
+  (`clinicalCalibTier().forceRepeat`); `value_score < ok` hides the predicted value entirely.
+- **Panel/tube flag chip** (`_panelFlagCount()` in patient.js): counts labs in a panel that are
+  forced-repeat, have a hidden value, or where the two models disagree - shown as "X of Y
+  flagged" / "all clear" next to the panel's compact row.
+- 3-state icon (not color-only): filled circle = high/good, half circle = ok, triangle = poor.
+- Model-disagreement flag uses a different icon/color (indigo balance scale) than the
+  poor-reliability warning (red triangle) - they call for different clinical responses.
+
+## Model status (last updated 2026-06-18)
 
 ### NGBoost - COMPLETE
 - 60 labs, all modelled. `models/ngboost/`
