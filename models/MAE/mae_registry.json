@@ -1075,191 +1075,123 @@
     "WBC__std_72h": 1006,
     "age": 1007,
     "days_in_admission": 1008,
-    "ordering_department__873000": 1009,
-    "ordering_department__874000": 1010,
-    "pCO2": 1011,
-    "pCO2__delta": 1012,
-    "pCO2__first_admission": 1013,
-    "pCO2__max_24h": 1014,
-    "pCO2__max_72h": 1015,
-    "pCO2__mean_24h": 1016,
-    "pCO2__mean_72h": 1017,
-    "pCO2__min_24h": 1018,
-    "pCO2__min_72h": 1019,
-    "pCO2__prev1": 1020,
-    "pCO2__prev2": 1021,
-    "pCO2__prev3": 1022,
-    "pCO2__prior_count": 1023,
-    "pCO2__slope_per_day": 1024,
-    "pCO2__std_24h": 1025,
-    "pCO2__std_72h": 1026,
-    "pH": 1027,
-    "pH__delta": 1028,
-    "pH__first_admission": 1029,
-    "pH__max_24h": 1030,
-    "pH__max_72h": 1031,
-    "pH__mean_24h": 1032,
-    "pH__mean_72h": 1033,
-    "pH__min_24h": 1034,
-    "pH__min_72h": 1035,
-    "pH__prev1": 1036,
-    "pH__prev2": 1037,
-    "pH__prev3": 1038,
-    "pH__prior_count": 1039,
-    "pH__slope_per_day": 1040,
-    "pH__std_24h": 1041,
-    "pH__std_72h": 1042,
-    "pO2": 1043,
-    "pO2__delta": 1044,
-    "pO2__first_admission": 1045,
-    "pO2__max_24h": 1046,
-    "pO2__max_72h": 1047,
-    "pO2__mean_24h": 1048,
-    "pO2__mean_72h": 1049,
-    "pO2__min_24h": 1050,
-    "pO2__min_72h": 1051,
-    "pO2__prev1": 1052,
-    "pO2__prev2": 1053,
-    "pO2__prev3": 1054,
-    "pO2__prior_count": 1055,
-    "pO2__slope_per_day": 1056,
-    "pO2__std_24h": 1057,
-    "pO2__std_72h": 1058,
-    "panel__ALT__latest": 1059,
-    "panel__AST__latest": 1060,
-    "panel__Albumin__latest": 1061,
-    "panel__Alkaline_Phosphatase__latest": 1062,
-    "panel__Amylase__latest": 1063,
-    "panel__Baso_abs__latest": 1064,
-    "panel__Bilirubin_direct__latest": 1065,
-    "panel__Bilirubin_neonatal__latest": 1066,
-    "panel__Bilirubin_total__latest": 1067,
-    "panel__CPK__latest": 1068,
-    "panel__CRP__latest": 1069,
-    "panel__Calcium__latest": 1070,
-    "panel__Calcium_ionized__latest": 1071,
-    "panel__Carboxyhemoglobin__latest": 1072,
-    "panel__Chloride__latest": 1073,
-    "panel__Cholesterol__latest": 1074,
-    "panel__Creatinine__latest": 1075,
-    "panel__Deoxyhemoglobin__latest": 1076,
-    "panel__Eos_abs__latest": 1077,
-    "panel__Ferritin__latest": 1078,
-    "panel__Folate__latest": 1079,
-    "panel__GGT__latest": 1080,
-    "panel__Globulin__latest": 1081,
-    "panel__Glucose__latest": 1082,
-    "panel__HCT__latest": 1083,
-    "panel__HDL__latest": 1084,
-    "panel__HGB__latest": 1085,
-    "panel__HbA1c_pct__latest": 1086,
-    "panel__Iron__latest": 1087,
-    "panel__LDH__latest": 1088,
-    "panel__LDL__latest": 1089,
-    "panel__Lactate__latest": 1090,
-    "panel__Lympho_abs__latest": 1091,
-    "panel__MCV__latest": 1092,
-    "panel__MPV__latest": 1093,
-    "panel__Magnesium__latest": 1094,
-    "panel__Methemoglobin__latest": 1095,
-    "panel__Mono_abs__latest": 1096,
-    "panel__NRBC_abs__latest": 1097,
-    "panel__Neutro_abs__latest": 1098,
-    "panel__O2_saturation__latest": 1099,
-    "panel__Osmolality__latest": 1100,
-    "panel__Oxyhemoglobin__latest": 1101,
-    "panel__PLT__latest": 1102,
-    "panel__PTT__latest": 1103,
-    "panel__PT__latest": 1104,
-    "panel__Phosphorus__latest": 1105,
-    "panel__Potassium__latest": 1106,
-    "panel__Protein_total__latest": 1107,
-    "panel__RBC__latest": 1108,
-    "panel__RDW__latest": 1109,
-    "panel__Reticulo_abs__latest": 1110,
-    "panel__Sodium__latest": 1111,
-    "panel__Specific_gravity__latest": 1112,
-    "panel__TSH__latest": 1113,
-    "panel__Transferrin__latest": 1114,
-    "panel__Triglycerides__latest": 1115,
-    "panel__Troponin_I_HS__latest": 1116,
-    "panel__Urea__latest": 1117,
-    "panel__Uric_acid__latest": 1118,
-    "panel__Urobilinogen__latest": 1119,
-    "panel__Vitamin_B12__latest": 1120,
-    "panel__WBC__latest": 1121,
-    "panel__pCO2__latest": 1122,
-    "panel__pH__latest": 1123,
-    "panel__pO2__latest": 1124,
-    "prior_admissions": 1125,
-    "prior_lab_orders": 1126,
-    "sex_numeric": 1127,
-    "unrelated__ALT__latest": 1128,
-    "unrelated__AST__latest": 1129,
-    "unrelated__Albumin__latest": 1130,
-    "unrelated__Alkaline_Phosphatase__latest": 1131,
-    "unrelated__Amylase__latest": 1132,
-    "unrelated__Baso_abs__latest": 1133,
-    "unrelated__Bilirubin_direct__latest": 1134,
-    "unrelated__Bilirubin_neonatal__latest": 1135,
-    "unrelated__Bilirubin_total__latest": 1136,
-    "unrelated__CPK__latest": 1137,
-    "unrelated__CRP__latest": 1138,
-    "unrelated__Calcium__latest": 1139,
-    "unrelated__Calcium_ionized__latest": 1140,
-    "unrelated__Carboxyhemoglobin__latest": 1141,
-    "unrelated__Chloride__latest": 1142,
-    "unrelated__Cholesterol__latest": 1143,
-    "unrelated__Creatinine__latest": 1144,
-    "unrelated__Deoxyhemoglobin__latest": 1145,
-    "unrelated__Eos_abs__latest": 1146,
-    "unrelated__Ferritin__latest": 1147,
-    "unrelated__Folate__latest": 1148,
-    "unrelated__GGT__latest": 1149,
-    "unrelated__Globulin__latest": 1150,
-    "unrelated__Glucose__latest": 1151,
-    "unrelated__HCT__latest": 1152,
-    "unrelated__HDL__latest": 1153,
-    "unrelated__HGB__latest": 1154,
-    "unrelated__HbA1c_pct__latest": 1155,
-    "unrelated__Iron__latest": 1156,
-    "unrelated__LDH__latest": 1157,
-    "unrelated__LDL__latest": 1158,
-    "unrelated__Lactate__latest": 1159,
-    "unrelated__Lympho_abs__latest": 1160,
-    "unrelated__MCV__latest": 1161,
-    "unrelated__MPV__latest": 1162,
-    "unrelated__Magnesium__latest": 1163,
-    "unrelated__Methemoglobin__latest": 1164,
-    "unrelated__Mono_abs__latest": 1165,
-    "unrelated__NRBC_abs__latest": 1166,
-    "unrelated__Neutro_abs__latest": 1167,
-    "unrelated__O2_saturation__latest": 1168,
-    "unrelated__Osmolality__latest": 1169,
-    "unrelated__Oxyhemoglobin__latest": 1170,
-    "unrelated__PLT__latest": 1171,
-    "unrelated__PTT__latest": 1172,
-    "unrelated__PT__latest": 1173,
-    "unrelated__Phosphorus__latest": 1174,
-    "unrelated__Potassium__latest": 1175,
-    "unrelated__Protein_total__latest": 1176,
-    "unrelated__RBC__latest": 1177,
-    "unrelated__RDW__latest": 1178,
-    "unrelated__Reticulo_abs__latest": 1179,
-    "unrelated__Sodium__latest": 1180,
-    "unrelated__Specific_gravity__latest": 1181,
-    "unrelated__TSH__latest": 1182,
-    "unrelated__Transferrin__latest": 1183,
-    "unrelated__Triglycerides__latest": 1184,
-    "unrelated__Troponin_I_HS__latest": 1185,
-    "unrelated__Urea__latest": 1186,
-    "unrelated__Uric_acid__latest": 1187,
-    "unrelated__Urobilinogen__latest": 1188,
-    "unrelated__Vitamin_B12__latest": 1189,
-    "unrelated__WBC__latest": 1190,
-    "unrelated__pCO2__latest": 1191,
-    "unrelated__pH__latest": 1192,
-    "unrelated__pO2__latest": 1193
+    "pCO2": 1009,
+    "pCO2__delta": 1010,
+    "pCO2__first_admission": 1011,
+    "pCO2__max_24h": 1012,
+    "pCO2__max_72h": 1013,
+    "pCO2__mean_24h": 1014,
+    "pCO2__mean_72h": 1015,
+    "pCO2__min_24h": 1016,
+    "pCO2__min_72h": 1017,
+    "pCO2__prev1": 1018,
+    "pCO2__prev2": 1019,
+    "pCO2__prev3": 1020,
+    "pCO2__prior_count": 1021,
+    "pCO2__slope_per_day": 1022,
+    "pCO2__std_24h": 1023,
+    "pCO2__std_72h": 1024,
+    "pH": 1025,
+    "pH__delta": 1026,
+    "pH__first_admission": 1027,
+    "pH__max_24h": 1028,
+    "pH__max_72h": 1029,
+    "pH__mean_24h": 1030,
+    "pH__mean_72h": 1031,
+    "pH__min_24h": 1032,
+    "pH__min_72h": 1033,
+    "pH__prev1": 1034,
+    "pH__prev2": 1035,
+    "pH__prev3": 1036,
+    "pH__prior_count": 1037,
+    "pH__slope_per_day": 1038,
+    "pH__std_24h": 1039,
+    "pH__std_72h": 1040,
+    "pO2": 1041,
+    "pO2__delta": 1042,
+    "pO2__first_admission": 1043,
+    "pO2__max_24h": 1044,
+    "pO2__max_72h": 1045,
+    "pO2__mean_24h": 1046,
+    "pO2__mean_72h": 1047,
+    "pO2__min_24h": 1048,
+    "pO2__min_72h": 1049,
+    "pO2__prev1": 1050,
+    "pO2__prev2": 1051,
+    "pO2__prev3": 1052,
+    "pO2__prior_count": 1053,
+    "pO2__slope_per_day": 1054,
+    "pO2__std_24h": 1055,
+    "pO2__std_72h": 1056,
+    "panel__ALT__latest": 1057,
+    "panel__AST__latest": 1058,
+    "panel__Albumin__latest": 1059,
+    "panel__Alkaline_Phosphatase__latest": 1060,
+    "panel__Amylase__latest": 1061,
+    "panel__Baso_abs__latest": 1062,
+    "panel__Bilirubin_direct__latest": 1063,
+    "panel__Bilirubin_neonatal__latest": 1064,
+    "panel__Bilirubin_total__latest": 1065,
+    "panel__CPK__latest": 1066,
+    "panel__CRP__latest": 1067,
+    "panel__Calcium__latest": 1068,
+    "panel__Calcium_ionized__latest": 1069,
+    "panel__Carboxyhemoglobin__latest": 1070,
+    "panel__Chloride__latest": 1071,
+    "panel__Cholesterol__latest": 1072,
+    "panel__Creatinine__latest": 1073,
+    "panel__Deoxyhemoglobin__latest": 1074,
+    "panel__Eos_abs__latest": 1075,
+    "panel__Ferritin__latest": 1076,
+    "panel__Folate__latest": 1077,
+    "panel__GGT__latest": 1078,
+    "panel__Globulin__latest": 1079,
+    "panel__Glucose__latest": 1080,
+    "panel__HCT__latest": 1081,
+    "panel__HDL__latest": 1082,
+    "panel__HGB__latest": 1083,
+    "panel__HbA1c_pct__latest": 1084,
+    "panel__Iron__latest": 1085,
+    "panel__LDH__latest": 1086,
+    "panel__LDL__latest": 1087,
+    "panel__Lactate__latest": 1088,
+    "panel__Lympho_abs__latest": 1089,
+    "panel__MCV__latest": 1090,
+    "panel__MPV__latest": 1091,
+    "panel__Magnesium__latest": 1092,
+    "panel__Methemoglobin__latest": 1093,
+    "panel__Mono_abs__latest": 1094,
+    "panel__NRBC_abs__latest": 1095,
+    "panel__Neutro_abs__latest": 1096,
+    "panel__O2_saturation__latest": 1097,
+    "panel__Osmolality__latest": 1098,
+    "panel__Oxyhemoglobin__latest": 1099,
+    "panel__PLT__latest": 1100,
+    "panel__PTT__latest": 1101,
+    "panel__PT__latest": 1102,
+    "panel__Phosphorus__latest": 1103,
+    "panel__Potassium__latest": 1104,
+    "panel__Protein_total__latest": 1105,
+    "panel__RBC__latest": 1106,
+    "panel__RDW__latest": 1107,
+    "panel__Reticulo_abs__latest": 1108,
+    "panel__Sodium__latest": 1109,
+    "panel__Specific_gravity__latest": 1110,
+    "panel__TSH__latest": 1111,
+    "panel__Transferrin__latest": 1112,
+    "panel__Triglycerides__latest": 1113,
+    "panel__Troponin_I_HS__latest": 1114,
+    "panel__Urea__latest": 1115,
+    "panel__Uric_acid__latest": 1116,
+    "panel__Urobilinogen__latest": 1117,
+    "panel__Vitamin_B12__latest": 1118,
+    "panel__WBC__latest": 1119,
+    "panel__pCO2__latest": 1120,
+    "panel__pH__latest": 1121,
+    "panel__pO2__latest": 1122,
+    "prior_admissions": 1123,
+    "prior_lab_orders": 1124,
+    "sex_numeric": 1125
   },
   "normalizers": {
     "ALT": {
@@ -1525,14 +1457,6 @@
     "days_in_admission": {
       "mean": 9.264184291115104,
       "std": 17.96634175757404
-    },
-    "ordering_department__873000": {
-      "mean": 1.0,
-      "std": 1.0
-    },
-    "ordering_department__874000": {
-      "mean": 1.0,
-      "std": 1.0
     },
     "prior_admissions": {
       "mean": 0.5074784379676917,
@@ -5377,337 +5301,73 @@
     "panel__pO2__latest": {
       "mean": 47.594923577438394,
       "std": 26.349872224405534
-    },
-    "unrelated__ALT__latest": {
-      "mean": 48.808575490741795,
-      "std": 182.14273763571623
-    },
-    "unrelated__AST__latest": {
-      "mean": 62.33170776187855,
-      "std": 279.88380786243766
-    },
-    "unrelated__Albumin__latest": {
-      "mean": 3.246136672455266,
-      "std": 0.7059770763750272
-    },
-    "unrelated__Alkaline_Phosphatase__latest": {
-      "mean": 133.95163452429892,
-      "std": 159.64258061558778
-    },
-    "unrelated__Amylase__latest": {
-      "mean": 77.99516564417178,
-      "std": 115.98764570495906
-    },
-    "unrelated__Baso_abs__latest": {
-      "mean": 0.04108210610959224,
-      "std": 0.046231202231762525
-    },
-    "unrelated__Bilirubin_direct__latest": {
-      "mean": 1.2222851527174972,
-      "std": 2.397393150905802
-    },
-    "unrelated__Bilirubin_neonatal__latest": {
-      "mean": 2.070927171737991,
-      "std": 0.7235755109694363
-    },
-    "unrelated__Bilirubin_total__latest": {
-      "mean": 0.9171908525765349,
-      "std": 1.7102309013036638
-    },
-    "unrelated__CPK__latest": {
-      "mean": 297.4907030008989,
-      "std": 1816.553400619401
-    },
-    "unrelated__CRP__latest": {
-      "mean": 84.73043284462643,
-      "std": 92.36189098473088
-    },
-    "unrelated__Calcium__latest": {
-      "mean": 8.789296665285416,
-      "std": 0.8433166987028156
-    },
-    "unrelated__Calcium_ionized__latest": {
-      "mean": 1.1588133379206123,
-      "std": 0.08401886877187617
-    },
-    "unrelated__Carboxyhemoglobin__latest": {
-      "mean": 0.8050611086374991,
-      "std": 0.74075001887898
-    },
-    "unrelated__Chloride__latest": {
-      "mean": 103.0041364904421,
-      "std": 6.111552675448192
-    },
-    "unrelated__Cholesterol__latest": {
-      "mean": 129.64889269080885,
-      "std": 44.47983111340244
-    },
-    "unrelated__Creatinine__latest": {
-      "mean": 1.3993196612250782,
-      "std": 1.4281288954100524
-    },
-    "unrelated__Deoxyhemoglobin__latest": {
-      "mean": 28.17351822812567,
-      "std": 21.27414055279527
-    },
-    "unrelated__Eos_abs__latest": {
-      "mean": 0.1882578827466987,
-      "std": 1.3146107775947025
-    },
-    "unrelated__Ferritin__latest": {
-      "mean": 688.5363388251451,
-      "std": 4503.534567199692
-    },
-    "unrelated__Folate__latest": {
-      "mean": 13.468464886376967,
-      "std": 7.352539619117619
-    },
-    "unrelated__GGT__latest": {
-      "mean": 127.50412731017377,
-      "std": 243.8745485094587
-    },
-    "unrelated__Globulin__latest": {
-      "mean": 2.8626566758919116,
-      "std": 0.6417660688600697
-    },
-    "unrelated__Glucose__latest": {
-      "mean": 132.63579282207317,
-      "std": 64.30463949229018
-    },
-    "unrelated__HCT__latest": {
-      "mean": 30.12386192252363,
-      "std": 7.0501221385649835
-    },
-    "unrelated__HDL__latest": {
-      "mean": 42.844792482380576,
-      "std": 15.058753060960425
-    },
-    "unrelated__HGB__latest": {
-      "mean": 10.033841885444295,
-      "std": 2.4553120343433847
-    },
-    "unrelated__HbA1c_pct__latest": {
-      "mean": 6.112930980221979,
-      "std": 0.6151156476734395
-    },
-    "unrelated__Iron__latest": {
-      "mean": 48.76002029189308,
-      "std": 52.84535962037628
-    },
-    "unrelated__LDH__latest": {
-      "mean": 345.8670476787602,
-      "std": 373.15984426096435
-    },
-    "unrelated__LDL__latest": {
-      "mean": 74.66693333333333,
-      "std": 31.501775610202603
-    },
-    "unrelated__Lactate__latest": {
-      "mean": 17.34465556133958,
-      "std": 7.751706924599765
-    },
-    "unrelated__Lympho_abs__latest": {
-      "mean": 1.7092148017495679,
-      "std": 7.678543397147714
-    },
-    "unrelated__MCV__latest": {
-      "mean": 87.56190353699984,
-      "std": 7.458851086414634
-    },
-    "unrelated__MPV__latest": {
-      "mean": 8.71627941943214,
-      "std": 1.1241142419167538
-    },
-    "unrelated__Magnesium__latest": {
-      "mean": 2.0022154141373405,
-      "std": 0.32310965473663406
-    },
-    "unrelated__Methemoglobin__latest": {
-      "mean": 0.33352038658209987,
-      "std": 0.3525322179704056
-    },
-    "unrelated__Mono_abs__latest": {
-      "mean": 0.6846435926769938,
-      "std": 1.1352823784063186
-    },
-    "unrelated__NRBC_abs__latest": {
-      "mean": 0.03114284587598783,
-      "std": 0.24002310792667747
-    },
-    "unrelated__Neutro_abs__latest": {
-      "mean": 6.914381855819038,
-      "std": 5.652801172591004
-    },
-    "unrelated__O2_saturation__latest": {
-      "mean": 71.60792799222543,
-      "std": 21.520951883429714
-    },
-    "unrelated__Osmolality__latest": {
-      "mean": 295.88248267170763,
-      "std": 15.697442123000844
-    },
-    "unrelated__Oxyhemoglobin__latest": {
-      "mean": 70.7168765003859,
-      "std": 21.398199033613277
-    },
-    "unrelated__PLT__latest": {
-      "mean": 219.7816567141326,
-      "std": 136.25620622516934
-    },
-    "unrelated__PTT__latest": {
-      "mean": 42.07445442875481,
-      "std": 21.436106261632265
-    },
-    "unrelated__PT__latest": {
-      "mean": 53.33053221288515,
-      "std": 31.399878552410122
-    },
-    "unrelated__Phosphorus__latest": {
-      "mean": 3.4899505027752804,
-      "std": 1.1379310197200398
-    },
-    "unrelated__Potassium__latest": {
-      "mean": 4.151380418927554,
-      "std": 0.5617063953916015
-    },
-    "unrelated__Protein_total__latest": {
-      "mean": 6.02735846760995,
-      "std": 0.9661029092910546
-    },
-    "unrelated__RBC__latest": {
-      "mean": 6.498770600961372,
-      "std": 26.722426397508965
-    },
-    "unrelated__RDW__latest": {
-      "mean": 17.119999988499114,
-      "std": 3.1024405617237285
-    },
-    "unrelated__Reticulo_abs__latest": {
-      "mean": 62.5161683251372,
-      "std": 53.089003608593416
-    },
-    "unrelated__Sodium__latest": {
-      "mean": 139.01901031715704,
-      "std": 5.0845095144910974
-    },
-    "unrelated__Specific_gravity__latest": {
-      "mean": 1.0154687967623832,
-      "std": 0.009359778210568022
-    },
-    "unrelated__TSH__latest": {
-      "mean": 7.9780031589462475,
-      "std": 24.83425821825026
-    },
-    "unrelated__Transferrin__latest": {
-      "mean": 209.26143790849673,
-      "std": 64.3734530232888
-    },
-    "unrelated__Triglycerides__latest": {
-      "mean": 232.59448818897638,
-      "std": 138.4134686946203
-    },
-    "unrelated__Troponin_I_HS__latest": {
-      "mean": 959.8416015562909,
-      "std": 3152.078072596557
-    },
-    "unrelated__Urea__latest": {
-      "mean": 66.11730955130979,
-      "std": 52.341855462090315
-    },
-    "unrelated__Uric_acid__latest": {
-      "mean": 5.6967607084033585,
-      "std": 2.8293373012905714
-    },
-    "unrelated__Urobilinogen__latest": {
-      "mean": 16.22689075630252,
-      "std": 27.060603313251185
-    },
-    "unrelated__Vitamin_B12__latest": {
-      "mean": 621.8452554744525,
-      "std": 398.56831301763447
-    },
-    "unrelated__WBC__latest": {
-      "mean": 12.60631468723586,
-      "std": 37.58086252633922
-    },
-    "unrelated__pCO2__latest": {
-      "mean": 46.01368736971893,
-      "std": 14.269128267596681
-    },
-    "unrelated__pH__latest": {
-      "mean": 7.232335455587242,
-      "std": 0.553027598152147
-    },
-    "unrelated__pO2__latest": {
-      "mean": 49.70521261697866,
-      "std": 30.76071257071664
     }
   },
   "sigma_by_lab": {
-    "ALT": 97.83528126154911,
-    "AST": 164.28692385567902,
-    "Albumin": 0.28543711111614073,
-    "Alkaline_Phosphatase": 47.11646025209728,
-    "Amylase": 147.24080011543722,
-    "Baso_abs": 0.032689659456550474,
-    "Bilirubin_direct": 0.9356529445540711,
-    "Bilirubin_neonatal": 0.31700223728387533,
-    "Bilirubin_total": 0.584469420527213,
-    "CPK": 525.0171772286101,
-    "CRP": 45.83268401199618,
-    "Calcium": 0.44555338470915745,
-    "Calcium_ionized": 0.05568096292972419,
-    "Carboxyhemoglobin": 0.6118133662747363,
-    "Chloride": 3.2624858986747536,
-    "Cholesterol": 23.78254076081134,
-    "Creatinine": 0.4867441127978273,
-    "Deoxyhemoglobin": 19.847047984013283,
-    "Eos_abs": 0.17252958727547027,
-    "Ferritin": 1154.7304033864348,
-    "Folate": 6.316823080901681,
-    "GGT": 109.74181658815932,
-    "Globulin": 0.30953426544428386,
-    "Glucose": 44.7334146653591,
-    "HCT": 3.187101045050113,
-    "HDL": 7.3759841395151415,
-    "HGB": 1.165461022276175,
-    "Iron": 68.84308170648765,
-    "LDH": 205.8280174067239,
-    "LDL": 24.56116063745726,
-    "Lactate": 9.404520696115439,
-    "Lympho_abs": 1.4416867837689522,
-    "MCV": 1.8378499205101324,
-    "MPV": 0.5629065757406152,
-    "Magnesium": 0.25205173532429254,
-    "Methemoglobin": 0.27159822083856405,
-    "Mono_abs": 0.5376912483691917,
-    "NRBC_abs": 0.09024561905896099,
-    "Neutro_abs": 3.6908846765172463,
-    "O2_saturation": 19.038669494456332,
-    "Osmolality": 7.987733963702236,
-    "Oxyhemoglobin": 18.948162375705422,
-    "PLT": 65.52977503483757,
-    "PT": 8.339514795357509,
-    "PTT": 31.609748601913452,
-    "Phosphorus": 0.7929142905105084,
-    "Potassium": 0.43859620497008434,
-    "Protein_total": 0.4887420076277471,
-    "RBC": 0.6947210345498016,
-    "RDW": 0.9402031675192899,
-    "Reticulo_abs": 43.30209859435889,
-    "Sodium": 3.150281104562815,
-    "Specific_gravity": 0.011541111387212647,
-    "TSH": 10.752987227208093,
-    "Transferrin": 35.96205849378853,
-    "Triglycerides": 287.1759257661473,
-    "Troponin_I_HS": 1781.736344597206,
-    "Urea": 20.01922862830407,
-    "Uric_acid": 1.013206998272956,
-    "Vitamin_B12": 324.5457500215722,
-    "WBC": 3.956723537120426,
-    "pCO2": 12.086189689372175,
-    "pH": 0.2536775694575662,
-    "pO2": 23.668920915801724
+    "ALT": 99.87868797722031,
+    "AST": 162.37049433730493,
+    "Albumin": 0.27999145348423193,
+    "Alkaline_Phosphatase": 46.78081437406808,
+    "Amylase": 129.19360453571295,
+    "Baso_abs": 0.030478309755047426,
+    "Bilirubin_direct": 0.97033977870416,
+    "Bilirubin_neonatal": 0.31208870842566805,
+    "Bilirubin_total": 0.551203057368719,
+    "CPK": 413.1322301475971,
+    "CRP": 44.63709377063106,
+    "Calcium": 0.44284430005601905,
+    "Calcium_ionized": 0.05440601232998171,
+    "Carboxyhemoglobin": 0.6252613090133077,
+    "Chloride": 3.204093419104613,
+    "Cholesterol": 41.82283094080659,
+    "Creatinine": 0.46437000554187996,
+    "Deoxyhemoglobin": 18.590215264244854,
+    "Eos_abs": 0.15349650091943187,
+    "Ferritin": 1342.3071055734463,
+    "Folate": 6.187266922545616,
+    "GGT": 117.00367255388382,
+    "Globulin": 0.30520912485352025,
+    "Glucose": 44.20971065185967,
+    "HCT": 3.172278484114938,
+    "HDL": 7.866184943620238,
+    "HGB": 1.1222464749760157,
+    "Iron": 66.38891131096773,
+    "LDH": 211.17756383272723,
+    "LDL": 58.37270075175222,
+    "Lactate": 8.902506207552548,
+    "Lympho_abs": 1.5754261646657974,
+    "MCV": 1.6875484053489127,
+    "MPV": 0.5579443093439043,
+    "Magnesium": 0.2611201712774623,
+    "Methemoglobin": 0.26331803375656065,
+    "Mono_abs": 0.49477233320972125,
+    "NRBC_abs": 0.08979442994442748,
+    "Neutro_abs": 3.5557355618278224,
+    "O2_saturation": 18.5966408914147,
+    "Osmolality": 7.833695556136385,
+    "Oxyhemoglobin": 18.82593060604892,
+    "PLT": 62.52158558238413,
+    "PT": 8.41642515546126,
+    "PTT": 31.751512572169304,
+    "Phosphorus": 0.7886367200760824,
+    "Potassium": 0.4305725999196067,
+    "Protein_total": 0.4860879556999087,
+    "RBC": 0.7102733563140808,
+    "RDW": 0.9344641462910266,
+    "Reticulo_abs": 39.56939367640062,
+    "Sodium": 2.9646390923405,
+    "Specific_gravity": 0.006291242797893458,
+    "TSH": 11.175302357778092,
+    "Transferrin": 37.359173702298065,
+    "Triglycerides": 260.5349803867457,
+    "Troponin_I_HS": 1735.23866281727,
+    "Urea": 18.869438130106165,
+    "Uric_acid": 0.996093811299059,
+    "Vitamin_B12": 440.12498441824675,
+    "WBC": 3.939537789124523,
+    "pCO2": 11.379546063065455,
+    "pH": 0.2534286977432366,
+    "pO2": 23.432702341736434
   },
   "calibrated_labs": [
     "ALT",
@@ -5780,5 +5440,5 @@
   ],
   "selected_threshold": 0.85,
   "feature_mode": "order_event_wide",
-  "checkpoint": "C:\\Users\\דוד\\LABS\\project\\Modeling\\MAE\\models\\checkpoints\\final_full_run\\mae_best_checkpoint.pt"
+  "checkpoint": "C:\\Users\\דוד\\LABS\\project\\Modeling\\MAE\\models_clean_minimal_32\\checkpoints\\mae_best_checkpoint.pt"
 }
